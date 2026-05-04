@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from 'cors'
 config();
 
+
 //create express app
 const app = exp();
 //enable cors
