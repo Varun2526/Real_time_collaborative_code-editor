@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@700&amp;family=JetBrains+Mono:wght@400&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#e9ddff",
+            "secondary-container": "#00a572",
+            "on-primary-fixed-variant": "#003ea8",
+            "surface-container-lowest": "#060e20",
+            "primary-container": "#2563eb",
+            "surface-container": "#171f33",
+            "surface": "#0b1326",
+            "on-surface": "#dae2fd",
+            "primary-fixed-dim": "#b4c5ff",
+            "background": "#0b1326",
+            "on-primary-container": "#eeefff",
+            "error-container": "#93000a",
+            "on-error-container": "#ffdad6",
+            "secondary-fixed-dim": "#4edea3",
+            "on-background": "#dae2fd",
+            "primary-fixed": "#dbe1ff",
+            "secondary": "#4edea3",
+            "on-error": "#690005",
+            "on-tertiary-fixed-variant": "#5516be",
+            "inverse-on-surface": "#283044",
+            "on-surface-variant": "#c3c6d7",
+            "on-tertiary-fixed": "#23005c",
+            "secondary-fixed": "#6ffbbe",
+            "surface-container-low": "#131b2e",
+            "inverse-surface": "#dae2fd",
+            "inverse-primary": "#0053db",
+            "surface-tint": "#b4c5ff",
+            "surface-container-high": "#222a3d",
+            "on-secondary-container": "#00311f",
+            "surface-dim": "#0b1326",
+            "tertiary-container": "#7d4ce7",
+            "on-secondary": "#003824",
+            "outline-variant": "#434655",
+            "surface-bright": "#31394d",
+            "primary": "#b4c5ff",
+            "on-primary-fixed": "#00174b",
+            "on-tertiary": "#3c0091",
+            "on-primary": "#002a78",
+            "tertiary": "#d0bcff",
+            "on-tertiary-container": "#f6edff",
+            "tertiary-fixed-dim": "#d0bcff",
+            "error": "#ffb4ab",
+            "on-secondary-fixed-variant": "#005236",
+            "outline": "#8d90a0",
+            "on-secondary-fixed": "#002113",
+            "surface-variant": "#2d3449",
+            "surface-container-highest": "#2d3449"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "unit": "4px",
+            "gutter": "16px",
+            "sidebar-width": "240px",
+            "margin": "24px",
+            "toolbar-height": "48px"
+          },
+          "fontFamily": {
+            "h2": ["Inter"],
+            "label-caps": ["Space Grotesk"],
+            "code-base": ["JetBrains Mono"],
+            "body-base": ["Inter"],
+            "body-sm": ["Inter"],
+            "h1": ["Inter"],
+            "code-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+            "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+            "code-base": ["13px", {"lineHeight": "1.7", "fontWeight": "400"}],
+            "body-base": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-sm": ["12px", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "h1": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "code-sm": ["11px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 18px;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .code-editor-bg {
+      background: #020617;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-base overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar Section -->
+<header class="bg-[#0F172A] text-sm tracking-tight font-['Inter'] flex justify-between items-center w-full px-4 h-12 z-50 border-b border-[#1E293B]">
+<div class="flex items-center gap-6">
+<span class="text-lg font-bold text-[#2563EB] tracking-tighter">CodeForge</span>
+<nav class="hidden md:flex items-center gap-4">
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Dashboard</a>
+<a class="text-[#2563EB] border-b-2 border-[#2563EB] pb-1" href="#">Projects</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Team</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<!-- Toolbar Controls -->
+<div class="flex items-center bg-surface-container-low px-2 py-1 rounded gap-2 mr-4 border border-outline-variant">
+<span class="text-body-sm text-on-surface-variant px-2">Python</span>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<button class="flex items-center gap-1 px-3 py-1 bg-secondary-container text-on-secondary-container text-body-sm font-medium rounded transition-all active:opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+          Run
+        </button>
+<button class="flex items-center gap-1 px-3 py-1 bg-primary-container text-on-primary-container text-body-sm font-medium rounded transition-all active:opacity-80">
+<span class="material-symbols-outlined">share</span>
+          Share
+        </button>
+</div>
+<button class="p-2 text-slate-400 hover:bg-[#1E293B] transition-colors rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-[#1E293B] transition-colors rounded">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User profile photo" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a software engineer with a neutral expression, captured in soft, cinematic studio lighting against a dark navy background. The individual has short hair and subtle glasses, embodying a focused and technical persona. The image is crisp with high resolution, following a modern corporate aesthetic with a cool-toned color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSSSjB2_QlSm9ulJWZpQtYZrwrdqtHEkXZWsaAEhWaNylaREBGEAhoRhTQ6THfToNLdWldIVTSOTi1D-WSTtveR3G1aZCMd8iLgUKkFjM-c2Fylca0Tvaa4DYj1qXBgoWMsz9wRfCyTUGVOJFQpysHeLqrVY3mUk8O7T-FCKf7U1jCKYODXpvGfhPtjIM3fhSMv1ZNL7U7QuSoxix9vi5tgC_C77h9b69OQYcV1Om8tXv34L6MYv_dXbUQQVhs003mDNFa8Aq1cXRD"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Structural Anchor) -->
+<aside class="bg-[#1E293B] font-['Inter'] text-xs font-medium fixed left-0 top-12 bottom-0 flex flex-col items-center py-4 w-16 z-40 border-r border-[#334155]">
+<div class="flex flex-col items-center gap-6 w-full">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center mb-2 overflow-hidden border border-outline-variant">
+<img alt="Project icon" class="w-full h-full object-cover" data-alt="A minimalist geometric logo representing a software project, composed of abstract blue and slate grey shapes. The logo is clean and sophisticated, set against a dark background that matches the IDE's UI palette. Lighting is flat and professional, emphasizing the brand's stability and technical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7h1dWZ1oF6Xl6Wa51iyqGz782fM0d6X6i0sqKmoJoqA4RYCCaWbDB-m6GEePqqjspakhGVQx9EKSPWCCqO15_tWZMRw2Z5p_mE4hdBHjZU4lMdakyULmLOrtdQdj6j8dUW-DkZjhbrS_u5jjKRY5O3FM_j1oPvnxF4ZP7j0apA9cx1mtrZwqRDABAdyv0vTKCYGdYk9TqCyjp6UaSo0Bp7MyUOlTa9pQhCV8HggKOSPOqq4RKYeZv-3BJVUOmgajCZO6dCUDRWYiN"/>
+</div>
+<button class="flex flex-col items-center gap-1 text-[#2563EB] border-l-2 border-[#2563EB] bg-[#0F172A] w-full py-2 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">folder_open</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">groups</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">terminal</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">extension</span>
+</button>
+</div>
+<div class="mt-auto flex flex-col items-center gap-4 w-full">
+<button class="text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-slate-500 hover:text-slate-300 w-full py-2 hover:bg-[#334155] transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</aside>
+<!-- Content Area -->
+<main class="ml-16 flex-1 flex overflow-hidden">
+<!-- Left Sidebar: Explorer & Participants -->
+<section class="w-60 bg-surface-container-low border-r border-outline-variant flex flex-col shrink-0">
+<div class="p-3 border-b border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Explorer</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_horiz</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2">
+<div class="flex items-center gap-2 px-2 py-1 text-body-sm text-on-surface hover:bg-surface-container cursor-pointer rounded">
+<span class="material-symbols-outlined text-[#2563EB]">expand_more</span>
+<span class="material-symbols-outlined text-[#2563EB]">folder</span>
+<span>src</span>
+</div>
+<div class="ml-4">
+<div class="flex items-center gap-2 px-2 py-1 text-body-sm text-on-primary-container bg-primary-container/20 border-l border-primary-container cursor-pointer rounded-r">
+<span class="material-symbols-outlined text-secondary">terminal</span>
+<span>main.py</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1 text-body-sm text-on-surface-variant hover:bg-surface-container cursor-pointer rounded">
+<span class="material-symbols-outlined">description</span>
+<span>utils.py</span>
+</div>
+</div>
+<div class="flex items-center gap-2 px-2 py-1 text-body-sm text-on-surface-variant hover:bg-surface-container cursor-pointer rounded mt-1">
+<span class="material-symbols-outlined">description</span>
+<span>requirements.txt</span>
+</div>
+</div>
+<!-- Participants section -->
+<div class="p-3 border-t border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-3 block">Active Session</span>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Alex avatar" class="w-8 h-8 rounded-full border border-secondary" data-alt="A detailed digital portrait of a male developer named Alex, with a friendly expression and short dark hair. He is wearing a dark hoodie, and the lighting is a soft cyan glow from a monitor nearby. The visual style is crisp and professional, designed for a high-end UI interface with a dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY1-P24wSWQHOfUK6rDwGmUGKcE4muL9eLWRAkqBfuLcTZ8HDEivKdQnxGIenWQbvewFxyxiuNujwflLoStca7nNNRG0CsnzumcCmmThQQRXjXcc3V5CKrmPs5d4Lc9a1UgwsSusyzRlyZfhXAZHFISwETMHcQk-9PA3t_ju_vxWOqwtiYF00D9DwZpcyRAKWLDWYVpXCumDAT_KyLkgpNHDnr_cvDqA5Tc6StWs3YX9Hqtbgo6BRA8N-TyLdpoLgzzLVx1pUhT6ns"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Alex (Host)</span>
+<span class="text-[10px] text-secondary">Editing main.py</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Sam avatar" class="w-8 h-8 rounded-full border border-tertiary" data-alt="A high-quality digital avatar of a female coder named Sam, with her hair in a bun and a professional gaze. She is illuminated by a subtle purple backlight, creating a modern tech-focused atmosphere. The image is polished with a shallow depth of field, set against a dark, minimalist background consistent with a high-end IDE theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMouF6uL0JA2C5TA9KkExMYFg0zhJDOMdIbdsOna3lkq62rX1l3QNgmG-91Idgd52roeiFclXgL6_5ZJPsqqLyuZIzL9-282efQy6lNedoTtf6O3E5hmVbdnNfa8qpevf8F0gdY40xKzixBlaOhlJEPwk01F3tbhr8uz_Ljr38sk4Dys6FJ7lRRxUyQQ7Xxq18Eks54xl7CB3ImmpcpvUO2ig8ady5xARq8bxG21v8R-mCrk_XPndkD90wxLTcSdD6oeNBccDhVPQz"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Sam</span>
+<span class="text-[10px] text-tertiary">Viewing main.py</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Center: Large Code Editor -->
+<section class="flex-1 flex flex-col relative overflow-hidden">
+<!-- Editor Tabs -->
+<div class="h-9 bg-surface-container-high flex items-center border-b border-outline-variant">
+<div class="h-full px-4 flex items-center gap-2 bg-[#020617] border-t-2 border-primary-container text-body-sm border-r border-outline-variant">
+<span class="material-symbols-outlined text-secondary scale-75">terminal</span>
+<span>main.py</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer scale-75">close</span>
+</div>
+<div class="h-full px-4 flex items-center gap-2 text-on-surface-variant text-body-sm border-r border-outline-variant hover:bg-surface-container">
+<span>utils.py</span>
+<span class="material-symbols-outlined hover:text-on-surface cursor-pointer scale-75">close</span>
+</div>
+</div>
+<!-- Code Content -->
+<div class="flex-1 code-editor-bg p-4 font-code-base text-code-base overflow-y-auto custom-scrollbar relative">
+<!-- Line Numbers -->
+<div class="absolute left-0 top-0 pt-4 w-10 flex flex-col items-center text-slate-600 select-none border-r border-slate-800/30">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+</div>
+<div class="ml-10 space-y-1">
+<p><span class="text-[#c678dd]">import</span> os</p>
+<p><span class="text-[#c678dd]">from</span> datetime <span class="text-[#c678dd]">import</span> datetime</p>
+<p> </p>
+<p><span class="text-[#c678dd]">def</span> <span class="text-[#61afef]">initialize_app</span>():</p>
+<p class="ml-4"><span class="text-[#5c6370] italic"># Global initialization logic</span></p>
+<p class="ml-4"><span class="text-[#98c379]">print</span>(<span class="text-[#98c379]">"Starting CodeForge Environment..."</span>)</p>
+<p class="ml-4">timestamp = datetime.now()</p>
+<!-- Live Cursor Alex -->
+<div class="relative inline-block">
+<p class="ml-4"><span class="text-[#c678dd]">return</span> {<span class="text-[#98c379]">"status"</span>: <span class="text-[#98c379]">"active"</span>, <span class="text-[#98c379]">"ts"</span>: timestamp}</p>
+<!-- Alex Cursor -->
+<div class="absolute -top-1 left-[140px] flex flex-col">
+<div class="w-[2px] h-5 bg-secondary animate-pulse"></div>
+<div class="bg-secondary text-[10px] text-on-secondary px-1 py-0.5 rounded-sm font-body-sm">Alex</div>
+</div>
+</div>
+<p> </p>
+<p><span class="text-[#c678dd]">if</span> __name__ == <span class="text-[#98c379]">"__main__"</span>:</p>
+<!-- Live Cursor Sam -->
+<div class="relative inline-block">
+<p class="ml-4">app_state = initialize_app()</p>
+<!-- Sam Cursor -->
+<div class="absolute -top-1 left-[100px] flex flex-col">
+<div class="w-[2px] h-5 bg-tertiary animate-pulse"></div>
+<div class="bg-tertiary text-[10px] text-on-tertiary px-1 py-0.5 rounded-sm font-body-sm">Sam</div>
+</div>
+</div>
+<p class="ml-4"><span class="text-[#98c379]">print</span>(<span class="text-[#98c379]">"Hello World!"</span>)</p>
+</div>
+</div>
+<!-- Bottom: Console Panel -->
+<div class="h-32 bg-surface-container-lowest border-t border-outline-variant flex flex-col">
+<div class="px-4 py-1.5 flex items-center justify-between border-b border-outline-variant bg-surface-container">
+<div class="flex items-center gap-4">
+<span class="text-label-caps font-label-caps text-secondary uppercase">Console</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Terminal</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Debug Console</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface scale-75">block</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface scale-75">keyboard_arrow_down</span>
+</div>
+</div>
+<div class="flex-1 p-3 font-code-sm text-code-sm overflow-y-auto custom-scrollbar">
+<div class="flex gap-2">
+<span class="text-secondary">[08:42:11]</span>
+<span class="text-on-surface-variant">Running main.py...</span>
+</div>
+<div class="flex gap-2 mt-1">
+<span class="text-secondary">[08:42:12]</span>
+<span class="text-on-surface">Starting CodeForge Environment...</span>
+</div>
+<div class="flex gap-2 mt-1">
+<span class="text-secondary">[08:42:12]</span>
+<span class="text-on-surface">Hello World!</span>
+</div>
+<div class="flex gap-2 mt-1">
+<span class="text-slate-500">&gt;&gt;&gt; _</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Integrated Chat -->
+<section class="w-72 bg-surface-container-low border-l border-outline-variant flex flex-col shrink-0">
+<div class="p-3 border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">chat_bubble</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Live Chat</span>
+</div>
+<span class="bg-secondary text-on-secondary px-1.5 rounded text-[10px] font-bold">2</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-4">
+<!-- Chat Messages -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-secondary">Alex</span>
+<span class="text-[10px] text-slate-500">08:40 AM</span>
+</div>
+<div class="bg-surface-container p-2 rounded-lg text-body-sm border border-outline-variant/30">
+                I'm refactoring the init function to include timestamps.
+            </div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-tertiary">Sam</span>
+<span class="text-[10px] text-slate-500">08:41 AM</span>
+</div>
+<div class="bg-surface-container-high p-2 rounded-lg text-body-sm border border-outline-variant/30">
+                Looks good. I'll add the print statement to test the output.
+            </div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-secondary">Alex</span>
+<span class="text-[10px] text-slate-500">Just now</span>
+</div>
+<div class="bg-surface-container p-2 rounded-lg text-body-sm border border-outline-variant/30">
+                Go ahead! Let's see if the console picks it up.
+            </div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-3 border-t border-outline-variant">
+<div class="relative">
+<input class="w-full bg-surface text-body-sm border border-outline-variant rounded-lg pl-3 pr-10 py-2 focus:border-primary-container focus:ring-0 outline-none" placeholder="Type a message..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-primary-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
