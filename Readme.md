@@ -1,4 +1,4 @@
-# KodaX: Where developers take control. test1
+# KodaX: Where developers take control
 
 Real time collabrative text editor 
 
