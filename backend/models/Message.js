@@ -3,12 +3,13 @@ import {Schema,model} from "mongoose";
 const MessageSchema = new Schema({
     roomId:{
         type: String,
-        required:[true,'roomId is required']
+        required:[true,'roomId is required'],
+        trim:true
         
     },
     sender:{
         type:String,
-
+        ref:"User",
         required:[true,'sender is required'],
         trim:true
     },
