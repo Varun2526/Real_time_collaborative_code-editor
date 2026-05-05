@@ -30,3 +30,4 @@ What Register Should Do (Logic First)
 5. Create user in DB
 6. Generate JWT
 7. Send token (cookie + response)
+
