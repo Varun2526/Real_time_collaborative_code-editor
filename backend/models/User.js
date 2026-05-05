@@ -3,13 +3,51 @@ const userSchema = new Schema({
     username:{
         type:String,
         required:[true,'username is required'],
-        unique:true,
+        trim:true,    
+    },
+
+    password: {
+    type: String,
+    required: function () {
+      return this.providers.length === 0 ||
+        this.providers.some(p => p.name === "local");
+        }
+    },
+
+    email:{
+        type:String,
+        required:[true,'email is required'],
+        unique:[true,'email already exists'],
         trim:true,
         lowercase:true
     },
-   socketid:{
+    
+    profilePic:{
+        type:String,
+        default:null
+    },
+    
+    providers: [
+    {
+        name: {
+            type: String,
+            enum: ['local', 'google', 'github'],
+            required: true
+        },
+        providerId: {
+            type: String,
+            required: function () {
+                return this.name !== "local";
+            }
+        }
+    }
+    ],
+
+
+   socketId:{
         type:String
     },
+
     currentRoom:{
         type:String,
         default: null

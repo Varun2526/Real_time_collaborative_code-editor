@@ -8,15 +8,15 @@ export const initSocket=(io)=>{
     if (username) {
       await UserModel.findOneAndUpdate(
         { username },
-        { socketid: socket.id }
+        { socketId: socket.id }
       );
     }
     socket.on("disconnect", async () => {
       console.log("Disconnected:", socket.id);
 
       await UserModel.findOneAndUpdate(
-        { socketid: socket.id },
-        { socketid: null }
+        { socketId: socket.id },
+        { socketId: null }
       );
     });
   });
