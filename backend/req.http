@@ -1,4 +1,6 @@
-POST http://localhost:4000/api/auth/register
+
+###
+POST http://localhost:4001/api/auth/register
 Content-Type: application/json
 
 {
@@ -6,4 +8,15 @@ Content-Type: application/json
     "password": "Nihal",
     "email":"hareesh@mail.com",
     "profilePic":" "
+}
+
+###
+POST http://localhost:4001/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"hareesh@mail.com",
+    "password": "Nihal"
+    
+    
 }
