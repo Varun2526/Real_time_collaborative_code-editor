@@ -1,4 +1,4 @@
-import {UserModel} from '../models/User.js';
+import UserModel from '../models/User.js';
 export const initSocket=(io)=>{
      io.on("connection", async (socket) => {
     console.log("Connected:", socket.id);

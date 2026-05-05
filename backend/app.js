@@ -1,6 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from 'cors'
 import exp from "express";
+import router from "./routes/authRoutes.js";
 
 
 const app =exp();
@@ -17,8 +18,9 @@ app.use(exp.json());
 // Cookie parser
 app.use(cookieParser());
 
-//routess wrire all the routes here 
+//routes write all the routes here
 //app.use()
+app.use("/api/auth", router);
 
 //to handle invalid path
 app.use((req, res, next) => {
