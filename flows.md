@@ -21,3 +21,12 @@ note : we store jwt {userid} because
             You can always fetch it from DB
 
 
+### flow for register 
+What Register Should Do (Logic First)
+1. Get data (username, email, password)
+2. Validate input
+3. Check if user already exists
+4. Hash password (bcrypt)
+5. Create user in DB
+6. Generate JWT
+7. Send token (cookie + response)
