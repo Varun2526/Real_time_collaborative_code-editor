@@ -9,7 +9,7 @@ const userSchema = new Schema({
     password: {
     type: String,
     required: function () {
-      return this.providers.length === 0 ||
+      return !this.providers.length === 0 ||
         this.providers.some(p => p.name === "local");
         }
     },
@@ -27,22 +27,24 @@ const userSchema = new Schema({
         default:null
     },
     
-    providers: [
+   providers: {
+    type: [
     {
-        name: {
-            type: String,
-            enum: ['local', 'google', 'github'],
-            required: true
+          name: {
+          type: String,
+          enum: ['local', 'google', 'github'],
+          required: true
         },
-        providerId: {
-            type: String,
-            required: function () {
-                return this.name !== "local";
-            }
+          providerId: {
+          type: String,
+           required: function () {
+            return this.name !== "local";
         }
+      }
     }
-    ],
-
+  ],
+  default: [{ name: "local" }]
+},
 
    socketId:{
         type:String
