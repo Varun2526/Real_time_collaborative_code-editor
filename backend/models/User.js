@@ -2,19 +2,21 @@ import {Schema,model} from 'mongoose';
 const userSchema = new Schema({
     username:{
         type:String,
-        required:true
+        required:[true,'username is required'],
+        unique:true,
+        trim:true,
+        lowercase:true
     },
    socketid:{
-        type:String,
-        required:true
+        type:String
     },
     currentRoom:{
         type:String,
-        default:''
+        default: null
     }
 },{
-    timestamps:true
+    timestamps:true,versionKey:false,strict:'throw'
 });
 
-export const User = model('User',userSchema);
+export const UserModel = model('User',userSchema);
 
