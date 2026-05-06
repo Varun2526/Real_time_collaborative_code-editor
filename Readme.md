@@ -114,7 +114,7 @@ User clicks Join Link
         ▼
   Add to pendingRequests ──► Notify Owner/Moderator
                                       │
-                              Approve ─┤─ Reject
+                              Approve─┤─ Reject
                                 │           │
                           Add to members    Remove from pending
 ```
