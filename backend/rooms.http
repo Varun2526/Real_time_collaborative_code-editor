@@ -1,0 +1,28 @@
+### create room
+POST http://localhost:4000/api/rooms/create
+Authorization: Bearer YOUR_JWT_TOKEN
+
+### GET MY ROOMS
+GET http://localhost:4000/api/rooms/my-rooms
+Authorization: Bearer YOUR_JWT_TOKEN
+
+### GET ROOM BY ID
+GET http://localhost:4000/api/rooms/ROOM_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN
+
+### REQUEST JOIN ROOM
+POST http://localhost:4000/api/rooms/ROOM_ID_HERE/request-join
+Authorization: Bearer YOUR_JWT_TOKEN
+
+
+### GET PENDING REQUESTS
+GET http://localhost:4000/api/rooms/ROOM_ID_HERE/pending
+Authorization: Bearer YOUR_JWT_TOKEN
+
+### APPROVE JOIN REQUEST
+POST http://localhost:4000/api/rooms/ROOM_ID_HERE/approve/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN
+
+### REJECT JOIN REQUEST
+POST http://localhost:4000/api/rooms/ROOM_ID_HERE/reject/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN

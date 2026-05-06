@@ -63,3 +63,20 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
 2. get userId from req.user
 3. find all rooms where owner = userId
 4. return list of rooms
+
+
+### flow for join room
+
+    User clicks Join
+        ↓
+    Frontend sends request
+        ↓
+    Backend validates everything
+        ↓
+    Add user to pendingRequests
+        ↓
+    Notify moderators/owner
+        ↓
+    Moderator approves/rejects
+        ↓
+    User becomes member
