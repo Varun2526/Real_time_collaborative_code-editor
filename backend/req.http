@@ -57,8 +57,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZhY2RiYTM3
 GET http://localhost:4000/api/code/b6f791fd-8c46-49cb-9eee-ff0ebec60965
 #Authorization: Bearer YOUR_TOKEN
 
+###save or update code
+PUT http://localhost:4000/api/code/b6f791fd-8c46-49cb-9eee-ff0ebec60965
+Content-Type: application/json
+
+{
+    "code":"console.log('hello ra');",
+    "language":"javascript"
+}
+
 
 
 
 ###chat routes
-GET http://localhost:4000/api/chat/91900c80-4660-42e9-b750-4fb9497f1679
+GET http://localhost:4000/api/chat/69fac9a6a3d5851e05021648
