@@ -46,4 +46,13 @@ What Register Should Do (Logic First)
 1. Clear cookie (set to empty, expires immediately)
 2. Send response (optional message)
 
+####  flow What createRoom should do
+
+1. verify user (middleware)
+2. generate unique roomId
+3. create room in DB
+4. owner = logged-in user
+5. return room data
+
+note : for the sharable link (roomid) we can generate a unique roomId using a library like `uuid` instead of using the database ID. This way, we can keep the roomId separate from the database and avoid exposing internal IDs. The flow would be:
 

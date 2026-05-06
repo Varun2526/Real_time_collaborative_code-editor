@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from 'cors'
 import exp from "express";
 import router from "./routes/authRoutes.js";
+import roomRouter from "./routes/roomRoutes.js";
 
 
 const app =exp();
@@ -21,6 +22,7 @@ app.use(cookieParser());
 //routes write all the routes here
 //app.use()
 app.use("/api/auth", router);
+app.use("/api/room", roomRouter);
 
 //to handle invalid path
 app.use((req, res, next) => {
