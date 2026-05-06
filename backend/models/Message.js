@@ -1,17 +1,15 @@
 import {Schema,model} from "mongoose";
 
 const MessageSchema = new Schema({
-    roomId:{
-        type: String,
-        required:[true,'roomId is required'],
-        trim:true
-        
-    },
+    roomId: {
+    type: Schema.Types.ObjectId,
+    ref: "Room",
+    required: true
+},
     sender:{
         type:Schema.Types.ObjectId,
         ref:"User",
         required:[true,'sender is required'],
-        trim:true
     },
     message:{
         type:String,

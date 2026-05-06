@@ -2,22 +2,25 @@ import {Schema,model} from 'mongoose';
 const userSchema = new Schema({
     username:{
         type:String,
+        unique:true,
         required:[true,'username is required'],
         trim:true,    
     },
-
     password: {
     type: String,
     required: function () {
-      return !this.providers.length === 0 ||
-        this.providers.some(p => p.name === "local");
-        }
-    },
+        return (
+        !this.providers ||
+        this.providers.length === 0 ||
+        this.providers.some(p => p.name === "local")
+        );
+  }
+},
 
     email:{
         type:String,
         required:[true,'email is required'],
-        unique:[true,'email already exists'],
+        unique:true,
         trim:true,
         lowercase:true
     },
@@ -47,13 +50,15 @@ const userSchema = new Schema({
 },
 
    socketId:{
-        type:String
+        type:String,
+        default:null
     },
 
     currentRoom:{
         type:String,
         default: null
-    }
+    },
+    
 },{
     timestamps:true,versionKey:false,strict:'throw'
 });

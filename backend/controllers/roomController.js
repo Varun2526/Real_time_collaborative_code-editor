@@ -13,7 +13,10 @@ export const createRoom = async (req, res) => {
     // 3. create room
     const room = await Room.create({
       roomId,
-      owner: userId
+      members: [{
+    user: userId,
+    role: "owner"
+  }]
     });
 
     // 4. response
@@ -57,7 +60,7 @@ export const getMyRooms = async (req, res) => {
         // Get user ID from the request (set by verifyToken middleware)
         const userId = req.user.userId;
         // Find all rooms where the owner is the current user, sorted by creation date (newest first)
-        const rooms = await Room.find({ owner: userId }).sort({ createdAt: -1 });
+         const rooms = await Room.find({"members.user": userId}).sort({ createdAt: -1 });
         //return the list of rooms in the response
         res.status(200).json({message:"Rooms fetched successfully",payload :  rooms});
     } catch (error) {
@@ -71,54 +74,33 @@ export const getRoomById = async (req, res) => {
 
     // 1. get roomId from params
     const { roomId } = req.params;
-
     // 2. find room
     const room = await Room.findOne({ roomId })
-      .populate("owner", "username email profilePic");
-
+      .populate("members.user", "username email profilePic");
     // 3. room not found
     if (!room) {
       return res.status(404).json({
         message: "Room not found"
       });
     }
-
-    // 4. response
+    // 4. check if current user is a member
+   const isMember = room.members.some(member =>
+  member.user._id? member.user._id.toString() === req.user.userId: member.user.toString() === req.user.userId);
+    // 5. deny access if not member
+    if (!isMember) {
+      return res.status(403).json({
+        message: "Access denied"
+      });
+    }
+    // 6. response
     res.status(200).json({
       message: "Room fetched successfully",
       payload: room
     });
-
   } catch (error) {
     console.log("Error fetching room:", error);
-
     res.status(500).json({
       message: "Server error"
     });
   }
 };
-
-/*Eg:
-roomId: "1234abcd"(link endpoint)
-
-room gets fetched
-{
-  "message": "Room fetched successfully",
-  "payload": {
-    "_id": "69fac9a6a3d5851e05021648",
-    "roomId": "b6f791fd-8c46-49cb-9eee-ff0ebec60965",
-    "code": "",
-    "language": "javascript",
-    "owner": {
-      "_id": "69f9ab814a96d1fbed608c12",
-      "username": "Varun",
-      "email": "hareesh@mail.com",
-      "profilePic": null
-    },
-    "createdAt": "2026-05-06T04:55:02.376Z",
-    "updatedAt": "2026-05-06T04:55:02.376Z"
-  }
-}
-*/
-
-

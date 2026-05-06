@@ -11,7 +11,7 @@ export const register = async (req, res) => {
      return res.status(400).json({ error: 'All fields are required' });
    }
   //check if user already exists
-   const existingUser = await UserModel.findOne({ email });
+   const existingUser = await UserModel.findOne({$or: [{ email },{ username }]});
    if (existingUser) {
      return res.status(409).json({ error: 'User already exists' });
    }
@@ -46,6 +46,11 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+    if (!user.password) {
+      return res.status(400).json({
+      message: "Use Google login"
+    });
+  }
     // 3. Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
