@@ -1,5 +1,4 @@
-
-###
+###Register User
 POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
@@ -10,7 +9,7 @@ Content-Type: application/json
     "profilePic":" "
 }
 
-###
+### Login user
 POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
@@ -21,11 +20,11 @@ Content-Type: application/json
     
 }
 
-###
+### protected route
 GET http://localhost:4000/api/auth/me
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWY5YWFhMjk4ZWMyZTM4OTk0YjRiMGEiLCJpYXQiOjE3Nzc5NzIxMjksImV4cCI6MTc3ODU3NjkyOX0.-VEoxrpB0RdpPSeXsQmj6enyJSl6KSbLVkh_cM8a7Ko
 
-###
+### Logout
 POST http://localhost:4000/api/auth/logout
 
 
@@ -57,3 +56,9 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZhY2RiYTM3
 
 GET http://localhost:4000/api/code/b6f791fd-8c46-49cb-9eee-ff0ebec60965
 #Authorization: Bearer YOUR_TOKEN
+
+
+
+
+###chat routes
+GET http://localhost:4000/api/chat/91900c80-4660-42e9-b750-4fb9497f1679
