@@ -33,6 +33,10 @@ POST http://localhost:4000/api/auth/logout
 
 
 # room routes 
-###
+### to create room
 POST http://localhost:4000/api/room/create
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWY5YmVjYzU2Y2MyMmFjM2UzYjA5NDgiLCJpYXQiOjE3NzgwNDI5MzgsImV4cCI6MTc3ODY0NzczOH0.DTSsq55UHZgGuBs0qJWnNn88X4n0zdgUwNs_N18AaZo
+
+### Room ne fech cheyadaniki, roomid isthe room ne fetch chesthadhi
+GET http://localhost:4000/api/room/b6f791fd-8c46-49cb-9eee-ff0ebec60965
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWY5YmVjYzU2Y2MyMmFjM2UzYjA5NDgiLCJpYXQiOjE3NzgwNDI5MzgsImV4cCI6MTc3ODY0NzczOH0.DTSsq55UHZgGuBs0qJWnNn88X4n0zdgUwNs_N18AaZo

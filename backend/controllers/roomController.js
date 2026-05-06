@@ -51,3 +51,34 @@ export const createRoom = async (req, res) => {
     owner: "abc123"
     }
 */
+export const getRoomById = async (req, res) => {
+  try {
+
+    // 1. get roomId from params
+    const { roomId } = req.params;
+
+    // 2. find room
+    const room = await Room.findOne({ roomId })
+      .populate("owner", "username email profilePic");
+
+    // 3. room not found
+    if (!room) {
+      return res.status(404).json({
+        message: "Room not found"
+      });
+    }
+
+    // 4. response
+    res.status(200).json({
+      message: "Room fetched successfully",
+      payload: room
+    });
+
+  } catch (error) {
+    console.log("Error fetching room:", error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+  }
+};
