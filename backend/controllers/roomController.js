@@ -37,7 +37,7 @@ export const createRoom = async (req, res) => {
          userId = abc123
     
     User creates a room 1
-            roomId = 1234abcd
+            roomId = 1234abcd(Auto-generated using uuid)
     User creates a room 2
             roomId = 5678efgh
             
@@ -82,3 +82,26 @@ export const getRoomById = async (req, res) => {
     });
   }
 };
+
+/*Eg:
+roomId: "1234abcd"(link endpoint)
+
+room gets fetched
+{
+  "message": "Room fetched successfully",
+  "payload": {
+    "_id": "69fac9a6a3d5851e05021648",
+    "roomId": "b6f791fd-8c46-49cb-9eee-ff0ebec60965",
+    "code": "",
+    "language": "javascript",
+    "owner": {
+      "_id": "69f9ab814a96d1fbed608c12",
+      "username": "Varun",
+      "email": "hareesh@mail.com",
+      "profilePic": null
+    },
+    "createdAt": "2026-05-06T04:55:02.376Z",
+    "updatedAt": "2026-05-06T04:55:02.376Z"
+  }
+}
+*/
