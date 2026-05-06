@@ -70,4 +70,3 @@ Content-Type: application/json
 
 ###chat routes
 GET http://localhost:4000/api/chat/69fac9a6a3d5851e05021648
-GET http://localhost:4000/api/chat/69fafc67c479dbd181f8af09
