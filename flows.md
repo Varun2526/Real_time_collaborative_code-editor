@@ -31,3 +31,19 @@ What Register Should Do (Logic First)
 6. Generate JWT
 7. Send token (cookie + response)
 
+### flow for login
+1. Get email + password
+2. Find user by email
+3. If not found → error
+4. Compare password (bcrypt.compare)
+5. If wrong → error
+6. Generate JWT
+7. Send cookie
+8. Send response
+
+### flow for logout []
+
+1. Clear cookie (set to empty, expires immediately)
+2. Send response (optional message)
+
+
