@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # ⚡ KodaX
 
@@ -515,7 +515,4 @@ This project is licensed under the ISC License.
 
 <div align="center">
 
-**Built with ❤️ by [Varun](https://github.com/Varun2526)**
 
-</div>
-]]>
