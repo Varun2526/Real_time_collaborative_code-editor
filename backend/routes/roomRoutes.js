@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import express from "express";
 import { createRoom } from "../controllers/roomController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";

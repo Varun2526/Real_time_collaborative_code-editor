@@ -51,6 +51,7 @@ export const createRoom = async (req, res) => {
     owner: "abc123"
     }
 */
+
 export const getRoomById = async (req, res) => {
   try {
 
@@ -105,3 +106,17 @@ room gets fetched
   }
 }
 */
+
+
+export const getMyRooms = async (req, res) => {
+    try {
+        // Get user ID from the request (set by verifyToken middleware)
+        const userId = req.user.id;
+        // Find all rooms where the owner is the current user, sorted by creation date (newest first)
+        const rooms = await Room.find({ owner: userId }).sort({ createdAt: -1 });
+        //return the list of rooms in the response
+        res.status(200).json({message:"Rooms fetched successfully",payload :  rooms});
+    } catch (error) {
+        console.error('Error fetching rooms:', error);
+        res.status(500).json({ message: 'Server error' });
+    }

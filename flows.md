@@ -56,3 +56,10 @@ What Register Should Do (Logic First)
 
 note : for the sharable link (roomid) we can generate a unique roomId using a library like `uuid` instead of using the database ID. This way, we can keep the roomId separate from the database and avoid exposing internal IDs. The flow would be:
 
+
+
+### flow for get my rooms
+1. user must be logged in (verifyToken)
+2. get userId from req.user
+3. find all rooms where owner = userId
+4. return list of rooms
