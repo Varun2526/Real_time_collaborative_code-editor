@@ -45,3 +45,15 @@ GET http://localhost:4000/api/room/3a519fd8-f287-4080-bc96-faf9790c274b
 ### To get all the rooms of the loged in user
 GET http://localhost:4000/api/room/my-rooms
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZhY2RiYTM3NWU5ZjMyOWIxMDI4YmYiLCJpYXQiOjE3NzgwNDQ4NzYsImV4cCI6MTc3ODY0OTY3Nn0._8XY3QZiDHm3tMnrA9rT30EWJmmLC2Zenzbdd5WkKLw; Path=/; HttpOnly; SameSite=Lax
+
+
+
+
+
+
+#code Routes
+
+### get Code 
+
+GET http://localhost:4000/api/code/b6f791fd-8c46-49cb-9eee-ff0ebec60965
+#Authorization: Bearer YOUR_TOKEN

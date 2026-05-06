@@ -3,6 +3,7 @@ import cors from 'cors'
 import exp from "express";
 import router from "./routes/authRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
+import codeRouter from "./routes/codeRoutes.js";
 
 
 const app =exp();
@@ -23,6 +24,7 @@ app.use(cookieParser());
 //app.use()
 app.use("/api/auth", router);
 app.use("/api/room", roomRouter);
+app.use("/api/code",codeRouter);
 
 //to handle invalid path
 app.use((req, res, next) => {
