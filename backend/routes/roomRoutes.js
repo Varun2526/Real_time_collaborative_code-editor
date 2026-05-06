@@ -8,8 +8,10 @@ const roomRouter = express.Router();
 
 // CREATE ROOM
 roomRouter.post("/create", verifyToken, createRoom);
+
 //Get my rooms
 roomRouter.get("/my-rooms", verifyToken, getMyRooms);
+
 //Get room by id
 roomRouter.get("/:roomId", verifyToken, getRoomById);
 //request join room

@@ -5,6 +5,7 @@ import router from "./routes/authRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
 import codeRouter from "./routes/codeRoutes.js";
 
+import chatRoutes from "./routes/chatRoutes.js";
 
 const app =exp();
 //unable cors 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use("/api/auth", router);
 app.use("/api/room", roomRouter);
 app.use("/api/code",codeRouter);
+app.use("/api/chat", chatRoutes);
 
 //to handle invalid path
 app.use((req, res, next) => {

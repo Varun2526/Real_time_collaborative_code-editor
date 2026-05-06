@@ -80,3 +80,30 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
     Moderator approves/rejects
         ↓
     User becomes member
+
+
+
+
+
+
+
+### Flow for the chat controller(messaging between users in the same room)
+
+User opens room
+    ↓
+GET /chat/:roomId  (controller)
+    ↓
+Messages loaded
+    ↓
+Socket connects
+    ↓
+User sends message
+    ↓
+Socket event → server
+    ↓
+Save in DB
+    ↓
+Broadcast to room
+    ↓
+All users update UI instantly
+
