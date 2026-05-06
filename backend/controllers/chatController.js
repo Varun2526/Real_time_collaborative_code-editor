@@ -1,5 +1,6 @@
 import {MessageModel} from "../models/Message.js";
 import mongoose from "mongoose";
+//get messages based on the room id
 export const getMessages=async(req,res)=>{
     try{
         //get object id of the room from the request parameters
@@ -37,3 +38,4 @@ export const getMessages=async(req,res)=>{
         });
     }
 }
+
