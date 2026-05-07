@@ -109,7 +109,6 @@ const roomSchema = new Schema(
 
 // Full Text Search Index
 roomSchema.index({
-  roomId: "text",
   title: "text",
   description: "text",
   language: "text"

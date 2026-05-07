@@ -6,6 +6,14 @@ export const createRoom = async (req, res) => {
   try {
     const userId = req.user.userId;
     const {title,description,language,visibility} = req.body;
+        // VALIDATE TITLE
+    if (!title) {
+      return res.status(400).json({message: "Title is required"});
+    }
+    // VALIDATE VISIBILITY
+    if (visibility && !["public", "private"].includes(visibility)) {
+      return res.status(400).json({message: "Invalid visibility"});
+    }
     const roomId = uuidv4();
     const room = await Room.create({roomId,title,description,language,visibility,
       members: [{user: userId, role: "owner"}]
@@ -22,7 +30,13 @@ export const createRoom = async (req, res) => {
 export const searchRooms = async (req, res) => {
   try {
     const q = req.query.q || "";
-    const rooms = await Room.find({visibility: "public",$text: {$search: q}})
+    // BASE FILTER - ONLY PUBLIC ROOMS
+    const filter = {visibility: "public"};
+    // ADD TEXT SEARCH ONLY IF QUERY EXISTS
+    if (q.trim()) {
+      filter.$text = {$search: q};
+    }
+      const rooms = await Room.find(filter)
       .select(`
         roomId
         title
@@ -101,7 +115,6 @@ export const requestJoinRoom = async (req, res) => {
     if (room.members.length >= room.settings.maxUsers) {
       return res.status(400).json({ message: "Room is full" });
     }
-
     // PUBLIC ROOM => DIRECT JOIN
     if (room.visibility === "public") {
       room.members.push({
@@ -111,7 +124,6 @@ export const requestJoinRoom = async (req, res) => {
       await room.save();
       return res.status(200).json({ message: "Joined room successfully", payload: room });
     }
-
     // PRIVATE ROOM => REQUEST JOIN
     room.pendingRequests.push(userId);
     await room.save();
@@ -154,16 +166,27 @@ export const approveJoinRequest = async (req, res) => {
     const { roomId, userId } = req.params;
     const currentUserId = req.user.userId;
     const room = await Room.findOne({ roomId });
+
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
     const isModerator = room.members.some(member =>member.user.toString() === currentUserId &&(member.role === "owner" ||member.role === "moderator"));
+
     if (!isModerator) {
       return res.status(403).json({ message: "Access denied" });
     }
+
     const isPending = room.pendingRequests.some(pendingUserId =>pendingUserId.toString() === userId);
+
     if (!isPending) {
       return res.status(400).json({ message: "No pending request found" });
+    }
+
+    // CHECK ALREADY MEMBER
+    const isAlreadyMember = room.members.some(member =>member.user.toString() === userId);
+
+    if (isAlreadyMember) {
+      return res.status(400).json({message: "User already member"});
     }
     if (room.members.length >= room.settings.maxUsers) {
       return res.status(400).json({ message: "Room is full" });
@@ -194,10 +217,19 @@ export const rejectJoinRequest = async (req, res) => {
     if (!isModerator) {
       return res.status(403).json({ message: "Access denied" });
     }
+    // CHECK PENDING EXISTS
+    const isPending = room.pendingRequests.some(pendingUserId =>pendingUserId.toString() === userId);
+    
+    if (!isPending) {
+      return res.status(400).json({message: "No pending request found"});
+    }
+
     room.pendingRequests =room.pendingRequests.filter(pendingUserId =>pendingUserId.toString() !== userId);
     await room.save();
+
     return res.status(200).json({ message: "Join request rejected successfully" });
-  } catch (error) {
+  } 
+  catch (error) {
     console.log("Error rejecting request:", error);
     return res.status(500).json({ message: "Server error" });
   }
