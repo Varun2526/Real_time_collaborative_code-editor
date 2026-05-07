@@ -46,15 +46,16 @@ What Register Should Do (Logic First)
 1. Clear cookie (set to empty, expires immediately)
 2. Send response (optional message)
 
-####  flow What createRoom should do
+#### flow What createRoom should do
 
 1. verify user (middleware)
-2. generate unique roomId
-3. create room in DB
-4. owner = logged-in user
-5. return room data
+2. get data (title, description, language, visibility)
+3. validate input (title required, valid visibility)
+4. generate unique roomId (using `uuid`)
+5. create room in DB (owner = logged-in user)
+6. return room data
 
-note : for the sharable link (roomid) we can generate a unique roomId using a library like `uuid` instead of using the database ID. This way, we can keep the roomId separate from the database and avoid exposing internal IDs. The flow would be:
+note : for the sharable link (roomid) we can generate a unique roomId using a library like `uuid` instead of using the database ID. This way, we can keep the roomId separate from the database and avoid exposing internal IDs.
 
 
 
@@ -65,33 +66,37 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
 4. return list of rooms
 
 
+### flow for global search rooms
+1. get search query (`q`)
+2. set base filter (only `public` rooms)
+3. if query exists, apply full-text search (`$text`)
+4. fetch rooms and return list
+
 ### flow for join room
 
     User clicks Join
         ↓
     Frontend sends request
         ↓
-    Backend validates everything
+    Backend validates (room exists, not member, not pending, room not full)
         ↓
-    Add user to pendingRequests
-        ↓
-    Notify moderators/owner
-        ↓
-    Moderator approves/rejects
-        ↓
-    User becomes member
-
-
-
-
-
-
-
-### Flow for the chat controller(messaging between users in the same room)
+    Is room public?
+      ├── YES ──> Add directly as member
+      └── NO ───> Add user to pendingRequests
+                        ↓
+                  Notify moderators/owner
+                        ↓
+                  Moderator approves/rejects
+                        ↓
+                  User becomes member (if approved)### Flow for the chat controller (messaging between users in the same room)
 
             User opens room
                 ↓
             GET /chat/:roomId  (controller)
+                ↓
+            Backend validates room exists & user is member
+                ↓
+            Backend fetches messages using internal room `_id`
                 ↓
             Messages loaded
                 ↓
@@ -106,4 +111,10 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
             Broadcast to room
                 ↓
             All users update UI instantly
-            
+
+### flow for code controller (fetching/saving code)
+1. verify user (middleware)
+2. get `roomId`
+3. fetch room & validate user is a member
+4. GET: return `code` and `language`
+5. PUT: validate input and `language` (must be allowed), update `code` and `language`, save room

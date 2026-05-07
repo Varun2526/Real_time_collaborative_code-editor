@@ -315,14 +315,25 @@ All protected routes require a valid JWT token — either as an `httpOnly` cooki
 
 Creates a room with the authenticated user as owner.
 
+**Request Body:**
+```json
+{
+  "title": "My Project Room",
+  "description": "Collaborative room for our new project"
+}
+```
+
 **Success Response (201):**
 ```json
 {
   "message": "Room created successfully",
   "payload": {
     "roomId": "3a519fd8-f287-4080-bc96-faf9790c274b",
-    "members": [{ "user": "64f...", "role": "owner" }],
-    "settings": { "isPrivate": true, "allowGuests": false, "maxUsers": 10 }
+    "title": "My Project Room",
+    "description": "Collaborative room for our new project",
+    "visibility": "private",
+    "members": [{ "user": "64f...", "role": "owner", "joinedAt": "2026-05-07T10:00:00.000Z" }],
+    "settings": { "allowGuests": false, "maxUsers": 10 }
   }
 }
 ```
@@ -417,15 +428,18 @@ Creates a room with the authenticated user as owner.
 ```javascript
 {
   roomId:       String          // unique UUID, shareable link identifier
+  title:        String          // required, max 100 characters (indexed for search)
+  description:  String          // optional, default "", max 300 chars (indexed for search)
   code:         String          // persisted code content, default ""
-  language:     String          // enum: javascript, python, java, c++, c, ruby, go, php
+  language:     String          // enum: javascript, python, java, c++, c, ruby, go, php (indexed for search)
   members: [{
     user:       ObjectId → User
     role:       String          // enum: 'owner', 'moderator', 'member'
+    joinedAt:   Date            // auto-generated
   }],
   pendingRequests: [ObjectId → User],  // users awaiting approval
+  visibility:   String          // enum: 'public', 'private', default 'private'
   settings: {
-    isPrivate:    Boolean       // default: true
     allowGuests:  Boolean       // default: false
     maxUsers:     Number        // default: 10
   },
@@ -433,6 +447,7 @@ Creates a room with the authenticated user as owner.
   updatedAt:    Date
 }
 ```
+*Note: A full-text search index exists on `title`, `description`, and `language` to support global room searches.*
 
 ### Message
 
