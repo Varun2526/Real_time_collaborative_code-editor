@@ -13,11 +13,9 @@ roomRouter.post("/create", verifyToken, createRoom);
 roomRouter.get("/my-rooms", verifyToken, getMyRooms);
 
 //Get room by id
-roomRouter.get("/:roomId", verifyToken, getRoomById);
+roomRouter.get("/:roomId", getRoomById);
 //request join room
 roomRouter.post("/:roomId/request-join", verifyToken, requestJoinRoom);
-//reject join request
-roomRouter.post("/:roomId/reject-request/:userId", verifyToken, rejectJoinRequest);
 //get pending requests
 roomRouter.get("/:roomId/pending", verifyToken, getPendingRequests);
 //approve join request
