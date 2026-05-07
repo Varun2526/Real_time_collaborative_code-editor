@@ -5,13 +5,11 @@ export const socketAuth = (socket, next) => {
     if (!token) {
       return next(new Error("Unauthorized"));
     }
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
+    const decoded = jwt.verify(token,process.env.JWT_SECRET);
     socket.userId = decoded.userId;
     next();
-  } catch (error) {
+  } 
+  catch (error) {
     next(new Error("Unauthorized"));
   }
 };
