@@ -44,6 +44,7 @@ A real-time collaborative code editor that lets multiple developers write, edit,
 | 🌐 Multi-Language Support | ✅ Done | JavaScript, Python, Java, C++, C, Ruby, Go, PHP |
 | 💬 In-Room Chat | ✅ Done | Persistent messaging between room members |
 | 🔗 Invite via Share Link | ✅ Done | Join rooms through shareable room IDs |
+| ⚙️ Advanced Room Management | ✅ Done | Promote, demote, transfer ownership, update settings, and delete rooms |
 | 🖱️ Live Cursor Tracking | 🚧 Planned | See collaborators' cursors in real time |
 | 🎨 Syntax Highlighting | 🚧 Planned | Language-aware code highlighting |
 | ▶️ Code Execution | 🚧 Planned | Run code directly from the editor |
@@ -309,6 +310,11 @@ All protected routes require a valid JWT token — either as an `httpOnly` cooki
 | `GET` | `/api/room/:roomId/pending` | ✅ | Get pending join requests (owner/mod) |
 | `POST` | `/api/room/:roomId/approve/:userId` | ✅ | Approve a join request (owner/mod) |
 | `POST` | `/api/room/:roomId/reject/:userId` | ✅ | Reject a join request (owner/mod) |
+| `PATCH` | `/api/room/:roomId/promote/:userId` | ✅ | Promote member to moderator (owner) |
+| `PATCH` | `/api/room/:roomId/demote/:userId` | ✅ | Demote moderator to member (owner) |
+| `PATCH` | `/api/room/:roomId/transfer-ownership/:userId` | ✅ | Transfer room ownership (owner) |
+| `PATCH` | `/api/room/:roomId/settings` | ✅ | Update room settings (owner/mod) |
+| `DELETE` | `/api/room/:roomId` | ✅ | Delete room and messages (owner) |
 
 <details>
 <summary><strong>POST /api/room/create</strong></summary>
@@ -501,11 +507,6 @@ Socket.IO is used for real-time communication. The current implementation handle
 - [ ] In-browser code execution (sandboxed)
 - [ ] Leave room functionality
 - [ ] Remove member (owner/moderator action)
-- [ ] Promote member → moderator
-- [ ] Demote moderator → member
-- [ ] Transfer room ownership
-- [ ] Update room settings (privacy, max users, guest access)
-- [ ] Delete room (owner only)
 - [ ] Google & GitHub OAuth integration
 - [ ] File/tab management within rooms
 - [ ] Deployment support (Vercel + Render)

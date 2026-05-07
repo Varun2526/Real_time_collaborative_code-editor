@@ -120,3 +120,39 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
 3. fetch room & validate user is a member
 4. GET: return `code` and `language`
 5. PUT: validate input and `language` (must be allowed), update `code` and `language`, save room
+
+### flow for advanced room management
+
+**Promote to Moderator (Owner only)**
+1. verify user (middleware)
+2. check if requester is the `owner`
+3. check if target user is a member
+4. change target user role to `moderator`
+5. save room
+
+**Demote Moderator (Owner only)**
+1. verify user (middleware)
+2. check if requester is the `owner`
+3. check if target user is currently a `moderator`
+4. change target user role to `member`
+5. save room
+
+**Transfer Ownership (Owner only)**
+1. verify user (middleware)
+2. check if requester is the `owner`
+3. check if target user is a member
+4. change target user role to `owner`
+5. change requester role to `moderator`
+6. save room
+
+**Update Room Settings (Owner or Moderator)**
+1. verify user (middleware)
+2. check if requester is `owner` or `moderator`
+3. update allowed fields (`title`, `description`, `visibility`, `allowGuests`, `maxUsers`)
+4. save room
+
+**Delete Room (Owner only)**
+1. verify user (middleware)
+2. check if requester is the `owner`
+3. delete all associated messages (`MessageModel.deleteMany`)
+4. delete the room (`Room.deleteOne`)

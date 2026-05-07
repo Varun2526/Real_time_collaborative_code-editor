@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Room from "../models/Room.js";
+import { MessageModel } from "../models/Message.js";
 
 // CREATE ROOM
 export const createRoom = async (req, res) => {
@@ -240,43 +241,178 @@ export const promoteModerator = async (req, res) => {
   try {
     const { roomId, userId } = req.params;
     const currentUserId = req.user.userId;
+    const room = await Room.findOne({ roomId });
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    //  Verify that the user 
+    const isOwner = room.members.some(member => 
+      member.user.toString() === currentUserId && member.role === "owner"
+    );
+    if (!isOwner) {
+      return res.status(403).json({ message: "Only the owner can promote members to moderator" });
+    }
+    const targetMember = room.members.find(member => member.user.toString() === userId);  
     
+    if (!targetMember) {
+      return res.status(404).json({ message: "User is not a member of this room" });
+    }
+    // Prevent promoting someone who is already the owner
+    if (targetMember.role === "owner") {
+      return res.status(400).json({ message: "User is already the owner" });
+    }
+    // Prevent promoting someone who is already a moderator
+    if (targetMember.role === "moderator") {
+      return res.status(400).json({ message: "User is already a moderator" });
+    }
+    // 9. Update the target member's role to "moderator"
+    targetMember.role = "moderator";  
+    await room.save();
+    return res.status(200).json({ message: "Member promoted to moderator successfully" });
+  }
+   catch (error) {
+    console.log("Error promoting member:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// DEMOTE MODERATOR TO MEMBER
+export const demoteModerator = async (req, res) => {
+  try {
+    const { roomId, userId } = req.params;
+    const currentUserId = req.user.userId;
+
     const room = await Room.findOne({ roomId });
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
 
-    // Check if the requester is the owner
-    const isOwner = room.members.some(member => 
-      member.user.toString() === currentUserId && member.role === "owner"
-    );
-    
+    const isOwner = room.members.some(member => member.user.toString() === currentUserId && member.role === "owner");
     if (!isOwner) {
-      return res.status(403).json({ message: "Only the owner can promote members to moderator" });
+      return res.status(403).json({ message: "Only the owner can demote moderators" });
     }
 
-    // Find the member to promote
+    const targetMember = room.members.find(member => member.user.toString() === userId);
+
+    if (!targetMember) {
+      return res.status(404).json({ message: "User is not a member of this room" });
+    }
+    if (targetMember.role !== "moderator") {
+      return res.status(400).json({ message: "User is not a moderator" });
+    }
+    targetMember.role = "member";
+    await room.save();
+    return res.status(200).json({ message: "Moderator demoted to member successfully" });
+  } 
+  catch (error) {
+    console.log("Error demoting moderator:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// TRANSFER ROOM OWNERSHIP
+export const transferOwnership = async (req, res) => {
+  try {
+    const { roomId, userId } = req.params;
+    const currentUserId = req.user.userId;
+    const room = await Room.findOne({ roomId });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    const currentOwner = room.members.find(member => member.user.toString() === currentUserId);
+
+    if (!currentOwner || currentOwner.role !== "owner") {
+      return res.status(403).json({ message: "Only the owner can transfer ownership" });
+    }
+
     const targetMember = room.members.find(member => member.user.toString() === userId);
     
     if (!targetMember) {
       return res.status(404).json({ message: "User is not a member of this room" });
     }
-
+    
     if (targetMember.role === "owner") {
       return res.status(400).json({ message: "User is already the owner" });
     }
-    
-    if (targetMember.role === "moderator") {
-      return res.status(400).json({ message: "User is already a moderator" });
+    targetMember.role = "owner";
+    currentOwner.role = "moderator"; 
+    await room.save();
+    return res.status(200).json({ message: "Ownership transferred successfully" });
+  } 
+  catch (error) {
+    console.log("Error transferring ownership:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// UPDATE ROOM SETTINGS
+export const updateRoomSettings = async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const currentUserId = req.user.userId;
+    const { title, description, visibility, allowGuests, maxUsers } = req.body;
+    const room = await Room.findOne({ roomId });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
     }
 
-    // Update role
-    targetMember.role = "moderator";
+    const isModeratorOrOwner = room.members.some(member => 
+      member.user.toString() === currentUserId && (member.role === "owner" || member.role === "moderator")
+    );
+
+    if (!isModeratorOrOwner) {
+      return res.status(403).json({ message: "Only owners or moderators can update room settings" });
+    }
+
+    if (title !== undefined) room.title = title;
+    if (description !== undefined) room.description = description;
+    if (visibility !== undefined) {
+      if (!["public", "private"].includes(visibility)) {
+        return res.status(400).json({ message: "Invalid visibility" });
+      }
+      room.visibility = visibility;
+    }
+    
+
+    if (allowGuests !== undefined) 
+      room.settings.allowGuests = allowGuests;
+    if (maxUsers !== undefined)
+       room.settings.maxUsers = maxUsers;
     await room.save();
 
-    return res.status(200).json({ message: "Member promoted to moderator successfully" });
-  } catch (error) {
-    console.log("Error promoting member:", error);
+    return res.status(200).json({ message: "Room settings updated successfully", payload: room });
+  } 
+    catch (error) {
+    console.log("Error updating room settings:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// DELETE ROOM
+export const deleteRoom = async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const currentUserId = req.user.userId;
+    const room = await Room.findOne({ roomId });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    const isOwner = room.members.some(member => member.user.toString() === currentUserId && member.role === "owner");
+    if (!isOwner) {
+      return res.status(403).json({ message: "Only the owner can delete the room" });
+    }
+    await MessageModel.deleteMany({ roomId: room._id });
+    
+    await Room.deleteOne({ _id: room._id });
+    return res.status(200).json({ message: "Room and associated messages deleted successfully" });
+  }
+   catch (error) {
+    console.log("Error deleting room:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
