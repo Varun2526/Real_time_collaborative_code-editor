@@ -3,7 +3,7 @@ import { createRoom,getMyRooms } from "../controllers/roomController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
 import { getRoomById } from "../controllers/roomController.js";
 import {requestJoinRoom,rejectJoinRequest} from "../controllers/roomController.js";
-import {getPendingRequests,approveJoinRequest, promoteModerator, demoteModerator, transferOwnership, updateRoomSettings, deleteRoom}from "../controllers/roomController.js";
+import {getPendingRequests,approveJoinRequest, promoteModerator, demoteModerator, transferOwnership, updateRoomSettings, deleteRoom, leaveRoom, removeMember}from "../controllers/roomController.js";
 const roomRouter = express.Router();
 
 // CREATE ROOM
@@ -32,5 +32,10 @@ roomRouter.patch("/:roomId/transfer-ownership/:userId", verifyToken, transferOwn
 roomRouter.patch("/:roomId/settings", verifyToken, updateRoomSettings);
 //delete room
 roomRouter.delete("/:roomId", verifyToken, deleteRoom);
+
+// Leave room
+roomRouter.post("/:roomId/leave", verifyToken, leaveRoom);
+// Remove member
+roomRouter.post("/:roomId/remove/:userId", verifyToken, removeMember);
 
 export default roomRouter;

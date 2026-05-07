@@ -148,10 +148,26 @@ Authorization: Bearer {{token1}}
 PATCH {{baseUrl}}/room/{{roomId}}/promote/{{user2Id}}
 Authorization: Bearer {{token1}}
 
-### 6b. Owner demotes Guest back to Member
+### 6b. Owner removes Guest from the room
+POST {{baseUrl}}/room/{{roomId}}/remove/{{user2Id}}
+Authorization: Bearer {{token1}}
+
+### 6c. Owner demotes Guest back to Member (Will fail since they are removed)
 PATCH {{baseUrl}}/room/{{roomId}}/demote/{{user2Id}}
 Authorization: Bearer {{token1}}
 
-### 6c. Owner deletes the room
+### 6d. Guest requests to join again
+POST {{baseUrl}}/room/{{roomId}}/request-join
+Authorization: Bearer {{token2}}
+
+### 6e. Owner approves Guest again
+POST {{baseUrl}}/room/{{roomId}}/approve/{{user2Id}}
+Authorization: Bearer {{token1}}
+
+### 6f. Guest voluntarily leaves the room
+POST {{baseUrl}}/room/{{roomId}}/leave
+Authorization: Bearer {{token2}}
+
+### 6g. Owner deletes the room
 DELETE {{baseUrl}}/room/{{roomId}}
 Authorization: Bearer {{token1}}

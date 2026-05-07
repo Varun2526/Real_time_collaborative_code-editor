@@ -416,3 +416,96 @@ export const deleteRoom = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+// LEAVE ROOM
+export const leaveRoom = async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const currentUserId = req.user.userId;
+    const room = await Room.findOne({ roomId });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    const memberIndex = room.members.findIndex(member => member.user.toString() === currentUserId);
+    if (memberIndex === -1) {
+      return res.status(400).json({ message: "You are not a member of this room" });
+    }
+
+    const memberRole = room.members[memberIndex].role;
+
+    // If owner leaves
+    if (memberRole === "owner") {
+      // Find a moderator to promote
+      let nextOwner = room.members.find(member => member.role === "moderator" && member.user.toString() !== currentUserId);
+      
+      // If no moderator, find any member
+      if (!nextOwner) {
+        nextOwner = room.members.find(member => member.role === "member" && member.user.toString() !== currentUserId);
+      }
+
+      if (nextOwner) {
+        nextOwner.role = "owner";
+      } else {
+        // If no one else is in the room, delete the room completely
+        await MessageModel.deleteMany({ roomId: room._id });
+        await Room.deleteOne({ _id: room._id });
+        return res.status(200).json({ message: "Left room. Room deleted as it was empty." });
+      }
+    }
+
+    // Remove the user from members array
+    room.members.splice(memberIndex, 1);
+    await room.save();
+
+    return res.status(200).json({ message: "Left room successfully" });
+  } 
+  catch (error) {
+    console.log("Error leaving room:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// REMOVE MEMBER
+export const removeMember = async (req, res) => {
+  try {
+    const { roomId, userId } = req.params;
+    const currentUserId = req.user.userId;
+    const room = await Room.findOne({ roomId });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    const requester = room.members.find(member => member.user.toString() === currentUserId);
+    if (!requester || (requester.role !== "owner" && requester.role !== "moderator")) {
+      return res.status(403).json({ message: "Only owners or moderators can remove members" });
+    }
+
+    const targetIndex = room.members.findIndex(member => member.user.toString() === userId);
+    if (targetIndex === -1) {
+      return res.status(404).json({ message: "User is not a member of this room" });
+    }
+
+    const targetMember = room.members[targetIndex];
+
+    // Moderators cannot remove owners or other moderators
+    if (requester.role === "moderator" && (targetMember.role === "owner" || targetMember.role === "moderator")) {
+      return res.status(403).json({ message: "Moderators can only remove regular members" });
+    }
+
+    // Owner cannot remove themselves via this route (they should use leave route)
+    if (userId === currentUserId) {
+       return res.status(400).json({ message: "Use the leave room endpoint to remove yourself" });
+    }
+
+    room.members.splice(targetIndex, 1);
+    await room.save();
+
+    return res.status(200).json({ message: "Member removed successfully" });
+  } catch (error) {
+    console.log("Error removing member:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
