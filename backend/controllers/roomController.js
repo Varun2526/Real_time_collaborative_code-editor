@@ -234,3 +234,49 @@ export const rejectJoinRequest = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+// PROMOTE MEMBER TO MODERATOR
+export const promoteModerator = async (req, res) => {
+  try {
+    const { roomId, userId } = req.params;
+    const currentUserId = req.user.userId;
+    
+    const room = await Room.findOne({ roomId });
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    // Check if the requester is the owner
+    const isOwner = room.members.some(member => 
+      member.user.toString() === currentUserId && member.role === "owner"
+    );
+    
+    if (!isOwner) {
+      return res.status(403).json({ message: "Only the owner can promote members to moderator" });
+    }
+
+    // Find the member to promote
+    const targetMember = room.members.find(member => member.user.toString() === userId);
+    
+    if (!targetMember) {
+      return res.status(404).json({ message: "User is not a member of this room" });
+    }
+
+    if (targetMember.role === "owner") {
+      return res.status(400).json({ message: "User is already the owner" });
+    }
+    
+    if (targetMember.role === "moderator") {
+      return res.status(400).json({ message: "User is already a moderator" });
+    }
+
+    // Update role
+    targetMember.role = "moderator";
+    await room.save();
+
+    return res.status(200).json({ message: "Member promoted to moderator successfully" });
+  } catch (error) {
+    console.log("Error promoting member:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

@@ -3,7 +3,7 @@ import { createRoom,getMyRooms } from "../controllers/roomController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
 import { getRoomById } from "../controllers/roomController.js";
 import {requestJoinRoom,rejectJoinRequest} from "../controllers/roomController.js";
-import {getPendingRequests,approveJoinRequest}from "../controllers/roomController.js";
+import {getPendingRequests,approveJoinRequest, promoteModerator}from "../controllers/roomController.js";
 const roomRouter = express.Router();
 
 // CREATE ROOM
@@ -22,5 +22,7 @@ roomRouter.get("/:roomId/pending", verifyToken, getPendingRequests);
 roomRouter.post("/:roomId/approve/:userId", verifyToken, approveJoinRequest);
 //reject join request
 roomRouter.post("/:roomId/reject/:userId", verifyToken, rejectJoinRequest);
+//promote member to moderator
+roomRouter.patch("/:roomId/promote/:userId", verifyToken, promoteModerator);
 
 export default roomRouter;

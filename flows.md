@@ -88,7 +88,9 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
                         ↓
                   Moderator approves/rejects
                         ↓
-                  User becomes member (if approved)### Flow for the chat controller (messaging between users in the same room)
+                  User becomes member (if approved)
+
+### Flow for the chat controller (messaging between users in the same room)
 
             User opens room
                 ↓
