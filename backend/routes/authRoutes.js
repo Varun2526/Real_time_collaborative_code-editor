@@ -1,6 +1,6 @@
 import express from "express";
 import { register } from "../controllers/authController.js";
-import { login,logout } from "../controllers/authController.js";
+import { login, logout, googleAuth } from "../controllers/authController.js";
 import {verifyToken} from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -9,6 +9,9 @@ const router = express.Router();
 router.post("/register", register);
 // LOGIN
 router.post("/login", login);
+
+// GOOGLE LOGIN
+router.post("/google", googleAuth);
 
 //logout 
 router.post("/logout", logout);

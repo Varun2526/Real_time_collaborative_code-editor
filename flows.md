@@ -46,6 +46,7 @@ What Register Should Do (Logic First)
 1. Clear cookie (set to empty, expires immediately)
 2. Send response (optional message)
 
+
 #### flow What createRoom should do
 
 1. verify user (middleware)
@@ -156,3 +157,34 @@ note : for the sharable link (roomid) we can generate a unique roomId using a li
 2. check if requester is the `owner`
 3. delete all associated messages (`MessageModel.deleteMany`)
 4. delete the room (`Room.deleteOne`)
+
+### System Architecture Diagrams (from Readme)
+
+**Authentication Flow:**
+```text
+Register/Login → Validate → Hash Password (bcrypt) → Generate JWT { userId }
+                                                            │
+                                           Set httpOnly Cookie ──► Client
+                                                            │
+                              Protected Routes ◄── verifyToken middleware
+                                    │
+                           Extract userId from JWT → Attach to req.user
+```
+
+**Room Join Flow:**
+```text
+User clicks Join Link
+        │
+        ▼
+  Is room public? ──── YES ──► Add directly as member
+        │
+        NO
+        │
+        ▼
+  Add to pendingRequests ──► Notify Owner/Moderator
+                                      │
+                              Approve─┤─ Reject
+                                │           │
+                          Add to members    Remove from pending
+                          
+```
