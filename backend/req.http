@@ -61,7 +61,7 @@ PUT http://localhost:4000/api/code/b6f791fd-8c46-49cb-9eee-ff0ebec60965
 Content-Type: application/json
 
 {
-    "code":"console.log('hello ra');",
+    "code":"console.log('hello ');",
     "language":"javascript"
 }
 

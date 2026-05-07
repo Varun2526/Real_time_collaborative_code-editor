@@ -1,0 +1,157 @@
+### ==========================================
+### KodaX API Testing Flow
+### ==========================================
+### Usage Instructions:
+### 1. Install "REST Client" extension in VS Code.
+### 2. Follow the steps below in order.
+### 3. Replace the variables manually if your REST Client doesn't support automatic variable extraction.
+### ==========================================
+
+@baseUrl = http://localhost:{{$dotenv PORT}}/api
+# Replace these with actual values after running the respective requests
+@token1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZjNDY5NWQ1ZWE5NzljZmJhOWZhMDciLCJpYXQiOjE3NzgxNDA4MjEsImV4cCI6MTc3ODc0NTYyMX0.9uceCbe8ciLjmxv2UIhdaa4MuUXCd6mx3wpFdHG4Crs
+@token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZjNDc0ZmQ1ZWE5NzljZmJhOWZhMGYiLCJpYXQiOjE3NzgxNDEwMDcsImV4cCI6MTc3ODc0NTgwN30.ylcUgCDglvNj9X47oK5ZP3uFfsN9Vpm-DlJuLvXUVUQ
+@roomId = 5623de27-3c59-4be4-a75f-e8d6337232aa
+@user2Id =69fc474fd5ea979cfba9fa0f
+
+### ==========================================
+### STEP 1: AUTHENTICATION
+### ==========================================
+
+
+###
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "OwnerUser",
+    "password": "securepassword",
+    "email": "owner@mail.com"
+}
+
+### 1b. Login User 1 (Copy the token from cookies/response to @token1)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "owner@mail.com",
+    "password": "securepassword"
+}
+
+### 1c. Check Profile (Verifies Token)
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{token1}}
+
+### ==========================================
+### STEP 2: ROOM CREATION & MANAGEMENT (As Owner)
+### ==========================================
+
+### 2a. Create a Room (Copy payload.roomId to @roomId)
+POST {{baseUrl}}/room/create
+Authorization: Bearer {{token1}}
+Content-Type: application/json
+
+{
+    "title": "Test Collaboration Room",
+    "description": "A room to test all features",
+    "language": "javascript",
+    "visibility": "private"
+}
+
+### 2b. Get My Rooms (Verify room was created)
+GET {{baseUrl}}/room/my-rooms
+Authorization: Bearer {{token1}}
+
+### 2c. Update Room Settings
+PATCH {{baseUrl}}/room/{{roomId}}/settings
+Authorization: Bearer {{token1}}
+Content-Type: application/json
+
+{
+    "maxUsers": 5,
+    "allowGuests": true
+}
+
+### ==========================================
+### STEP 3: SECOND USER (The Guest)
+### ==========================================
+
+### 3a. Register User 2
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "GuestUser",
+    "password": "securepassword",
+    "email": "guest@mail.com"
+}
+
+### 3b. Login User 2 (Copy user ID to @user2Id and token to @token2)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "guest@mail.com",
+    "password": "securepassword"
+}
+
+### ==========================================
+### STEP 4: JOINING PROCESS
+### ==========================================
+
+### 4a. Guest searches for public rooms (Should be empty since we made it private)
+GET {{baseUrl}}/room/search?q=Test
+
+### 4b. Guest requests to join the private room
+POST {{baseUrl}}/room/{{roomId}}/request-join
+Authorization: Bearer {{token2}}
+
+### 4c. Owner checks pending requests
+GET {{baseUrl}}/room/{{roomId}}/pending
+Authorization: Bearer {{token1}}
+
+### 4d. Owner approves Guest (Using User 2's ID)
+POST {{baseUrl}}/room/{{roomId}}/approve/{{user2Id}}
+Authorization: Bearer {{token1}}
+
+### 4e. Guest fetches the room details (Should now work since they are approved)
+GET {{baseUrl}}/room/{{roomId}}
+Authorization: Bearer {{token2}}
+
+### ==========================================
+### STEP 5: CODE & CHAT OPERATIONS
+### ==========================================
+
+### 5a. Get Initial Code
+GET {{baseUrl}}/code/{{roomId}}
+Authorization: Bearer {{token2}}
+
+### 5b. Update Code (By Guest)
+PUT {{baseUrl}}/code/{{roomId}}
+Authorization: Bearer {{token2}}
+Content-Type: application/json
+
+{
+    "code": "console.log('Hello from Guest!');",
+    "language": "javascript"
+}
+
+### 5c. Get Chat Messages (Should be empty initially)
+GET {{baseUrl}}/chat/{{roomId}}
+Authorization: Bearer {{token1}}
+
+### ==========================================
+### STEP 6: ADVANCED ROOM MANAGEMENT
+### ==========================================
+
+### 6a. Owner promotes Guest to Moderator
+PATCH {{baseUrl}}/room/{{roomId}}/promote/{{user2Id}}
+Authorization: Bearer {{token1}}
+
+### 6b. Owner demotes Guest back to Member
+PATCH {{baseUrl}}/room/{{roomId}}/demote/{{user2Id}}
+Authorization: Bearer {{token1}}
+
+### 6c. Owner deletes the room
+DELETE {{baseUrl}}/room/{{roomId}}
+Authorization: Bearer {{token1}}

@@ -13,7 +13,7 @@ roomRouter.post("/create", verifyToken, createRoom);
 roomRouter.get("/my-rooms", verifyToken, getMyRooms);
 
 //Get room by id
-roomRouter.get("/:roomId", getRoomById);
+roomRouter.get("/:roomId", verifyToken, getRoomById);
 //request join room
 roomRouter.post("/:roomId/request-join", verifyToken, requestJoinRoom);
 //get pending requests
