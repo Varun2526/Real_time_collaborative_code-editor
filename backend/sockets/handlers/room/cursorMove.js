@@ -1,5 +1,14 @@
-export const cursorMoveHandler = (  io,socket) => {
+export const cursorMoveHandler = (io, socket) => {
   socket.on("cursor_move", (data) => {
-    socket.to(data.roomId).emit("cursor_updated",{userId: socket.userId, position: data.position});
+    try {
+      const { roomId, position } = data;
+      if (!roomId || position === undefined) return;
+      socket.to(roomId).emit("cursor_updated", {
+        userId: socket.userId,
+        position,
+      });
+    } catch (err) {
+      console.error("cursorMoveHandler error:", err);
+    }
   });
 };

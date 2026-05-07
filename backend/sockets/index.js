@@ -1,5 +1,5 @@
-import { socketAuth } from "./middleware/socketAuth.js";
-import { userOnlineHandler } from "./handlers/presence/userOnline.js";
+import { socketAuth } from "./middlewares/socketAuth.js";
+import { userOnlineHandler } from "./handlers/presence/UserOnline.js";
 import { disconnectHandler } from "./handlers/presence/disconnect.js";
 import { joinRoomHandler } from "./handlers/room/joinRoom.js";
 import { leaveRoomHandler } from "./handlers/room/leaveRoom.js";

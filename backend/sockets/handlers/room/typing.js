@@ -1,5 +1,11 @@
-export const typingHandler = (io,socket) => {
+export const typingHandler = (io, socket) => {
   socket.on("typing", (data) => {
-    socket.to(data.roomId).emit("user_typing",{userId: socket.userId});
+    try {
+      const { roomId } = data;
+      if (!roomId) return;
+      socket.to(roomId).emit("user_typing", { userId: socket.userId });
+    } catch (err) {
+      console.error("typingHandler error:", err);
+    }
   });
 };

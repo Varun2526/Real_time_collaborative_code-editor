@@ -3,7 +3,7 @@ import connectDB from "./config/db.js";
 import app from "./app.js";
 import http from "http";
 import { Server } from "socket.io";
-import { initSocket } from "./sockets/socketHandler.js";
+import { initSocket } from "./sockets/index.js";
 
 config();
 
