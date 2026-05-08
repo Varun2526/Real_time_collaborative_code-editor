@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
 import { OAuth2Client } from 'google-auth-library';
@@ -163,4 +162,118 @@ export const logout = (req, res) => {
     sameSite: 'lax'
   });
   res.status(200).json({ message: 'Logout successful' });
+};
+
+export const githubAuth = async (req, res) => {
+  try {
+    const { code } = req.body;
+    if (!code) {
+      return res.status(400).json({ error: 'GitHub code missing' });
+    }
+
+    // 1. Exchange code for access token
+    const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code,
+      }),
+    });
+
+    const tokenData = await tokenResponse.json();
+    if (tokenData.error) {
+      return res.status(400).json({ error: tokenData.error_description || 'GitHub OAuth failed' });
+    }
+
+    const accessToken = tokenData.access_token;
+
+    // 2. Fetch user profile from GitHub
+    const userResponse = await fetch('https://api.github.com/user', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const githubUser = await userResponse.json();
+
+    // 3. Fetch user emails from GitHub (since email might be private)
+    const emailsResponse = await fetch('https://api.github.com/user/emails', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const githubEmails = await emailsResponse.json();
+    const primaryEmailObj = githubEmails.find(email => email.primary) || githubEmails[0];
+    
+    if (!primaryEmailObj) {
+      return res.status(400).json({ error: 'No email associated with GitHub account' });
+    }
+
+    const email = primaryEmailObj.email;
+    const name = githubUser.name || githubUser.login;
+    const picture = githubUser.avatar_url;
+    const sub = githubUser.id.toString();
+
+    // 4. Create or update user in database
+    let user = await UserModel.findOne({ email });
+
+    if (!user) {
+      let baseUsername = name.replace(/\s+/g, '').toLowerCase();
+      let uniqueUsername = baseUsername;
+      let counter = 1;
+      
+      while (await UserModel.findOne({ username: uniqueUsername })) {
+        uniqueUsername = `${baseUsername}${counter}`;
+        counter++;
+      }
+
+      user = new UserModel({
+        username: uniqueUsername,
+        email,
+        profilePic: picture,
+        providers: [{ name: 'github', providerId: sub }]
+      });
+      await user.save();
+    } else {
+      const hasGithub = user.providers.some(p => p.name === 'github');
+      if (!hasGithub) {
+        user.providers.push({ name: 'github', providerId: sub });
+        if (!user.profilePic) user.profilePic = picture;
+        await user.save();
+      }
+    }
+
+    // 5. Generate token and set cookie
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
+    });
+
+    res.status(200).json({
+      message: 'GitHub Login successful',
+      payload: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePic: user.profilePic
+      }
+    });
+
+  } catch (error) {
+    console.error('Error in GitHub Auth:', error);
+    res.status(500).json({ error: 'GitHub Authentication Failed' });
+  }
 };
