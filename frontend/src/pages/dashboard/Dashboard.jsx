@@ -55,6 +55,19 @@ const Dashboard = () => {
     }
   };
 
+  const getVisibilityBadge = (visibility) => {
+    const isPrivate = visibility === 'private';
+    return (
+      <span className={`text-spacex-micro px-2 py-1 border ${
+        isPrivate 
+          ? 'border-red-500/50 text-red-400 bg-red-500/10' 
+          : 'border-green-500/50 text-green-400 bg-green-500/10'
+      }`}>
+        {isPrivate ? 'PRIVATE' : 'PUBLIC'}
+      </span>
+    );
+  };
+
   return (
     <div className="min-h-screen relative flex flex-col items-center justify-center font-body-base bg-black">
       
@@ -78,7 +91,10 @@ const Dashboard = () => {
                     onClick={() => navigate(`/room/${room.roomId}`)}
                     className="group cursor-pointer border-b border-[rgba(240,240,250,0.1)] pb-6 hover:border-[rgba(240,240,250,0.5)] transition-colors"
                   >
-                    <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px] mb-2 group-hover:text-white transition-colors">{room.title}</h3>
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px] group-hover:text-white transition-colors">{room.title}</h3>
+                      {getVisibilityBadge(room.visibility)}
+                    </div>
                     <p className="text-spacex-body opacity-70 line-clamp-2 uppercase">{room.description}</p>
                   </div>
                 ))}
@@ -115,9 +131,10 @@ const Dashboard = () => {
                       className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[rgba(240,240,250,0.1)] pb-8 hover:border-[rgba(240,240,250,0.3)] transition-colors"
                     >
                       <div className="flex-1">
-                        <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px]">{room.title}</h3>
                           <span className="text-spacex-micro border border-white/20 px-2 py-1">{room.language || 'SYS'}</span>
+                          {getVisibilityBadge(room.visibility)}
                         </div>
                         <p className="text-spacex-body opacity-70 line-clamp-2 uppercase max-w-xl">{room.description}</p>
                       </div>
@@ -148,3 +165,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

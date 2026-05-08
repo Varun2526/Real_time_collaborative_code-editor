@@ -63,7 +63,16 @@ export const searchRooms = async (req, res) => {
 export const getMyRooms = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const rooms = await Room.find({"members.user": userId}).sort({createdAt: -1 });
+    const rooms = await Room.find({"members.user": userId})
+      .select(`
+        roomId
+        title
+        description
+        language
+        visibility
+        createdAt
+      `)
+      .sort({createdAt: -1 });
     return res.status(200).json({ message: "Rooms fetched successfully", payload: rooms });
   } catch (error) {
     console.error("Error fetching rooms:", error);
