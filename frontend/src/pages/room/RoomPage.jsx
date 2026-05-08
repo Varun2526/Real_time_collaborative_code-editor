@@ -98,8 +98,14 @@ const RoomPage = () => {
         socketRef.current = socket;
 
         socket.on('connect', () => {
+          console.log('Socket connected:', socket.id);
           socket.emit('join_room', { roomId });
           setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: 'Connected to collaborative server.', type: 'info' }]);
+        });
+
+        socket.on('connect_error', (err) => {
+          console.error('Socket connect_error:', err.message);
+          setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `Socket error: ${err.message}`, type: 'error' }]);
         });
 
         socket.on('user_joined', (data) => {
@@ -126,6 +132,7 @@ const RoomPage = () => {
         });
 
         socket.on('receive_message', (message) => {
+          console.log('Received message:', message);
           setMessages(prev => [...prev, message]);
         });
 
@@ -195,6 +202,7 @@ const RoomPage = () => {
     e.preventDefault();
     if (!chatInput.trim()) return;
 
+    console.log('Sending message:', { roomId, message: chatInput }, 'Socket connected:', socketRef.current?.connected);
     socketRef.current?.emit('send_message', { roomId, message: chatInput });
     setChatInput('');
   };
