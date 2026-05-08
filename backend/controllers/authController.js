@@ -6,17 +6,28 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuth = async (req, res) => {
   try {
-    const { credential } = req.body;
-    if (!credential) {
+    const { credential, access_token } = req.body;
+    let payload;
+
+    if (credential) {
+      const ticket = await client.verifyIdToken({
+        idToken: credential,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      payload = ticket.getPayload();
+    } else if (access_token) {
+      const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${access_token}` }
+      });
+      payload = await response.json();
+      if (payload.error) {
+        return res.status(400).json({ error: 'Invalid Google access token' });
+      }
+    } else {
       return res.status(400).json({ error: 'Google credential missing' });
     }
 
-    const ticket = await client.verifyIdToken({
-      idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-    const payload = ticket.getPayload();
-    const { email, name, picture, sub } = payload; 
+    const { email, name, picture, sub } = payload;
 
     let user = await UserModel.findOne({ email });
 

@@ -27,10 +27,21 @@ const roomSchema = new Schema(
       maxlength: 300
     },
 
-    // Shared Collaborative Code
+    // Shared Collaborative Code (Legacy)
     code: {
       type: String,
       default: ""
+    },
+
+    // Multi-file system
+    files: {
+      type: [{
+        id: String,
+        name: String,
+        language: String,
+        code: String
+      }],
+      default: []
     },
 
     // Programming Language

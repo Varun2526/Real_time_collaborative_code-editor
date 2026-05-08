@@ -1,1 +1,191 @@
 @import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-on-background: #f0f0fa;
+  
+  --color-primary: #f0f0fa;
+  --color-on-primary: #000000;
+
+  --color-surface: transparent;
+  --color-on-surface: #f0f0fa;
+  
+  /* Re-mapping old material tokens to SpaceX aesthetic */
+  --color-surface-container: transparent;
+  --color-surface-container-high: transparent;
+  --color-surface-container-low: transparent;
+  --color-surface-container-lowest: transparent;
+  --color-surface-container-highest: transparent;
+  
+  --color-outline-variant: rgba(240, 240, 250, 0.35);
+  --color-outline: rgba(240, 240, 250, 0.35);
+  
+  --color-primary-container: rgba(240, 240, 250, 0.1);
+  --color-on-primary-container: #f0f0fa;
+  
+  --color-secondary-container: rgba(240, 240, 250, 0.1);
+  --color-on-secondary-container: #f0f0fa;
+  
+  --color-error: #ff3333;
+  --color-error-container: rgba(255, 51, 51, 0.1);
+  --color-on-error-container: #ff3333;
+
+  --color-tertiary: #f0f0fa;
+  --color-on-tertiary: #000000;
+  
+  --color-on-surface-variant: #f0f0fa;
+
+  /* Fonts */
+  --font-spacex: "Barlow", sans-serif;
+  --font-body-base: "Barlow", sans-serif;
+  --font-body-sm: "Barlow", sans-serif;
+  --font-code-base: "JetBrains Mono", monospace;
+  --font-code-sm: "JetBrains Mono", monospace;
+  --font-h1: "Barlow", sans-serif;
+  --font-h2: "Barlow", sans-serif;
+  --font-label-caps: "Barlow", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #f0f0fa;
+    font-family: "Barlow", sans-serif;
+  }
+
+  /* Override browser autofill styles for dark mode */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px black inset !important;
+      -webkit-text-fill-color: #f0f0fa !important;
+      transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+@layer utilities {
+  .text-spacex-hero {
+    font-family: "Barlow", sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.96px;
+    text-transform: uppercase;
+    color: #f0f0fa;
+  }
+  
+  .text-spacex-nav {
+    font-family: "Barlow", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: 1.17px;
+    text-transform: uppercase;
+    color: #f0f0fa;
+  }
+
+  .text-spacex-body {
+    font-family: "Barlow", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #f0f0fa;
+    /* Body text typically normal case in some instances, but we'll stick to uppercase where possible via tailwind classes */
+  }
+
+  .text-spacex-micro {
+    font-family: "Barlow", sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f0f0fa;
+  }
+
+  .btn-ghost {
+    background-color: rgba(240, 240, 250, 0.1);
+    color: #f0f0fa;
+    padding: 18px 32px;
+    border-radius: 32px;
+    border: 1px solid rgba(240, 240, 250, 0.35);
+    text-transform: uppercase;
+    font-family: "Barlow", sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.17px;
+    font-size: 13px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-ghost:hover {
+    background-color: rgba(240, 240, 250, 0.2);
+    color: #ffffff;
+  }
+
+  /* Keep legacy classes for smooth transition */
+  .text-h2 {
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.96px;
+  }
+  .text-label-caps {
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .text-code-base {
+    font-size: 13px;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .text-body-base {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .text-body-sm {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .text-h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.96px;
+  }
+  .text-code-sm {
+    font-size: 11px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 18px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(240, 240, 250, 0.35);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-editor-bg {
+  background: #000000;
+}

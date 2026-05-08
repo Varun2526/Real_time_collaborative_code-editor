@@ -6,7 +6,7 @@ import { MessageModel } from "../models/Message.js";
 export const createRoom = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const {title,description,language,visibility} = req.body;
+    const {title,description,language,visibility, roomId: providedRoomId} = req.body;
         // VALIDATE TITLE
     if (!title) {
       return res.status(400).json({message: "Title is required"});
@@ -15,9 +15,12 @@ export const createRoom = async (req, res) => {
     if (visibility && !["public", "private"].includes(visibility)) {
       return res.status(400).json({message: "Invalid visibility"});
     }
-    const roomId = uuidv4();
-    const room = await Room.create({roomId,title,description,language,visibility,
-      members: [{user: userId, role: "owner"}]
+    const roomId = providedRoomId || uuidv4();
+    const defaultExt = language === 'python' ? 'py' : language === 'java' ? 'java' : language === 'javascript' ? 'js' : 'txt';
+    const room = await Room.create({
+      roomId,title,description,language,visibility,
+      members: [{user: userId, role: "owner"}],
+      files: [{ id: uuidv4(), name: `main.${defaultExt}`, language: language || 'javascript', code: '// Write your code here...' }]
     });
     return res.status(201).json({ message: "Room created successfully", payload: room });
   } catch (error) {

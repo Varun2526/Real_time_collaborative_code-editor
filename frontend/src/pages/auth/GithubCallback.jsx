@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const API_URL = 'http://localhost:4000/api';
 
 function GithubCallback() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [status, setStatus] = useState('Processing GitHub Login...');
 
   useEffect(() => {
@@ -25,6 +27,7 @@ function GithubCallback() {
           { withCredentials: true }
         );
         console.log('GitHub login successful:', res.data);
+        login(res.data.payload);
         setStatus('Login successful! Redirecting...');
         setTimeout(() => navigate('/'), 1000);
       } catch (err) {
