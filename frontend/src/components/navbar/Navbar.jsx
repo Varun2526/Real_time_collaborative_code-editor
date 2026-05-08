@@ -8,7 +8,7 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
 
   return (
-    <header className="absolute top-0 left-0 right-0 bg-transparent flex justify-between items-center w-full px-4 md:px-8 h-20 z-50">
+    <header className="absolute top-0 left-0 right-0 bg-black flex justify-between items-center w-full px-4 md:px-8 h-20 z-50 border-b border-[rgba(240,240,250,0.1)]">
       <div className="flex items-center gap-4 md:gap-8">
         {leftContent || (
           <nav className="hidden md:flex items-center gap-8">
