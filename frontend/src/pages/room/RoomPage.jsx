@@ -61,23 +61,28 @@ const RoomPage = () => {
   }, [messages]);
 
   useEffect(() => {
+    let cancelled = false;
+
     const initRoom = async () => {
       try {
         const res = await axios.get(`${API_URL}/room/${roomId}`, { withCredentials: true });
+        if (cancelled) return;
+
         const roomData = res.data.payload;
         setRoom(roomData);
 
         // Fetch chat messages
         try {
           const chatRes = await axios.get(`${API_URL}/chat/${roomId}`, { withCredentials: true });
-          setMessages(chatRes.data.payload || []);
+          if (!cancelled) setMessages(chatRes.data.payload || []);
         } catch (chatErr) {
           console.error("Failed to load chat messages", chatErr);
         }
+
+        if (cancelled) return;
         
         let loadedFiles = roomData.files || [];
         if (loadedFiles.length === 0) {
-          // Fallback if schema doesn't have files yet
           const fallbackId = crypto.randomUUID();
           loadedFiles = [{ 
             id: fallbackId, 
@@ -90,22 +95,21 @@ const RoomPage = () => {
         setFiles(loadedFiles);
         setActiveFileId(loadedFiles[0].id);
         setActiveMembers(roomData.members || []);
+        setConsoleOutput([]);
 
-        // Initialize Socket
+        // Initialize Socket — only if this effect is still active
         const socket = io(SOCKET_URL, { 
           withCredentials: true 
         });
         socketRef.current = socket;
 
         socket.on('connect', () => {
-          console.log('Socket connected:', socket.id);
           socket.emit('join_room', { roomId });
           setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: 'Connected to collaborative server.', type: 'info' }]);
         });
 
         socket.on('connect_error', (err) => {
           console.error('Socket connect_error:', err.message);
-          setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `Socket error: ${err.message}`, type: 'error' }]);
         });
 
         socket.on('user_joined', (data) => {
@@ -132,7 +136,6 @@ const RoomPage = () => {
         });
 
         socket.on('receive_message', (message) => {
-          console.log('Received message:', message);
           setMessages(prev => [...prev, message]);
         });
 
@@ -152,6 +155,7 @@ const RoomPage = () => {
         });
 
       } catch (err) {
+        if (cancelled) return;
         if (err.response?.status === 403) {
           setError('Access Denied. You are not a member of this room.');
         } else if (err.response?.status === 404) {
@@ -160,15 +164,17 @@ const RoomPage = () => {
           setError('An error occurred while fetching the room.');
         }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     initRoom();
 
     return () => {
+      cancelled = true;
       if (socketRef.current) {
         socketRef.current.disconnect();
+        socketRef.current = null;
       }
     };
   }, [roomId]);
