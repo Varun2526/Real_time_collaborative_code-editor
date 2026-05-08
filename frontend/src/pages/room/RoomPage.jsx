@@ -88,8 +88,21 @@ const RoomPage = () => {
     setChatWidth(prev => Math.min(CHAT_MAX, Math.max(CHAT_MIN, prev - delta)));
   };
   const handleConsoleResize = (delta) => {
-    // Dragging top edge up = negative delta = taller console
-    setConsoleHeight(prev => Math.min(CONSOLE_MAX, Math.max(CONSOLE_MIN, prev - delta)));
+    // Auto-expand console when dragging up from collapsed
+    if (!showConsole && delta < 0) {
+      setShowConsole(true);
+      setConsoleHeight(120);
+      return;
+    }
+    if (showConsole) {
+      const newHeight = consoleHeight - delta;
+      // Auto-collapse when dragged below header height
+      if (newHeight <= 50) {
+        setShowConsole(false);
+        return;
+      }
+      setConsoleHeight(Math.min(CONSOLE_MAX, Math.max(100, newHeight)));
+    }
   };
 
   // Socket + Room initialization
@@ -383,7 +396,7 @@ const RoomPage = () => {
   }
 
   return (
-    <div className="bg-black text-[#f0f0fa] font-body-base overflow-hidden h-screen flex flex-col relative">
+    <div className="bg-black text-[#f0f0fa] font-body-base overflow-hidden h-screen flex flex-col relative pt-20">
       {/* Delete Confirmation Modal */}
       {fileToDelete && (
         <div className="absolute inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
@@ -469,7 +482,7 @@ const RoomPage = () => {
         }
       />
       
-      <div className="flex flex-1 overflow-hidden mt-20">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Content Area — full width */}
         <main className="flex-1 flex overflow-hidden">
           {/* Left Panel: Explorer or Members */}
@@ -516,7 +529,7 @@ const RoomPage = () => {
             />
             
             {/* Monaco Editor */}
-            <div className="flex-1 bg-black relative">
+            <div className="flex-1 min-h-0 bg-black relative overflow-hidden">
               {activeFile ? (
                 <Editor
                   key={activeFile.id}
@@ -543,18 +556,14 @@ const RoomPage = () => {
               )}
             </div>
             
-            {/* Drag handle: Editor ↔ Console */}
-            {showConsole && (
-              <ResizeHandle direction="vertical" onResize={handleConsoleResize} />
-            )}
-
-            {/* Console Panel */}
+            {/* Console Panel — drag the header bar to resize */}
             <ConsolePanel
               consoleOutput={consoleOutput}
               showConsole={showConsole}
               setShowConsole={setShowConsole}
               onClear={() => setConsoleOutput([])}
               height={consoleHeight}
+              onResize={handleConsoleResize}
             />
           </section>
           
