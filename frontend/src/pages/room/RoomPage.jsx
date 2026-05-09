@@ -13,6 +13,7 @@ import EditorTabs from '../../components/room/EditorTabs';
 import ConsolePanel from '../../components/room/ConsolePanel';
 import ChatPanel from '../../components/room/ChatPanel';
 import ResizeHandle from '../../components/room/ResizeHandle';
+import KodaxLogo from '../../components/KodaxLogo';
 
 // Panel size constraints (px)
 const EXPLORER_MIN = 180;
@@ -611,7 +612,7 @@ const RoomPage = () => {
       <Navbar 
         leftContent={
           <div className="flex items-center gap-6">
-            <Link to="/" className="text-[28px] font-bold text-[#f0f0fa] tracking-[4px] uppercase">KODAX</Link>
+            <Link to="/"><KodaxLogo size="md" /></Link>
             <nav className="hidden md:flex items-center gap-4">
               <Link to="/" className="text-spacex-nav opacity-50 hover:opacity-100 transition-opacity">DASHBOARD</Link>
               <span className="text-spacex-nav border-b-2 border-white pb-1">{room?.title || 'PROJECT'}</span>

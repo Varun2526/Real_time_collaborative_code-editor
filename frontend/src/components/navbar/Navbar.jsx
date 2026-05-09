@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import KodaxLogo from '../KodaxLogo';
 
 const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) => {
   const { user, logout } = useAuth();
@@ -39,13 +40,13 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
         )}
         {/* Mobile menu toggle or logo fallback */}
         <div className="md:hidden flex items-center gap-2">
-           <span className="text-2xl font-bold tracking-[0.2em] text-[#f0f0fa] uppercase">KODAX</span>
+           <KodaxLogo size="sm" />
         </div>
       </div>
 
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
         {centerContent === undefined ? (
-           <span className="text-[28px] font-bold tracking-[4px] text-[#f0f0fa] uppercase">KODAX</span>
+           <KodaxLogo size="md" />
         ) : centerContent}
       </div>
 

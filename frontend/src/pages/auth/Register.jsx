@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
+import KodaxLogo from '../../components/KodaxLogo';
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -45,7 +46,7 @@ function Register() {
 
       <div className="relative z-10 w-full max-w-md px-6 flex flex-col">
         <div className="mb-12 text-center">
-          <h2 className="text-spacex-hero mb-2">KODAX</h2>
+          <KodaxLogo size="lg" />
           <div className="text-spacex-nav text-white/50 mb-6 tracking-[2px]">CREATE ACCOUNT</div>
           <p className="text-spacex-nav opacity-70">
             ALREADY HAVE AN ACCOUNT? <Link to="/login" state={{ from: location.state?.from }} className="text-white hover:opacity-70 transition-opacity underline underline-offset-4">SIGN IN</Link>
