@@ -11,33 +11,50 @@ const Dashboard = () => {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loadingMyRooms, setLoadingMyRooms] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchRooms();
+    fetchMyRooms();
   }, []);
 
-  const fetchRooms = async (query = '') => {
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchAvailableRooms(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
+
+  const fetchMyRooms = async () => {
     try {
-      setLoading(true);
-      const [myRoomsRes, searchRes] = await Promise.all([
-        axios.get(`${API_URL}/room/my-rooms`, { withCredentials: true }),
-        axios.get(`${API_URL}/room/search?q=${query}`, { withCredentials: true })
-      ]);
-      
-      setJoinedRooms(myRoomsRes.data.payload || []);
-      setAvailableRooms(searchRes.data.payload || []);
+      setLoadingMyRooms(true);
+      const res = await axios.get(`${API_URL}/room/my-rooms`, { withCredentials: true });
+      setJoinedRooms(res.data.payload || []);
     } catch (err) {
-      console.error('Failed to fetch rooms', err);
+      console.error('Failed to fetch my rooms', err);
     } finally {
-      setLoading(false);
+      setLoadingMyRooms(false);
+    }
+  };
+
+  const fetchAvailableRooms = async (query = '') => {
+    try {
+      setSearchLoading(true);
+      const res = await axios.get(`${API_URL}/room/search?q=${query}`, { withCredentials: true });
+      setAvailableRooms(res.data.payload || []);
+    } catch (err) {
+      console.error('Failed to search rooms', err);
+    } finally {
+      setSearchLoading(false);
     }
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchRooms(searchQuery);
+    fetchAvailableRooms(searchQuery);
   };
 
   const handleJoinRoom = async (roomId) => {
@@ -79,7 +96,7 @@ const Dashboard = () => {
         <section className="flex flex-col">
           <h2 className="text-spacex-nav mb-8 tracking-[2px] opacity-70">JOINED ROOMS</h2>
           <div className="flex-1 overflow-y-auto custom-scrollbar pr-4">
-            {loading ? (
+            {loadingMyRooms ? (
               <div className="text-spacex-body opacity-50 uppercase">Loading telemetry...</div>
             ) : joinedRooms.length === 0 ? (
               <div className="text-spacex-body opacity-50 uppercase">No joined rooms.</div>
@@ -119,7 +136,7 @@ const Dashboard = () => {
           <div className="flex flex-col">
             <h2 className="text-spacex-nav mb-8 tracking-[2px] opacity-70">AVAILABLE ROOMS</h2>
             <div className="flex-1 overflow-y-auto custom-scrollbar">
-              {loading ? (
+              {searchLoading ? (
                 <div className="text-spacex-body opacity-50 uppercase">Scanning frequencies...</div>
               ) : availableRooms.length === 0 ? (
                 <div className="text-spacex-body opacity-50 uppercase">No public rooms.</div>

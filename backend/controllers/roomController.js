@@ -38,7 +38,11 @@ export const searchRooms = async (req, res) => {
     const filter = {visibility: "public"};
     // ADD TEXT SEARCH ONLY IF QUERY EXISTS
     if (q.trim()) {
-      filter.$text = {$search: q};
+      filter.$or = [
+        { title: { $regex: q, $options: "i" } },
+        { description: { $regex: q, $options: "i" } },
+        { language: { $regex: q, $options: "i" } }
+      ];
     }
       const rooms = await Room.find(filter)
       .select(`
