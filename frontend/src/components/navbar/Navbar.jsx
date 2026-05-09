@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <header className="absolute top-0 left-0 right-0 bg-black flex justify-between items-center w-full px-4 md:px-8 h-20 z-50 border-b border-[rgba(240,240,250,0.1)]">
@@ -46,6 +63,18 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
           </>
         )}
         
+        <div className="flex items-center gap-2 ml-2">
+          <button
+            onClick={toggleTheme}
+            className="w-10 h-10 rounded-full border border-[rgba(240,240,250,0.35)] hover:border-white bg-[rgba(240,240,250,0.1)] text-[#f0f0fa] flex items-center justify-center transition-all"
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            <span className="material-symbols-outlined">
+              {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+            </span>
+          </button>
+        </div>
+
         <div className="relative cursor-pointer ml-2">
           <div 
             onClick={() => setIsProfileOpen(!isProfileOpen)}

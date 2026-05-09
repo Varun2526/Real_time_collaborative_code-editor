@@ -47,9 +47,42 @@
 }
 
 @layer base {
+  :root {
+    --bg-primary: #000000;
+    --text-primary: #f0f0fa;
+    --text-hover: #ffffff;
+    --border-primary: rgba(240, 240, 250, 0.35);
+    --bg-hover: rgba(240, 240, 250, 0.1);
+    --bg-ghost-hover: rgba(240, 240, 250, 0.2);
+    --scrollbar-thumb: rgba(240, 240, 250, 0.35);
+  }
+
+  .light {
+    --bg-primary: #f0f0fa;
+    --text-primary: #000000;
+    --text-hover: #000000;
+    --border-primary: rgba(0, 0, 0, 0.35);
+    --bg-hover: rgba(0, 0, 0, 0.1);
+    --bg-ghost-hover: rgba(0, 0, 0, 0.2);
+    --scrollbar-thumb: rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Light theme overrides for hardcoded Tailwind classes */
+  .light .bg-black { background-color: var(--bg-primary) !important; }
+  .light .text-\[\#f0f0fa\] { color: var(--text-primary) !important; }
+  .light .text-\[\#f0f0fa\]\/70 { color: color-mix(in srgb, var(--text-primary) 70%, transparent) !important; }
+  .light .border-\[rgba\(240\,240\,250\,0\.35\)\] { border-color: var(--border-primary) !important; }
+  .light .bg-\[rgba\(240\,240\,250\,0\.1\)\] { background-color: var(--bg-hover) !important; }
+  .light .border-\[rgba\(240\,240\,250\,0\.1\)\] { border-color: var(--bg-hover) !important; }
+  .light .hover\:bg-\[rgba\(240\,240\,250\,0\.1\)\]:hover { background-color: var(--bg-hover) !important; }
+  .light .hover\:text-white:hover { color: var(--text-hover) !important; }
+  .light .text-white { color: var(--text-hover) !important; }
+  .light .border-white { border-color: var(--text-hover) !important; }
+  .light .hover\:border-white:hover { border-color: var(--text-hover) !important; }
+
   body {
-    background-color: #000000;
-    color: #f0f0fa;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: "Barlow", sans-serif;
   }
 
@@ -58,8 +91,8 @@
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus, 
   input:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 30px black inset !important;
-      -webkit-text-fill-color: #f0f0fa !important;
+      -webkit-box-shadow: 0 0 0 30px var(--bg-primary) inset !important;
+      -webkit-text-fill-color: var(--text-primary) !important;
       transition: background-color 5000s ease-in-out 0s;
   }
 }
@@ -72,7 +105,7 @@
     line-height: 1;
     letter-spacing: 0.96px;
     text-transform: uppercase;
-    color: #f0f0fa;
+    color: var(--text-primary);
   }
   
   .text-spacex-nav {
@@ -82,7 +115,7 @@
     line-height: 0.94;
     letter-spacing: 1.17px;
     text-transform: uppercase;
-    color: #f0f0fa;
+    color: var(--text-primary);
   }
 
   .text-spacex-body {
@@ -90,7 +123,7 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 1.6;
-    color: #f0f0fa;
+    color: var(--text-primary);
     /* Body text typically normal case in some instances, but we'll stick to uppercase where possible via tailwind classes */
   }
 
@@ -101,15 +134,15 @@
     line-height: 0.94;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #f0f0fa;
+    color: var(--text-primary);
   }
 
   .btn-ghost {
-    background-color: rgba(240, 240, 250, 0.1);
-    color: #f0f0fa;
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
     padding: 18px 32px;
     border-radius: 32px;
-    border: 1px solid rgba(240, 240, 250, 0.35);
+    border: 1px solid var(--border-primary);
     text-transform: uppercase;
     font-family: "Barlow", sans-serif;
     font-weight: 700;
@@ -119,8 +152,8 @@
   }
 
   .btn-ghost:hover {
-    background-color: rgba(240, 240, 250, 0.2);
-    color: #ffffff;
+    background-color: var(--bg-ghost-hover);
+    color: var(--text-hover);
   }
 
   /* Keep legacy classes for smooth transition */
@@ -178,7 +211,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(240, 240, 250, 0.35);
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 
@@ -187,5 +220,5 @@
 }
 
 .code-editor-bg {
-  background: #000000;
+  background: var(--bg-primary);
 }
