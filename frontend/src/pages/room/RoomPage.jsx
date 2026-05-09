@@ -306,9 +306,6 @@ const RoomPage = () => {
       code: '// Start coding here'
     };
     socketRef.current?.emit('add_file', { roomId, file: newFile });
-    setFiles(prev => [...prev, newFile]);
-    setOpenTabs(prev => [...prev, newFile.id]);
-    setActiveFileId(newFile.id);
   };
 
   const handleDeleteFile = (fileId) => {
