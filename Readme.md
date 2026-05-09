@@ -387,8 +387,8 @@ npm run dev
 - [x] Typing indicators (backend)
 - [x] Server-side code execution via JDoodle API (8 languages)
 - [x] Socket-based join request approval/rejection flow
-- [ ] Connect Frontend Monaco Editor with real-time socket sync
-- [ ] Live cursor tracking with user avatars in editor UI
+- [x] Connect Frontend Monaco Editor with real-time socket sync
+- [x] Live cursor tracking with user labels in editor UI
 - [ ] Frontend socket service layer & custom hooks
 - [ ] Complete reusable UI component library
 - [ ] Global deployment (Vercel + Render)
