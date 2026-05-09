@@ -67,6 +67,11 @@ const RoomPage = () => {
   const [copied, setCopied] = useState(false);
   const [activeMembers, setActiveMembers] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
+  const [remoteCursors, setRemoteCursors] = useState({});
+
+  const editorRef = useRef(null);
+  const monacoRef = useRef(null);
+  const decorationsCollectionRef = useRef(null);
 
   const isTypingLocally = useRef(false);
 
@@ -201,6 +206,15 @@ const RoomPage = () => {
           setMessages(prev => [...prev, message]);
         });
 
+        socket.on('cursor_updated', (data) => {
+          if (!cancelled) {
+            setRemoteCursors(prev => ({
+              ...prev,
+              [data.userId]: data.position
+            }));
+          }
+        });
+
         socket.on('code_running', (data) => {
           setShowConsole(true);
           setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `Executing code (${data.language})...`, type: 'info' }]);
@@ -261,7 +275,103 @@ const RoomPage = () => {
   const currentUserRole = activeMembers.find(m => m.user._id === currentUserId || m.user.id === currentUserId)?.role || 'member';
   const showLeftPanel = activeSidebarTab !== null;
 
+  const getMemberColor = (userId) => {
+    if (!userId) return '#48bb78';
+    const colors = ['#f56565', '#48bb78', '#4299e1', '#ed8936', '#9f7aea', '#ecc94b', '#38b2ac', '#f687b3'];
+    const hash = userId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return colors[hash % colors.length];
+  };
+
+  // Sync remote cursors with Monaco Decorations
+  useEffect(() => {
+    if (!decorationsCollectionRef.current || !monacoRef.current) return;
+
+    const decorations = Object.entries(remoteCursors).map(([userId, pos]) => {
+      if (userId === currentUserId) return null; // Don't show own cursor
+      
+      const member = activeMembers.find(m => (m.user._id === userId || m.user.id === userId));
+      if (!member) return null;
+      
+      return {
+        range: new monacoRef.current.Range(pos.lineNumber, pos.column, pos.lineNumber, pos.column),
+        options: {
+          className: `remote-cursor-${userId}`,
+          isWholeLine: false,
+        }
+      };
+    }).filter(Boolean);
+
+    decorationsCollectionRef.current.set(decorations);
+  }, [remoteCursors, activeMembers, currentUserId]);
+
+  // Inject Dynamic CSS for cursors
+  useEffect(() => {
+    const styleId = 'collaborative-cursor-styles';
+    let styleEl = document.getElementById(styleId);
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      document.head.appendChild(styleEl);
+    }
+    
+    const cssRules = activeMembers.map(member => {
+      const uId = member.user._id || member.user.id;
+      if (uId === currentUserId) return '';
+      const color = getMemberColor(uId);
+      const username = member.user.username;
+      
+      return `
+        .remote-cursor-${uId} {
+          border-left: 2px solid ${color} !important;
+          z-index: 10;
+          position: relative;
+        }
+        .remote-cursor-${uId}::before {
+          content: '${username}';
+          position: absolute;
+          top: -18px;
+          left: -2px;
+          background-color: ${color};
+          color: black;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 1px 6px;
+          border-radius: 4px 4px 4px 0;
+          white-space: nowrap;
+          pointer-events: none;
+          z-index: 100;
+        }
+      `;
+    }).join('\n');
+    
+    styleEl.innerHTML = cssRules;
+  }, [activeMembers, currentUserId]);
+
+  // Cleanup dynamic CSS on unmount
+  useEffect(() => {
+    return () => {
+      const styleEl = document.getElementById('collaborative-cursor-styles');
+      if (styleEl) styleEl.remove();
+    };
+  }, []);
+
   // --- Handlers ---
+
+  const handleEditorMount = (editor, monaco) => {
+    editorRef.current = editor;
+    monacoRef.current = monaco;
+    decorationsCollectionRef.current = editor.createDecorationsCollection([]);
+    
+    editor.onDidChangeCursorPosition((e) => {
+      socketRef.current?.emit('cursor_move', {
+        roomId,
+        position: {
+          lineNumber: e.position.lineNumber,
+          column: e.position.column
+        }
+      });
+    });
+  };
 
   const handleEditorChange = (value) => {
     isTypingLocally.current = true;
@@ -582,6 +692,7 @@ const RoomPage = () => {
                   theme="vs-dark"
                   value={activeFile.code}
                   onChange={handleEditorChange}
+                  onMount={handleEditorMount}
                   options={{
                     minimap: { enabled: false },
                     fontSize: 14,
