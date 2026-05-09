@@ -289,3 +289,24 @@ export const githubAuth = async (req, res) => {
     res.status(500).json({ error: 'GitHub Authentication Failed' });
   }
 };
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user.userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({
+      message: 'Access granted',
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePic: user.profilePic
+      }
+    });
+  } catch (error) {
+    console.error('Error in getMe:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

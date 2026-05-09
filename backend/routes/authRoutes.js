@@ -1,6 +1,6 @@
 import express from "express";
 import { register } from "../controllers/authController.js";
-import { login, logout, googleAuth, githubAuth } from "../controllers/authController.js";
+import { login, logout, googleAuth, githubAuth, getMe } from "../controllers/authController.js";
 import {verifyToken} from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -19,11 +19,6 @@ router.post("/github", githubAuth);
 //logout 
 router.post("/logout", logout);
 // 🔐 Protected test route
-router.get("/me", verifyToken, (req, res) => {
-  res.json({
-    message: "Access granted",
-    user: req.user
-  });
-});
+router.get("/me", verifyToken, getMe);
 
 export default router;
