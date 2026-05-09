@@ -77,8 +77,11 @@
   .light .hover\:bg-\[rgba\(240\,240\,250\,0\.1\)\]:hover { background-color: var(--bg-hover) !important; }
   .light .hover\:text-white:hover { color: var(--text-hover) !important; }
   .light .text-white { color: var(--text-hover) !important; }
+  .light .text-white\/50 { color: color-mix(in srgb, var(--text-hover) 50%, transparent) !important; }
+  .light .placeholder\:text-white\/30::placeholder { color: color-mix(in srgb, var(--text-hover) 30%, transparent) !important; }
   .light .border-white { border-color: var(--text-hover) !important; }
   .light .hover\:border-white:hover { border-color: var(--text-hover) !important; }
+  .light .focus\:border-white:focus { border-color: var(--text-hover) !important; }
 
   body {
     background-color: var(--bg-primary);
