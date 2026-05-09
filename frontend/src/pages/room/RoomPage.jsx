@@ -249,7 +249,7 @@ const RoomPage = () => {
                 delete next[data.socketId];
                 return next;
               });
-            }, 4000);
+            }, 400);
           }
         });
 
