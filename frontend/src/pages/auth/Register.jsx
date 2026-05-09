@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -8,6 +8,7 @@ const API_URL = 'http://localhost:4000/api';
 
 function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [error, setError] = useState('');
@@ -26,7 +27,9 @@ function Register() {
       const res = await axios.post(`${API_URL}/auth/register`, formData, { withCredentials: true });
       console.log('Registration successful:', res.data);
       login(res.data.payload);
-      navigate('/');
+
+      const from = location.state?.from || '/';
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed');
     } finally {
@@ -45,7 +48,7 @@ function Register() {
           <h2 className="text-spacex-hero mb-2">KODAX</h2>
           <div className="text-spacex-nav text-white/50 mb-6 tracking-[2px]">CREATE ACCOUNT</div>
           <p className="text-spacex-nav opacity-70">
-            ALREADY HAVE AN ACCOUNT? <Link to="/login" className="text-white hover:opacity-70 transition-opacity underline underline-offset-4">SIGN IN</Link>
+            ALREADY HAVE AN ACCOUNT? <Link to="/login" state={{ from: location.state?.from }} className="text-white hover:opacity-70 transition-opacity underline underline-offset-4">SIGN IN</Link>
           </p>
         </div>
 

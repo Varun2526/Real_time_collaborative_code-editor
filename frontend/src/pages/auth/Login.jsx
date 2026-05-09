@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -8,6 +8,7 @@ const API_URL = 'http://localhost:4000/api';
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -26,7 +27,9 @@ function Login() {
       const res = await axios.post(`${API_URL}/auth/login`, formData, { withCredentials: true });
       console.log('Login successful:', res.data);
       login(res.data.payload);
-      navigate('/');
+      
+      const from = location.state?.from || '/';
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {
@@ -46,7 +49,9 @@ function Login() {
         );
         console.log('Google Login successful:', res.data);
         login(res.data.payload);
-        navigate('/');
+        
+        const from = location.state?.from || '/';
+        navigate(from, { replace: true });
       } catch (err) {
         setError(err.response?.data?.error || 'Google login failed');
       } finally {
@@ -67,7 +72,7 @@ function Login() {
         <div className="mb-12 text-center">
           <h2 className="text-spacex-hero mb-4">KODAX</h2>
           <p className="text-spacex-nav opacity-70">
-            NEW USER? <Link to="/register" className="text-white hover:opacity-70 transition-opacity underline underline-offset-4">REGISTER</Link>
+            NEW USER? <Link to="/register" state={{ from: location.state?.from }} className="text-white hover:opacity-70 transition-opacity underline underline-offset-4">REGISTER</Link>
           </p>
         </div>
 

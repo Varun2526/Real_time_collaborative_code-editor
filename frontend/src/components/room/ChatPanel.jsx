@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-const ChatPanel = ({ messages, chatInput, setChatInput, onSendMessage, width = 288 }) => {
+const ChatPanel = ({ messages, chatInput, setChatInput, onSendMessage, width = 288, onClose }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -10,11 +10,18 @@ const ChatPanel = ({ messages, chatInput, setChatInput, onSendMessage, width = 2
   return (
     <section
       style={{ width }}
-      className="bg-black border-l border-[rgba(240,240,250,0.35)] flex flex-col shrink-0 h-full"
+      className="bg-black border-l border-[rgba(240,240,250,0.35)] flex flex-col shrink-0 h-full absolute lg:relative right-0 top-0 z-50 lg:z-auto shadow-2xl lg:shadow-none"
     >
-      <div className="p-4 border-b border-[rgba(240,240,250,0.35)] flex items-center gap-3">
-        <span className="material-symbols-outlined text-white">chat_bubble</span>
-        <span className="text-spacex-nav">CHAT</span>
+      <div className="p-4 border-b border-[rgba(240,240,250,0.35)] flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="material-symbols-outlined text-white">chat_bubble</span>
+          <span className="text-spacex-nav">CHAT</span>
+        </div>
+        {onClose && (
+          <button onClick={onClose} className="lg:hidden text-white/50 hover:text-white transition-colors" type="button">
+            <span className="material-symbols-outlined">close</span>
+          </button>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto custom-scrollbar p-4 flex flex-col gap-6">

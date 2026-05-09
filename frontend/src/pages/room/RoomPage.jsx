@@ -66,6 +66,7 @@ const RoomPage = () => {
   const [consoleOutput, setConsoleOutput] = useState([]);
   const [copied, setCopied] = useState(false);
   const [activeMembers, setActiveMembers] = useState([]);
+  const [pendingRequests, setPendingRequests] = useState([]);
 
   const isTypingLocally = useRef(false);
 
@@ -144,6 +145,13 @@ const RoomPage = () => {
         setActiveMembers(roomData.members || []);
         setConsoleOutput([]);
 
+        try {
+          const pendingRes = await axios.get(`${API_URL}/room/${roomId}/pending`, { withCredentials: true });
+          if (!cancelled) setPendingRequests(pendingRes.data.payload || []);
+        } catch (e) {
+          // Ignored if 403 (not an owner/moderator)
+        }
+
         // Initialize Socket
         const socket = io(SOCKET_URL, { withCredentials: true });
         socketRef.current = socket;
@@ -159,6 +167,14 @@ const RoomPage = () => {
 
         socket.on('user_joined', (data) => {
           setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `${data.username || 'A user'} joined the room.`, type: 'info' }]);
+        });
+
+        socket.on('join_request_received', async (data) => {
+          try {
+            const pendingRes = await axios.get(`${API_URL}/room/${roomId}/pending`, { withCredentials: true });
+            if (!cancelled) setPendingRequests(pendingRes.data.payload || []);
+          } catch (e) { }
+          setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `New join request received. Check Members Panel.`, type: 'info' }]);
         });
 
         socket.on('code_updated', (data) => {
@@ -241,7 +257,7 @@ const RoomPage = () => {
 
   // Derived state
   const activeFile = files.find(f => f.id === activeFileId);
-  const currentUserId = user?.id || user?._id;
+  const currentUserId = user?.userId || user?.id || user?._id;
   const currentUserRole = activeMembers.find(m => m.user._id === currentUserId || m.user.id === currentUserId)?.role || 'member';
   const showLeftPanel = activeSidebarTab !== null;
 
@@ -328,6 +344,34 @@ const RoomPage = () => {
       setActiveMembers(res.data.payload.members || []);
     } catch (err) {
       console.error("Failed to refresh room members", err);
+    }
+  };
+
+  const fetchPendingRequests = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/room/${roomId}/pending`, { withCredentials: true });
+      setPendingRequests(res.data.payload || []);
+    } catch (err) {
+      console.error("Failed to refresh pending requests", err);
+    }
+  };
+
+  const handleApproveRequest = async (userId) => {
+    try {
+      await axios.post(`${API_URL}/room/${roomId}/approve/${userId}`, {}, { withCredentials: true });
+      fetchPendingRequests();
+      fetchRoomMembers();
+    } catch(err) { 
+      alert(err.response?.data?.message || "Failed to approve"); 
+    }
+  };
+
+  const handleRejectRequest = async (userId) => {
+    try {
+      await axios.post(`${API_URL}/room/${roomId}/reject/${userId}`, {}, { withCredentials: true });
+      fetchPendingRequests();
+    } catch(err) { 
+      alert(err.response?.data?.message || "Failed to reject"); 
     }
   };
 
@@ -509,6 +553,9 @@ const RoomPage = () => {
                     currentUserId={currentUserId}
                     currentUserRole={currentUserRole}
                     onMemberAction={handleMemberAction}
+                    pendingRequests={pendingRequests}
+                    onApproveRequest={handleApproveRequest}
+                    onRejectRequest={handleRejectRequest}
                   />
                 )}
               </section>
@@ -569,7 +616,9 @@ const RoomPage = () => {
           
           {/* Drag handle: Editor ↔ Chat */}
           {showChat && (
-            <ResizeHandle direction="horizontal" onResize={handleChatResize} />
+            <div className="hidden lg:flex flex-col">
+              <ResizeHandle direction="horizontal" onResize={handleChatResize} />
+            </div>
           )}
 
           {/* Right: Chat Panel */}
@@ -580,6 +629,7 @@ const RoomPage = () => {
               setChatInput={setChatInput}
               onSendMessage={handleSendMessage}
               width={chatWidth}
+              onClose={() => setShowChat(false)}
             />
           )}
         </main>

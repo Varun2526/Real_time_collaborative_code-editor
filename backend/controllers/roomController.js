@@ -257,12 +257,10 @@ export const promoteModerator = async (req, res) => {
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
-    //  Verify that the user 
-    const isOwner = room.members.some(member => 
-      member.user.toString() === currentUserId && member.role === "owner"
-    );
-    if (!isOwner) {
-      return res.status(403).json({ message: "Only the owner can promote members to moderator" });
+    //  Verify that the user is owner or moderator
+    const requester = room.members.find(member => member.user.toString() === currentUserId);
+    if (!requester || (requester.role !== "owner" && requester.role !== "moderator")) {
+      return res.status(403).json({ message: "Only owners and moderators can promote members" });
     }
     const targetMember = room.members.find(member => member.user.toString() === userId);  
     
@@ -299,9 +297,9 @@ export const demoteModerator = async (req, res) => {
       return res.status(404).json({ message: "Room not found" });
     }
 
-    const isOwner = room.members.some(member => member.user.toString() === currentUserId && member.role === "owner");
-    if (!isOwner) {
-      return res.status(403).json({ message: "Only the owner can demote moderators" });
+    const requester = room.members.find(member => member.user.toString() === currentUserId);
+    if (!requester || (requester.role !== "owner" && requester.role !== "moderator")) {
+      return res.status(403).json({ message: "Only owners and moderators can demote members" });
     }
 
     const targetMember = room.members.find(member => member.user.toString() === userId);
@@ -502,9 +500,9 @@ export const removeMember = async (req, res) => {
 
     const targetMember = room.members[targetIndex];
 
-    // Moderators cannot remove owners or other moderators
-    if (requester.role === "moderator" && (targetMember.role === "owner" || targetMember.role === "moderator")) {
-      return res.status(403).json({ message: "Moderators can only remove regular members" });
+    // Moderators cannot remove owners
+    if (requester.role === "moderator" && targetMember.role === "owner") {
+      return res.status(403).json({ message: "Moderators cannot remove the owner" });
     }
 
     // Owner cannot remove themselves via this route (they should use leave route)
