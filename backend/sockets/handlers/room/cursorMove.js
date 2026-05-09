@@ -5,6 +5,7 @@ export const cursorMoveHandler = (io, socket) => {
       if (!roomId || position === undefined) return;
       socket.to(roomId).emit("cursor_updated", {
         userId: socket.userId,
+        socketId: socket.id,
         position,
       });
     } catch (err) {

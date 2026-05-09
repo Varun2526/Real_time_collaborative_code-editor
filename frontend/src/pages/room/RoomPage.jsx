@@ -71,9 +71,11 @@ const RoomPage = () => {
 
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
-  const decorationsCollectionRef = useRef(null);
+  const widgetsRef = useRef({});
+  const cursorTimeoutsRef = useRef({});
 
   const isTypingLocally = useRef(false);
+  const isRemoteUpdate = useRef(false);
 
   // Panel toggle state
   const [activeSidebarTab, setActiveSidebarTab] = useState('explorer');
@@ -108,6 +110,24 @@ const RoomPage = () => {
         return;
       }
       setConsoleHeight(Math.min(CONSOLE_MAX, Math.max(100, newHeight)));
+    }
+  };
+
+  const fetchRoomMembers = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/room/${roomId}`, { withCredentials: true });
+      setActiveMembers(res.data.payload.members || []);
+    } catch (err) {
+      console.error("Failed to refresh room members", err);
+    }
+  };
+
+  const fetchPendingRequests = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/room/${roomId}/pending`, { withCredentials: true });
+      setPendingRequests(res.data.payload || []);
+    } catch (err) {
+      console.error("Failed to refresh pending requests", err);
     }
   };
 
@@ -172,6 +192,7 @@ const RoomPage = () => {
 
         socket.on('user_joined', (data) => {
           setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: `${data.username || 'A user'} joined the room.`, type: 'info' }]);
+          fetchRoomMembers(); // Update members so we can render their cursors
         });
 
         socket.on('join_request_received', async (data) => {
@@ -184,7 +205,10 @@ const RoomPage = () => {
 
         socket.on('code_updated', (data) => {
           if (!isTypingLocally.current) {
+            isRemoteUpdate.current = true;
             setFiles(prev => prev.map(f => f.id === data.fileId ? { ...f, code: data.code } : f));
+            // Reset after a short delay to allow Monaco's internal events to settle
+            setTimeout(() => { isRemoteUpdate.current = false; }, 100);
           }
         });
 
@@ -210,8 +234,22 @@ const RoomPage = () => {
           if (!cancelled) {
             setRemoteCursors(prev => ({
               ...prev,
-              [data.userId]: data.position
+              [data.socketId]: { userId: data.userId, position: data.position }
             }));
+
+            // Clear existing timeout
+            if (cursorTimeoutsRef.current[data.socketId]) {
+              clearTimeout(cursorTimeoutsRef.current[data.socketId]);
+            }
+
+            // Set new timeout to hide cursor after 4 seconds of inactivity
+            cursorTimeoutsRef.current[data.socketId] = setTimeout(() => {
+              setRemoteCursors(prev => {
+                const next = { ...prev };
+                delete next[data.socketId];
+                return next;
+              });
+            }, 4000);
           }
         });
 
@@ -254,6 +292,8 @@ const RoomPage = () => {
         socketRef.current.disconnect();
         socketRef.current = null;
       }
+      // Clean up cursor timeouts
+      Object.values(cursorTimeoutsRef.current).forEach(clearTimeout);
     };
   }, [roomId]);
 
@@ -282,87 +322,95 @@ const RoomPage = () => {
     return colors[hash % colors.length];
   };
 
-  // Sync remote cursors with Monaco Decorations
+  // Sync remote cursors with Monaco Content Widgets
   useEffect(() => {
-    if (!decorationsCollectionRef.current || !monacoRef.current) return;
+    if (!editorRef.current || !monacoRef.current) return;
 
-    const decorations = Object.entries(remoteCursors).map(([userId, pos]) => {
-      if (userId === currentUserId) return null; // Don't show own cursor
+    const currentWidgetIds = new Set();
+
+    Object.entries(remoteCursors).forEach(([socketId, data]) => {
+      const { userId, position: pos } = data;
+      
+      // Hide cursor if it's the same user account testing across multiple windows
+      if (userId === currentUserId) return;
       
       const member = activeMembers.find(m => (m.user._id === userId || m.user.id === userId));
-      if (!member) return null;
       
-      return {
-        range: new monacoRef.current.Range(pos.lineNumber, pos.column, pos.lineNumber, pos.column),
-        options: {
-          className: `remote-cursor-${userId}`,
-          isWholeLine: false,
-        }
-      };
-    }).filter(Boolean);
+      const widgetId = `cursor-${socketId}`;
+      currentWidgetIds.add(widgetId);
 
-    decorationsCollectionRef.current.set(decorations);
+      if (widgetsRef.current[widgetId]) {
+        // Update existing widget position
+        widgetsRef.current[widgetId].position = pos;
+        editorRef.current.layoutContentWidget(widgetsRef.current[widgetId]);
+      } else {
+        // Create new widget
+        const color = getMemberColor(userId);
+        const username = member ? member.user.username : 'User';
+        
+        const widget = {
+          getId: () => widgetId,
+          getDomNode: () => {
+            if (widget.domNode) return widget.domNode;
+            
+            const node = document.createElement('div');
+            node.style.borderLeft = `2px solid ${color}`;
+            node.style.height = '1.2em';
+            node.style.position = 'relative';
+            node.style.pointerEvents = 'none';
+            node.style.zIndex = '100';
+            
+            const label = document.createElement('div');
+            label.innerText = username;
+            label.style.position = 'absolute';
+            label.style.top = '-1.2em';
+            label.style.left = '-2px';
+            label.style.backgroundColor = color;
+            label.style.color = '#000';
+            label.style.fontSize = '10px';
+            label.style.padding = '1px 4px';
+            label.style.borderRadius = '3px 3px 3px 0';
+            label.style.whiteSpace = 'nowrap';
+            label.style.fontWeight = 'bold';
+            label.style.boxShadow = '0 1px 3px rgba(0,0,0,0.3)';
+            
+            node.appendChild(label);
+            widget.domNode = node;
+            return node;
+          },
+          getPosition: () => ({
+            position: widget.position,
+            preference: [monacoRef.current.editor.ContentWidgetPositionPreference.EXACT]
+          }),
+          position: pos
+        };
+        
+        widgetsRef.current[widgetId] = widget;
+        editorRef.current.addContentWidget(widget);
+      }
+    });
+
+    // Remove widgets for users no longer in remoteCursors
+    Object.keys(widgetsRef.current).forEach(widgetId => {
+      if (!currentWidgetIds.has(widgetId)) {
+        editorRef.current.removeContentWidget(widgetsRef.current[widgetId]);
+        delete widgetsRef.current[widgetId];
+      }
+    });
   }, [remoteCursors, activeMembers, currentUserId]);
-
-  // Inject Dynamic CSS for cursors
-  useEffect(() => {
-    const styleId = 'collaborative-cursor-styles';
-    let styleEl = document.getElementById(styleId);
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = styleId;
-      document.head.appendChild(styleEl);
-    }
-    
-    const cssRules = activeMembers.map(member => {
-      const uId = member.user._id || member.user.id;
-      if (uId === currentUserId) return '';
-      const color = getMemberColor(uId);
-      const username = member.user.username;
-      
-      return `
-        .remote-cursor-${uId} {
-          border-left: 2px solid ${color} !important;
-          z-index: 10;
-          position: relative;
-        }
-        .remote-cursor-${uId}::before {
-          content: '${username}';
-          position: absolute;
-          top: -18px;
-          left: -2px;
-          background-color: ${color};
-          color: black;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 1px 6px;
-          border-radius: 4px 4px 4px 0;
-          white-space: nowrap;
-          pointer-events: none;
-          z-index: 100;
-        }
-      `;
-    }).join('\n');
-    
-    styleEl.innerHTML = cssRules;
-  }, [activeMembers, currentUserId]);
-
-  // Cleanup dynamic CSS on unmount
-  useEffect(() => {
-    return () => {
-      const styleEl = document.getElementById('collaborative-cursor-styles');
-      if (styleEl) styleEl.remove();
-    };
-  }, []);
 
   // --- Handlers ---
 
   const handleEditorMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    decorationsCollectionRef.current = editor.createDecorationsCollection([]);
     
     editor.onDidChangeCursorPosition((e) => {
+      // Prevent echoing cursor moves caused by remote text updates
+      if (isRemoteUpdate.current) return;
+      // Don't emit during local typing — handleEditorChange will do it
+      if (isTypingLocally.current) return;
+
       socketRef.current?.emit('cursor_move', {
         roomId,
         position: {
@@ -377,6 +425,19 @@ const RoomPage = () => {
     isTypingLocally.current = true;
     setFiles(prev => prev.map(f => f.id === activeFileId ? { ...f, code: value } : f));
     socketRef.current?.emit('code_change', { roomId, fileId: activeFileId, code: value });
+    
+    // Also emit cursor position so remote users see where we're typing
+    const position = editorRef.current?.getPosition();
+    if (position) {
+      socketRef.current?.emit('cursor_move', {
+        roomId,
+        position: {
+          lineNumber: position.lineNumber,
+          column: position.column
+        }
+      });
+    }
+    
     setTimeout(() => { isTypingLocally.current = false; }, 500);
   };
 
@@ -443,24 +504,6 @@ const RoomPage = () => {
       }
       return next;
     });
-  };
-
-  const fetchRoomMembers = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/room/${roomId}`, { withCredentials: true });
-      setActiveMembers(res.data.payload.members || []);
-    } catch (err) {
-      console.error("Failed to refresh room members", err);
-    }
-  };
-
-  const fetchPendingRequests = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/room/${roomId}/pending`, { withCredentials: true });
-      setPendingRequests(res.data.payload || []);
-    } catch (err) {
-      console.error("Failed to refresh pending requests", err);
-    }
   };
 
   const handleApproveRequest = async (userId) => {
