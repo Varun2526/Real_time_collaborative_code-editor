@@ -9,7 +9,7 @@
 
 @baseUrl = http://localhost:{{$dotenv PORT}}/api
 # Replace these with actual values after running the respective requests
-@token1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZjNDY5NWQ1ZWE5NzljZmJhOWZhMDciLCJpYXQiOjE3NzgxNDA4MjEsImV4cCI6MTc3ODc0NTYyMX0.9uceCbe8ciLjmxv2UIhdaa4MuUXCd6mx3wpFdHG4Crs
+@token1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZjNDY5NWQ1ZWE5NzljZmJhOWZhMDciLCJpYXQiOjE3NzgzMjM2MTksImV4cCI6MTc3ODkyODQxOX0.xkDNlX12SAug37uCYnqnljQgQ8pQqFbLEbxEV8y09N4
 @token2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZjNDc0ZmQ1ZWE5NzljZmJhOWZhMGYiLCJpYXQiOjE3NzgxNDEwMDcsImV4cCI6MTc3ODc0NTgwN30.ylcUgCDglvNj9X47oK5ZP3uFfsN9Vpm-DlJuLvXUVUQ
 @roomId = 5623de27-3c59-4be4-a75f-e8d6337232aa
 @user2Id =69fc474fd5ea979cfba9fa0f
