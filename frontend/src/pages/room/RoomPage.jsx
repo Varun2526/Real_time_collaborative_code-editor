@@ -48,6 +48,27 @@ const getLanguageFromExt = (filename) => {
   }
 };
 
+const getExtFromLanguage = (language) => {
+  switch (language) {
+    case 'javascript': return 'js';
+    case 'python': return 'py';
+    case 'java': return 'java';
+    case 'c++': return 'cpp';
+    case 'c': return 'c';
+    case 'ruby': return 'rb';
+    case 'go': return 'go';
+    case 'php': return 'php';
+    default: return 'txt';
+  }
+};
+
+const renameFileExt = (filename, newLang) => {
+  const newExt = getExtFromLanguage(newLang);
+  const dotIndex = filename.lastIndexOf('.');
+  const baseName = dotIndex !== -1 ? filename.substring(0, dotIndex) : filename;
+  return `${baseName}.${newExt}`;
+};
+
 const RoomPage = () => {
   const { roomId } = useParams();
   const { user } = useAuth();
@@ -214,7 +235,13 @@ const RoomPage = () => {
         });
 
         socket.on('language_updated', (data) => {
-          setFiles(prev => prev.map(f => f.id === data.fileId ? { ...f, language: data.language } : f));
+          setFiles(prev => prev.map(f => {
+            if (f.id === data.fileId) {
+              const newName = renameFileExt(f.name, data.language);
+              return { ...f, language: data.language, name: newName };
+            }
+            return f;
+          }));
         });
 
         socket.on('file_added', (data) => {
@@ -444,7 +471,13 @@ const RoomPage = () => {
 
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
-    setFiles(prev => prev.map(f => f.id === activeFileId ? { ...f, language: newLang } : f));
+    setFiles(prev => prev.map(f => {
+      if (f.id === activeFileId) {
+        const newName = renameFileExt(f.name, newLang);
+        return { ...f, language: newLang, name: newName };
+      }
+      return f;
+    }));
     socketRef.current?.emit('language_change', { roomId, fileId: activeFileId, language: newLang });
   };
 
