@@ -472,14 +472,17 @@ const RoomPage = () => {
 
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
+    const currentFile = files.find(f => f.id === activeFileId);
+    if (!currentFile) return;
+    const newName = renameFileExt(currentFile.name, newLang);
+
     setFiles(prev => prev.map(f => {
       if (f.id === activeFileId) {
-        const newName = renameFileExt(f.name, newLang);
         return { ...f, language: newLang, name: newName };
       }
       return f;
     }));
-    socketRef.current?.emit('language_change', { roomId, fileId: activeFileId, language: newLang });
+    socketRef.current?.emit('language_change', { roomId, fileId: activeFileId, language: newLang, name: newName });
   };
 
   const handleRunCode = () => {

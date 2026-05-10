@@ -32,7 +32,7 @@ export const codeChangeHandler = (io, socket) => {
 
   socket.on("language_change", async (data) => {
     try {
-      const { roomId, fileId, language } = data;
+      const { roomId, fileId, language, name } = data;
       if (!roomId || !language) return;
 
       const room = await Room.findOne({ roomId });
@@ -45,13 +45,16 @@ export const codeChangeHandler = (io, socket) => {
 
       if (fileId) {
         const file = room.files.find(f => f.id === fileId);
-        if (file) file.language = language;
+        if (file) {
+          file.language = language;
+          if (name) file.name = name;
+        }
       } else {
         room.language = language;
       }
       
       await room.save();
-      socket.to(roomId).emit("language_updated", { fileId, language, userId: socket.userId });
+      socket.to(roomId).emit("language_updated", { fileId, language, name, userId: socket.userId });
     } catch (err) {
       console.error("language_change error:", err);
     }
