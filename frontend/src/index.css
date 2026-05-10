@@ -77,8 +77,19 @@
   .light .hover\:bg-\[rgba\(240\,240\,250\,0\.1\)\]:hover { background-color: var(--bg-hover) !important; }
   .light .hover\:text-white:hover { color: var(--text-hover) !important; }
   .light .text-white { color: var(--text-hover) !important; }
+  .light .text-white\/30 { color: color-mix(in srgb, var(--text-hover) 30%, transparent) !important; }
   .light .text-white\/50 { color: color-mix(in srgb, var(--text-hover) 50%, transparent) !important; }
+  .light .text-white\/70 { color: color-mix(in srgb, var(--text-hover) 70%, transparent) !important; }
+  .light .text-white\/80 { color: color-mix(in srgb, var(--text-hover) 80%, transparent) !important; }
   .light .placeholder\:text-white\/30::placeholder { color: color-mix(in srgb, var(--text-hover) 30%, transparent) !important; }
+  .light .hover\:bg-white:hover { background-color: var(--text-hover) !important; }
+  .light .hover\:text-black:hover { color: var(--bg-primary) !important; }
+  .light .bg-\[rgba\(240\,240\,250\,0\.02\)\] { background-color: rgba(0, 0, 0, 0.02) !important; }
+  .light .bg-\[rgba\(240\,240\,250\,0\.05\)\] { background-color: rgba(0, 0, 0, 0.05) !important; }
+  .light .hover\:bg-\[rgba\(240\,240\,250\,0\.05\)\]:hover { background-color: rgba(0, 0, 0, 0.05) !important; }
+  .light .text-white\/40 { color: color-mix(in srgb, var(--text-hover) 40%, transparent) !important; }
+  .light .hover\:text-white\/70:hover { color: color-mix(in srgb, var(--text-hover) 70%, transparent) !important; }
+  .light .hover\:text-white\/80:hover { color: color-mix(in srgb, var(--text-hover) 80%, transparent) !important; }
   .light .border-white { border-color: var(--text-hover) !important; }
   .light .hover\:border-white:hover { border-color: var(--text-hover) !important; }
   .light .focus\:border-white:focus { border-color: var(--text-hover) !important; }
