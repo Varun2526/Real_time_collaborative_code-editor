@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/navbar/Navbar';
 import { io } from 'socket.io-client';
 import Editor from '@monaco-editor/react';
+import JSZip from 'jszip';
 
 // Room Components
 import ExplorerPanel from '../../components/room/ExplorerPanel';
@@ -502,6 +503,23 @@ const RoomPage = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownloadWorkspace = async () => {
+    if (files.length === 0) return;
+    const zip = new JSZip();
+    files.forEach(f => {
+      zip.file(f.name, f.code || '');
+    });
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(room?.title || 'workspace').replace(/\s+/g, '_')}.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const handleAddFile = (fileName) => {
     const lang = getLanguageFromExt(fileName);
     const newFile = {
@@ -690,6 +708,10 @@ const RoomPage = () => {
                 <button onClick={handleShare} className="text-spacex-nav border border-[rgba(240,240,250,0.35)] px-3 py-2 hover:bg-white hover:text-black transition-colors flex items-center gap-2">
                   <span className="material-symbols-outlined text-[16px]">{copied ? 'check' : 'share'}</span>
                   {copied ? 'COPIED' : 'SHARE'}
+                </button>
+                <button onClick={handleDownloadWorkspace} className="text-spacex-nav border border-[rgba(240,240,250,0.35)] px-3 py-2 hover:bg-white hover:text-black transition-colors flex items-center gap-2" title="Download workspace as ZIP">
+                  <span className="material-symbols-outlined text-[16px]">download</span>
+                  DOWNLOAD
                 </button>
                 {/* Chat toggle */}
                 <button
