@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import CreateRoomModal from '../../components/create-room/CreateRoomModal';
+import RoomDetailsModal from '../../components/dashboard/RoomDetailsModal';
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -13,7 +14,16 @@ const Dashboard = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [loadingMyRooms, setLoadingMyRooms] = useState(true);
   const [searchLoading, setSearchLoading] = useState(true);
+  
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [isRoomModalOpen, setIsRoomModalOpen] = useState(false);
+  
   const navigate = useNavigate();
+
+  const openRoomModal = (room, isJoined) => {
+    setSelectedRoom({ ...room, isJoined });
+    setIsRoomModalOpen(true);
+  };
 
   useEffect(() => {
     fetchMyRooms();
@@ -105,7 +115,7 @@ const Dashboard = () => {
                 {joinedRooms.map(room => (
                   <div 
                     key={room.roomId} 
-                    onClick={() => navigate(`/room/${room.roomId}`)}
+                    onClick={() => openRoomModal(room, true)}
                     className="group cursor-pointer border-b border-[rgba(240,240,250,0.1)] pb-6 hover:border-[rgba(240,240,250,0.5)] transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
@@ -145,7 +155,8 @@ const Dashboard = () => {
                   {availableRooms.map(room => (
                     <div 
                       key={room.roomId} 
-                      className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[rgba(240,240,250,0.1)] pb-8 hover:border-[rgba(240,240,250,0.3)] transition-colors"
+                      onClick={() => openRoomModal(room, false)}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[rgba(240,240,250,0.1)] pb-8 hover:border-[rgba(240,240,250,0.3)] transition-colors cursor-pointer"
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
@@ -156,7 +167,10 @@ const Dashboard = () => {
                         <p className="text-spacex-body opacity-70 line-clamp-2 uppercase max-w-xl">{room.description}</p>
                       </div>
                       <button 
-                        onClick={() => handleJoinRoom(room.roomId)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleJoinRoom(room.roomId);
+                        }}
                         className="btn-ghost shrink-0"
                       >
                         JOIN ROOM
@@ -175,6 +189,21 @@ const Dashboard = () => {
         <CreateRoomModal 
           onClose={() => setIsCreateModalOpen(false)} 
           onSuccess={(roomId) => navigate(`/room/${roomId}`)}
+        />
+      )}
+
+      {isRoomModalOpen && selectedRoom && (
+        <RoomDetailsModal
+          room={selectedRoom}
+          onClose={() => setIsRoomModalOpen(false)}
+          onAction={() => {
+            if (selectedRoom.isJoined) {
+              navigate(`/room/${selectedRoom.roomId}`);
+            } else {
+              handleJoinRoom(selectedRoom.roomId);
+              setIsRoomModalOpen(false);
+            }
+          }}
         />
       )}
     </div>
