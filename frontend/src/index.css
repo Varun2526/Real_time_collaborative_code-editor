@@ -233,6 +233,10 @@
   background: transparent;
 }
 
+/* Policy page: force inherited text color so content remains readable in light mode */
+.policy-override, .policy-override * {
+  color: var(--text-primary) !important;
+}
 .code-editor-bg {
   background: var(--bg-primary);
 }
