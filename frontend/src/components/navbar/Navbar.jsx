@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import KodaxLogo from '../KodaxLogo';
@@ -7,6 +7,7 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
   const { user, logout } = useAuth();
   const location = useLocation();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
   
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
@@ -20,6 +21,22 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    if (isProfileOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isProfileOpen]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -76,7 +93,7 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
           </button>
         </div>
 
-        <div className="relative cursor-pointer ml-2">
+        <div className="relative cursor-pointer ml-2" ref={profileRef}>
           <div 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
             className="w-12 h-12 rounded-full border border-[rgba(240,240,250,0.35)] hover:border-white bg-[rgba(240,240,250,0.1)] text-[#f0f0fa] flex items-center justify-center text-lg font-bold transition-all"
