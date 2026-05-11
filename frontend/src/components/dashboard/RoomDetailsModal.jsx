@@ -6,7 +6,7 @@ const RoomDetailsModal = ({ room, onClose, onAction }) => {
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div 
-        className="bg-[#111111] border border-white/20 w-full max-w-lg flex flex-col font-body-base overflow-hidden relative p-8 gap-6 rounded-2xl shadow-[0_16px_64px_rgba(255,255,255,0.05)] ring-1 ring-white/10 text-white" 
+        className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-lg flex flex-col font-body-base overflow-hidden relative p-8 gap-6 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]" 
         onClick={(e) => e.stopPropagation()}
       >
         <button 
