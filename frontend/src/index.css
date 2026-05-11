@@ -93,6 +93,7 @@
   .light .border-white { border-color: var(--text-hover) !important; }
   .light .hover\:border-white:hover { border-color: var(--text-hover) !important; }
   .light .focus\:border-white:focus { border-color: var(--text-hover) !important; }
+  .light .hover\:\!text-\[\#0077b5\]:hover { color: #0077b5 !important; }
 
   body {
     background-color: var(--bg-primary);
