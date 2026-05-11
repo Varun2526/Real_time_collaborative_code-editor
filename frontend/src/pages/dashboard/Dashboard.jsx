@@ -14,11 +14,13 @@ const Dashboard = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [loadingMyRooms, setLoadingMyRooms] = useState(true);
   const [searchLoading, setSearchLoading] = useState(true);
+
   
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isRoomModalOpen, setIsRoomModalOpen] = useState(false);
   
   const navigate = useNavigate();
+
 
   const openRoomModal = (room, isJoined) => {
     setSelectedRoom({ ...room, isJoined });
@@ -85,10 +87,10 @@ const Dashboard = () => {
   const getVisibilityBadge = (visibility) => {
     const isPrivate = visibility === 'private';
     return (
-      <span className={`text-spacex-micro px-2 py-1 border ${
+      <span className={`text-spacex-micro px-2.5 py-1 rounded-sm border backdrop-blur-sm ${
         isPrivate 
-          ? 'border-red-500/50 text-red-400 bg-red-500/10' 
-          : 'border-green-500/50 text-green-400 bg-green-500/10'
+          ? 'border-red-500/30 text-red-400 bg-red-500/10 shadow-[0_0_10px_rgba(239,68,68,0.1)]' 
+          : 'border-green-500/30 text-green-400 bg-green-500/10 shadow-[0_0_10px_rgba(34,197,94,0.1)]'
       }`}>
         {isPrivate ? 'PRIVATE' : 'PUBLIC'}
       </span>
@@ -122,7 +124,7 @@ const Dashboard = () => {
                       <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px]">{room.title}</h3>
                       {getVisibilityBadge(room.visibility)}
                     </div>
-                    <p className="text-spacex-body opacity-70 line-clamp-2 uppercase">{room.description}</p>
+                    <p className="text-spacex-body opacity-60 line-clamp-2 uppercase group-hover:opacity-80 transition-opacity">{room.description}</p>
                   </div>
                 ))}
               </div>
@@ -132,14 +134,14 @@ const Dashboard = () => {
 
         {/* Right Column: Available Rooms */}
         <section className="flex flex-col gap-12">
-          <form onSubmit={handleSearch} className="w-full relative">
-            <span className="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-white/50 text-[24px]">search</span>
+          <form onSubmit={handleSearch} className="w-full max-w-md relative group">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-white transition-colors text-[20px]">search</span>
             <input 
               type="text" 
               placeholder="SEARCH PUBLIC ROOMS..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-b-2 border-[rgba(240,240,250,0.35)] pl-10 pr-4 py-4 text-spacex-nav text-lg focus:outline-none focus:border-white transition-colors placeholder:text-white/30"
+              className="w-full bg-white/5 border border-white/10 rounded-full pl-12 pr-6 py-3.5 text-spacex-nav text-sm focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-white/30 shadow-[0_0_15px_rgba(255,255,255,0.03)]"
             />
           </form>
 
@@ -159,12 +161,12 @@ const Dashboard = () => {
                       className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[rgba(240,240,250,0.1)] pb-8 hover:border-[rgba(240,240,250,0.3)] transition-colors cursor-pointer"
                     >
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px]">{room.title}</h3>
-                          <span className="text-spacex-micro border border-white/20 px-2 py-1">{room.language || 'SYS'}</span>
+                        <div className="flex items-center gap-3 mb-3">
+                          <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1.5px] group-hover:text-white transition-colors">{room.title}</h3>
+                          <span className="text-spacex-micro border border-white/20 px-2.5 py-1 rounded-sm bg-white/5">{room.language || 'SYS'}</span>
                           {getVisibilityBadge(room.visibility)}
                         </div>
-                        <p className="text-spacex-body opacity-70 line-clamp-2 uppercase max-w-xl">{room.description}</p>
+                        <p className="text-spacex-body opacity-60 line-clamp-2 uppercase max-w-xl group-hover:opacity-80 transition-opacity">{room.description}</p>
                       </div>
                       <button 
                         onClick={(e) => {
@@ -191,6 +193,7 @@ const Dashboard = () => {
           onSuccess={(roomId) => navigate(`/room/${roomId}`)}
         />
       )}
+
 
       {isRoomModalOpen && selectedRoom && (
         <RoomDetailsModal
