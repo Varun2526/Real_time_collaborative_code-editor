@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TermsModal from './TermsModal';
-import React from 'react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 const Footer = () => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
