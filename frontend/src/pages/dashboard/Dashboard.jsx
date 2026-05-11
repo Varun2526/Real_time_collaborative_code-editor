@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import CreateRoomModal from '../../components/create-room/CreateRoomModal';
 import RoomDetailsModal from '../../components/dashboard/RoomDetailsModal';
+import Footer from '../../components/footer/Footer';
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -224,6 +225,8 @@ const Dashboard = () => {
         </section>
 
       </main>
+
+      <Footer />
 
       {isCreateModalOpen && (
         <CreateRoomModal 

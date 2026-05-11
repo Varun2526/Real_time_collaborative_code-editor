@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
 import KodaxLogo from '../../components/KodaxLogo';
+import Footer from '../../components/footer/Footer';
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -40,11 +41,12 @@ function Register() {
 
 
   return (
-    <div className="min-h-screen relative flex flex-col items-center justify-center font-body-base bg-black">
+    <div className="min-h-screen relative flex flex-col font-body-base bg-black">
       {/* Dark overlay for text legibility */}
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-      <div className="relative z-10 w-full max-w-md px-6 flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-center w-full relative z-10 px-6 py-20">
+        <div className="w-full max-w-md flex flex-col">
         <div className="mb-12 text-center">
           <KodaxLogo size="lg" />
           <div className="text-spacex-nav text-white/50 mb-6 tracking-[2px]">CREATE ACCOUNT</div>
@@ -155,7 +157,9 @@ function Register() {
             SIGN UP WITH GITHUB
           </button>
         </div>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
