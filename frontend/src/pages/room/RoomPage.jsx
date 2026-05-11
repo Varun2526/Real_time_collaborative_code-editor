@@ -107,11 +107,8 @@ const RoomPage = () => {
   const [showConsole, setShowConsole] = useState(false);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [fileToDelete, setFileToDelete] = useState(null);
-<<<<<<< Updated upstream
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-=======
   const [showViewOnlyHint, setShowViewOnlyHint] = useState(false);
->>>>>>> Stashed changes
 
   // Resizable panel sizes
   const [explorerWidth, setExplorerWidth] = useState(EXPLORER_DEFAULT);
@@ -925,7 +922,6 @@ const RoomPage = () => {
           )}
         </main>
       </div>
-<<<<<<< Updated upstream
 
       {/* Room Settings Modal */}
       <RoomSettingsModal
@@ -937,7 +933,6 @@ const RoomPage = () => {
         onDeleteRoom={handleDeleteRoom}
         isOwner={currentUserRole === 'owner'}
       />
-=======
       {/* View Only Hint Modal */}
       {showViewOnlyHint && (
         <div className="absolute inset-0 z-[60] bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setShowViewOnlyHint(false)}>
@@ -952,7 +947,6 @@ const RoomPage = () => {
           </div>
         </div>
       )}
->>>>>>> Stashed changes
     </div>
   );
 };
