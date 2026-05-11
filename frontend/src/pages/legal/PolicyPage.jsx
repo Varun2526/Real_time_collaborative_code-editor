@@ -80,7 +80,7 @@ const rightColumnSections = policySections.filter((_, index) => index % 2 === 1)
 
 const PolicyPage = () => {
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-body-base">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-body-base policy-override">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.03)_35%,transparent_70%)] blur-3xl" />
         <div className="absolute top-48 right-0 h-112 w-md rounded-full bg-[radial-gradient(circle,rgba(0,119,181,0.12)_0%,rgba(0,119,181,0.02)_40%,transparent_72%)] blur-3xl" />
