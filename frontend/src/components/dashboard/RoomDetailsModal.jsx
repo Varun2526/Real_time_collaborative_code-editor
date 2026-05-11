@@ -4,9 +4,9 @@ const RoomDetailsModal = ({ room, onClose, onAction }) => {
   if (!room) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div 
-        className="bg-black border border-[rgba(240,240,250,0.35)] p-8 max-w-lg w-full rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative flex flex-col gap-6" 
+        className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-lg flex flex-col font-body-base overflow-hidden relative p-8 gap-6 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]" 
         onClick={(e) => e.stopPropagation()}
       >
         <button 
@@ -18,15 +18,15 @@ const RoomDetailsModal = ({ room, onClose, onAction }) => {
         
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-3 pr-8">
-            <h2 className="text-spacex-h2 text-3xl font-bold uppercase tracking-[1.5px]">{room.title}</h2>
+            <h2 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px]">{room.title}</h2>
             {room.language && (
-              <span className="text-spacex-micro border border-white/20 px-2.5 py-1 rounded-sm bg-white/5">{room.language}</span>
+              <span className="text-spacex-micro border border-white/20 px-2 py-1">{room.language}</span>
             )}
           </div>
-          <span className={`text-spacex-micro px-2.5 py-1 rounded-sm border backdrop-blur-sm w-max ${
+          <span className={`text-spacex-micro px-2 py-1 border w-max ${
             room.visibility === 'private' 
-              ? 'border-red-500/30 text-red-400 bg-red-500/10 shadow-[0_0_10px_rgba(239,68,68,0.1)]' 
-              : 'border-green-500/30 text-green-400 bg-green-500/10 shadow-[0_0_10px_rgba(34,197,94,0.1)]'
+              ? 'border-red-500/50 text-red-400 bg-red-500/10' 
+              : 'border-green-500/50 text-green-400 bg-green-500/10'
           }`}>
             {room.visibility === 'private' ? 'PRIVATE' : 'PUBLIC'}
           </span>
@@ -41,13 +41,13 @@ const RoomDetailsModal = ({ room, onClose, onAction }) => {
         <div className="flex items-center justify-end gap-4 mt-4">
           <button 
             onClick={onClose}
-            className="text-spacex-nav text-white/60 hover:text-white transition-colors"
+            className="text-spacex-nav text-white/50 hover:text-white transition-colors"
           >
             CANCEL
           </button>
           <button 
             onClick={onAction}
-            className="btn-ghost hover:scale-105 transform transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+            className="btn-ghost"
           >
             {room.isJoined ? 'ENTER ROOM' : 'JOIN'}
           </button>
