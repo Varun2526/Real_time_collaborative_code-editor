@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import TermsModal from './TermsModal';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import TermsModal from './TermsModal';
 
 const Footer = () => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
@@ -15,7 +14,7 @@ const Footer = () => {
         
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
           <div className="flex flex-wrap justify-center items-center gap-6">
-            <button className="text-spacex-nav text-white/40 hover:text-white transition-colors cursor-pointer">PRIVACY POLICY</button>
+            <Link to="/privacy-policy" className="text-spacex-nav text-white/40 hover:text-white transition-colors">PRIVACY POLICY</Link>
             <button 
               onClick={() => setIsTermsOpen(true)}
               className="text-spacex-nav text-white/40 hover:text-white transition-colors cursor-pointer"
