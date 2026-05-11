@@ -119,7 +119,7 @@ const Dashboard = () => {
                     className="group cursor-pointer border-b border-[rgba(240,240,250,0.1)] pb-6 hover:border-[rgba(240,240,250,0.5)] transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px] group-hover:text-white transition-colors">{room.title}</h3>
+                      <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1px]">{room.title}</h3>
                       {getVisibilityBadge(room.visibility)}
                     </div>
                     <p className="text-spacex-body opacity-70 line-clamp-2 uppercase">{room.description}</p>
