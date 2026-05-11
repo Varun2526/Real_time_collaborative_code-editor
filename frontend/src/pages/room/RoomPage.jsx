@@ -14,6 +14,7 @@ import EditorTabs from '../../components/room/EditorTabs';
 import ConsolePanel from '../../components/room/ConsolePanel';
 import ChatPanel from '../../components/room/ChatPanel';
 import ResizeHandle from '../../components/room/ResizeHandle';
+import RoomSettingsModal from '../../components/room/RoomSettingsModal';
 import KodaxLogo from '../../components/KodaxLogo';
 
 // Panel size constraints (px)
@@ -106,6 +107,8 @@ const RoomPage = () => {
   const [showConsole, setShowConsole] = useState(false);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [fileToDelete, setFileToDelete] = useState(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [showViewOnlyHint, setShowViewOnlyHint] = useState(false);
 
   // Resizable panel sizes
   const [explorerWidth, setExplorerWidth] = useState(EXPLORER_DEFAULT);
@@ -342,6 +345,7 @@ const RoomPage = () => {
   const activeFile = files.find(f => f.id === activeFileId);
   const currentUserId = user?.userId || user?.id || user?._id;
   const currentUserRole = activeMembers.find(m => m.user._id === currentUserId || m.user.id === currentUserId)?.role || 'member';
+  const isReadOnly = currentUserRole === 'member';
   const showLeftPanel = activeSidebarTab !== null;
 
   const getMemberColor = (userId) => {
@@ -612,6 +616,63 @@ const RoomPage = () => {
     }
   };
 
+  // --- Room Settings Handlers ---
+
+  const handleUpdateRoom = async (updateData) => {
+    try {
+      console.log('Updating room with data:', updateData);
+      const res = await axios.patch(
+        `${API_URL}/room/${roomId}/settings`,
+        updateData,
+        { withCredentials: true }
+      );
+      console.log('Room updated:', res.data.payload);
+      setRoom(res.data.payload);
+      return res.data.payload;
+    } catch (err) {
+      console.error('Update room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to update room');
+    }
+  };
+
+  const handleLeaveRoom = async () => {
+    try {
+      console.log('Attempting to leave room:', roomId);
+      // Disconnect socket before leaving
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+      const res = await axios.post(`${API_URL}/room/${roomId}/leave`, {}, { withCredentials: true });
+      console.log('Leave room response:', res.data);
+      // Navigate after a short delay to ensure the backend has processed the request
+      setTimeout(() => {
+        navigate('/');
+      }, 300);
+    } catch (err) {
+      console.error('Leave room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to leave room');
+    }
+  };
+
+  const handleDeleteRoom = async () => {
+    try {
+      console.log('Attempting to delete room:', roomId);
+      // Disconnect socket before deleting
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+      const res = await axios.delete(`${API_URL}/room/${roomId}`, { withCredentials: true });
+      console.log('Delete room response:', res.data);
+      // Navigate after a short delay to ensure the backend has processed the request
+      setTimeout(() => {
+        navigate('/');
+      }, 300);
+    } catch (err) {
+      console.error('Delete room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to delete room');
+    }
+  };
+
   // --- Render ---
 
   if (loading) {
@@ -695,16 +756,30 @@ const RoomPage = () => {
           <div className="flex items-center gap-3 mt-4 md:mt-0">
             {activeFile && (
               <div className="hidden sm:flex items-center gap-3">
+                {isReadOnly && (
+                  <button 
+                    onClick={() => setShowViewOnlyHint(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 border border-white/20 bg-white/5 rounded-full hover:bg-white/10 transition-colors cursor-help"
+                  >
+                    <span className="material-symbols-outlined text-[14px] text-white/60">visibility</span>
+                    <span className="text-spacex-micro text-white/60 font-bold">VIEW ONLY</span>
+                  </button>
+                )}
                 <select 
                   value={activeFile.language} 
                   onChange={handleLanguageChange}
-                  className="bg-transparent text-spacex-nav border-b border-[rgba(240,240,250,0.35)] px-2 py-1 outline-none cursor-pointer uppercase appearance-none"
+                  disabled={isReadOnly}
+                  className={`bg-transparent text-spacex-nav border-b border-[rgba(240,240,250,0.35)] px-2 py-1 outline-none cursor-pointer uppercase appearance-none ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {SUPPORTED_LANGUAGES.map(lang => (
                     <option key={lang} value={lang} className="bg-black text-white">{lang}</option>
                   ))}
                 </select>
-                <button onClick={handleRunCode} className="text-spacex-nav border border-[rgba(240,240,250,0.35)] px-3 py-2 hover:bg-white hover:text-black transition-colors flex items-center gap-2">
+                <button 
+                  onClick={handleRunCode} 
+                  disabled={isReadOnly}
+                  className={`text-spacex-nav border border-[rgba(240,240,250,0.35)] px-3 py-2 hover:bg-white hover:text-black transition-colors flex items-center gap-2 ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
                   <span className="material-symbols-outlined text-[16px]">play_arrow</span>
                   EXECUTE
                 </button>
@@ -754,6 +829,7 @@ const RoomPage = () => {
                     setOpenTabs={setOpenTabs}
                     onAddFile={handleAddFile}
                     onDeleteFile={handleDeleteFile}
+                    onOpenSettings={() => setIsSettingsOpen(true)}
                   />
                 )}
                 {activeSidebarTab === 'members' && (
@@ -803,7 +879,9 @@ const RoomPage = () => {
                     scrollBeyondLastLine: false,
                     smoothScrolling: true,
                     cursorBlinking: "smooth",
-                    cursorSmoothCaretAnimation: "on"
+                    cursorSmoothCaretAnimation: "on",
+                    readOnly: isReadOnly,
+                    domReadOnly: isReadOnly
                   }}
                 />
               ) : (
@@ -844,6 +922,31 @@ const RoomPage = () => {
           )}
         </main>
       </div>
+
+      {/* Room Settings Modal */}
+      <RoomSettingsModal
+        isOpen={isSettingsOpen}
+        room={room}
+        onClose={() => setIsSettingsOpen(false)}
+        onUpdateRoom={handleUpdateRoom}
+        onLeaveRoom={handleLeaveRoom}
+        onDeleteRoom={handleDeleteRoom}
+        isOwner={currentUserRole === 'owner'}
+      />
+      {/* View Only Hint Modal */}
+      {showViewOnlyHint && (
+        <div className="absolute inset-0 z-[60] bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setShowViewOnlyHint(false)}>
+          <div className="bg-black border border-[rgba(240,240,250,0.35)] p-8 max-w-sm w-full rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]" onClick={e => e.stopPropagation()}>
+            <h3 className="text-spacex-hero text-2xl mb-4 font-bold tracking-[1.5px]">VIEW ONLY MODE</h3>
+            <p className="text-spacex-body opacity-70 mb-8 uppercase leading-relaxed text-sm">
+              YOU ARE CURRENTLY IN READ-ONLY MODE. PLEASE WAIT FOR THE ROOM OWNER TO PROMOTE YOU TO A <span className="text-white font-bold">COLLABORATOR</span> TO EDIT THE CODE.
+            </p>
+            <div className="flex justify-end">
+              <button onClick={() => setShowViewOnlyHint(false)} className="btn-ghost !py-2 !px-6 !text-[11px]">UNDERSTOOD</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

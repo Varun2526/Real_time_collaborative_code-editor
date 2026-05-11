@@ -397,7 +397,9 @@ export const updateRoomSettings = async (req, res) => {
        room.settings.maxUsers = maxUsers;
     await room.save();
 
-    return res.status(200).json({ message: "Room settings updated successfully", payload: room });
+    // Return populated room data
+    const updatedRoom = await Room.findOne({ roomId }).populate("members.user", "username email profilePic");
+    return res.status(200).json({ message: "Room settings updated successfully", payload: updatedRoom });
   } 
     catch (error) {
     console.log("Error updating room settings:", error);
