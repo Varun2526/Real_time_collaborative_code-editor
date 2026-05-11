@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import TermsModal from './TermsModal';
 
 const Footer = () => {
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+
   return (
     <footer className="w-full border-t border-[rgba(240,240,250,0.1)] py-8 mt-auto z-10 relative bg-black">
       <div className="max-w-7xl mx-auto px-6 flex flex-col xl:flex-row items-center justify-between gap-8">
@@ -12,7 +15,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
           <div className="flex flex-wrap justify-center items-center gap-6">
             <Link to="/privacy-policy" className="text-spacex-nav text-white/40 hover:!text-[#0077b5] transition-colors">PRIVACY POLICY</Link>
-            <Link to="/terms-of-service" className="text-spacex-nav text-white/40 hover:!text-[#0077b5] transition-colors">TERMS OF SERVICE</Link>
+            <button 
+              onClick={() => setIsTermsOpen(true)}
+              className="text-spacex-nav text-white/40 hover:!text-[#0077b5] transition-colors cursor-pointer"
+            >
+              TERMS OF SERVICE
+            </button>
             
             <a href="https://github.com/Varun2526/Real_time_collaborative_code-editor" target="_blank" rel="noreferrer" className="text-spacex-nav text-[#0077b5]/80 hover:text-[#0077b5] transition-colors">GITHUB</a>
             
@@ -31,6 +39,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </footer>
   );
 };
