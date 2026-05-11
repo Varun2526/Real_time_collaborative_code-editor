@@ -18,7 +18,7 @@ const Footer = () => {
           <div className="hidden md:block w-px h-4 bg-white/20"></div>
           
           <div className="flex flex-wrap justify-center items-center gap-4">
-            <span className="text-spacex-micro text-white/30 hidden sm:inline mr-2">TEAM LINKEDIN:</span>
+            <span className="text-spacex-micro text-white/30 hidden sm:inline mr-2">TEAM:</span>
             <a href="https://www.linkedin.com/in/varun-koppula-b01916315/" target="_blank" rel="noreferrer" className="text-spacex-nav text-[#0077b5]/80 hover:text-[#0077b5] transition-colors">VARUN</a>
             <a href="https://www.linkedin.com/in/venkata-hareesh-kaza-72b237330/" target="_blank" rel="noreferrer" className="text-spacex-nav text-[#0077b5]/80 hover:text-[#0077b5] transition-colors">HAREESH</a>
             <a href="https://www.linkedin.com/in/nimishakavi-sri-nihal-723069271/" target="_blank" rel="noreferrer" className="text-spacex-nav text-[#0077b5]/80 hover:text-[#0077b5] transition-colors">NIHAL</a>
