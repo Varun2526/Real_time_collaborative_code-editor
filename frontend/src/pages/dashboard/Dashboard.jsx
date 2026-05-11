@@ -22,8 +22,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
 
+  const isRoomJoined = (roomId) => {
+    return joinedRooms.some(room => room.roomId === roomId);
+  };
+
   const openRoomModal = (room, isJoined) => {
-    setSelectedRoom({ ...room, isJoined });
+    // If it's from availableRooms, double check if it's actually joined
+    const actuallyJoined = isJoined || isRoomJoined(room.roomId);
+    setSelectedRoom({ ...room, isJoined: actuallyJoined });
     setIsRoomModalOpen(true);
   };
 
@@ -179,6 +185,38 @@ const Dashboard = () => {
                       </button>
                     </div>
                   ))}
+                  {availableRooms.map(room => {
+                    const joined = isRoomJoined(room.roomId);
+                    return (
+                      <div 
+                        key={room.roomId} 
+                        onClick={() => openRoomModal(room, joined)}
+                        className="group cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.05] hover:border-white/[0.15] hover:bg-white/[0.05] transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_4px_32px_rgba(255,255,255,0.02)] mb-4 last:mb-0"
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-spacex-h2 text-2xl font-bold uppercase tracking-[1.5px] group-hover:text-white transition-colors">{room.title}</h3>
+                            <span className="text-spacex-micro border border-white/20 px-2.5 py-1 rounded-sm bg-white/5">{room.language || 'SYS'}</span>
+                            {getVisibilityBadge(room.visibility)}
+                          </div>
+                          <p className="text-spacex-body opacity-60 line-clamp-2 uppercase max-w-xl group-hover:opacity-80 transition-opacity">{room.description}</p>
+                        </div>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (joined) {
+                              navigate(`/room/${room.roomId}`);
+                            } else {
+                              handleJoinRoom(room.roomId);
+                            }
+                          }}
+                          className="btn-ghost shrink-0 hover:scale-105 transform transition-all duration-300"
+                        >
+                          {joined ? 'ENTER ROOM' : 'JOIN ROOM'}
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
