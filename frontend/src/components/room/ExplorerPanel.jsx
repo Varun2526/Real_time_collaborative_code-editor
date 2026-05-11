@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpenTabs, onAddFile, onDeleteFile }) => {
+const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpenTabs, onAddFile, onDeleteFile, onOpenSettings }) => {
   const [isAddingFile, setIsAddingFile] = useState(false);
   const [newFileName, setNewFileName] = useState('');
 
@@ -88,6 +88,17 @@ const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpen
             </div>
           )}
         </div>
+      </div>
+
+      {/* Settings Button Footer */}
+      <div className="p-3 border-t border-[rgba(240,240,250,0.35)]">
+        <button
+          onClick={onOpenSettings}
+          className="w-full bg-[rgba(240,240,250,0.05)] hover:bg-[rgba(240,240,250,0.15)] border border-[rgba(240,240,250,0.35)] text-white px-4 py-2 rounded text-spacex-body flex items-center justify-center gap-2 transition-all"
+        >
+          <span className="material-symbols-outlined">settings</span>
+          SETTINGS
+        </button>
       </div>
     </div>
   );

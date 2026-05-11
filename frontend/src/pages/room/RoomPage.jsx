@@ -14,6 +14,7 @@ import EditorTabs from '../../components/room/EditorTabs';
 import ConsolePanel from '../../components/room/ConsolePanel';
 import ChatPanel from '../../components/room/ChatPanel';
 import ResizeHandle from '../../components/room/ResizeHandle';
+import RoomSettingsModal from '../../components/room/RoomSettingsModal';
 import KodaxLogo from '../../components/KodaxLogo';
 
 // Panel size constraints (px)
@@ -106,6 +107,7 @@ const RoomPage = () => {
   const [showConsole, setShowConsole] = useState(false);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [fileToDelete, setFileToDelete] = useState(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Resizable panel sizes
   const [explorerWidth, setExplorerWidth] = useState(EXPLORER_DEFAULT);
@@ -612,6 +614,63 @@ const RoomPage = () => {
     }
   };
 
+  // --- Room Settings Handlers ---
+
+  const handleUpdateRoom = async (updateData) => {
+    try {
+      console.log('Updating room with data:', updateData);
+      const res = await axios.patch(
+        `${API_URL}/room/${roomId}/settings`,
+        updateData,
+        { withCredentials: true }
+      );
+      console.log('Room updated:', res.data.payload);
+      setRoom(res.data.payload);
+      return res.data.payload;
+    } catch (err) {
+      console.error('Update room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to update room');
+    }
+  };
+
+  const handleLeaveRoom = async () => {
+    try {
+      console.log('Attempting to leave room:', roomId);
+      // Disconnect socket before leaving
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+      const res = await axios.post(`${API_URL}/room/${roomId}/leave`, {}, { withCredentials: true });
+      console.log('Leave room response:', res.data);
+      // Navigate after a short delay to ensure the backend has processed the request
+      setTimeout(() => {
+        navigate('/');
+      }, 300);
+    } catch (err) {
+      console.error('Leave room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to leave room');
+    }
+  };
+
+  const handleDeleteRoom = async () => {
+    try {
+      console.log('Attempting to delete room:', roomId);
+      // Disconnect socket before deleting
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+      const res = await axios.delete(`${API_URL}/room/${roomId}`, { withCredentials: true });
+      console.log('Delete room response:', res.data);
+      // Navigate after a short delay to ensure the backend has processed the request
+      setTimeout(() => {
+        navigate('/');
+      }, 300);
+    } catch (err) {
+      console.error('Delete room error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || 'Failed to delete room');
+    }
+  };
+
   // --- Render ---
 
   if (loading) {
@@ -754,6 +813,7 @@ const RoomPage = () => {
                     setOpenTabs={setOpenTabs}
                     onAddFile={handleAddFile}
                     onDeleteFile={handleDeleteFile}
+                    onOpenSettings={() => setIsSettingsOpen(true)}
                   />
                 )}
                 {activeSidebarTab === 'members' && (
@@ -844,6 +904,17 @@ const RoomPage = () => {
           )}
         </main>
       </div>
+
+      {/* Room Settings Modal */}
+      <RoomSettingsModal
+        isOpen={isSettingsOpen}
+        room={room}
+        onClose={() => setIsSettingsOpen(false)}
+        onUpdateRoom={handleUpdateRoom}
+        onLeaveRoom={handleLeaveRoom}
+        onDeleteRoom={handleDeleteRoom}
+        isOwner={currentUserRole === 'owner'}
+      />
     </div>
   );
 };
