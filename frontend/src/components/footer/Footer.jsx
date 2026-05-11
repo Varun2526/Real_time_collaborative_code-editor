@@ -1,11 +1,7 @@
-import { useState } from 'react';
-import TermsModal from './TermsModal';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
-
   return (
     <footer className="w-full border-t border-[rgba(240,240,250,0.1)] py-8 mt-auto z-10 relative bg-black">
       <div className="max-w-7xl mx-auto px-6 flex flex-col xl:flex-row items-center justify-between gap-8">
@@ -32,8 +28,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </footer>
   );
 };
