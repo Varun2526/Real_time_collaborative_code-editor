@@ -108,7 +108,7 @@ const Dashboard = () => {
         {/* Left Column: Joined Rooms */}
         <section className="flex flex-col">
           <h2 className="text-spacex-nav mb-8 tracking-[2px] opacity-70">JOINED ROOMS</h2>
-          <div className="flex-1 overflow-y-auto custom-scrollbar pr-4">
+          <div className="flex-1 overflow-y-auto custom-scrollbar pr-4 max-h-[500px]">
             {loadingMyRooms ? (
               <div className="text-spacex-body opacity-50 uppercase">Loading telemetry...</div>
             ) : joinedRooms.length === 0 ? (
@@ -148,7 +148,7 @@ const Dashboard = () => {
 
           <div className="flex flex-col">
             <h2 className="text-spacex-nav mb-8 tracking-[2px] opacity-70">AVAILABLE ROOMS</h2>
-            <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <div className="flex-1 overflow-y-auto custom-scrollbar max-h-[500px] pr-2">
               {searchLoading ? (
                 <div className="text-spacex-body opacity-50 uppercase">Scanning frequencies...</div>
               ) : availableRooms.length === 0 ? (
