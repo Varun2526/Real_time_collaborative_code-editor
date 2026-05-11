@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center items-center gap-6">
             <a href="#" className="text-spacex-nav text-white/50 hover:text-white transition-colors">PRIVACY POLICY</a>
             <a href="#" className="text-spacex-nav text-white/50 hover:text-white transition-colors">TERMS OF SERVICE</a>
-            <a href="https://github.com/Varun2526" target="_blank" rel="noreferrer" className="text-spacex-nav text-white/50 hover:text-white transition-colors">GITHUB</a>
+            <a href="https://github.com/Varun2526/Real_time_collaborative_code-editor" target="_blank" rel="noreferrer" className="text-spacex-nav text-white/50 hover:text-white transition-colors">GITHUB</a>
           </div>
           
           <div className="hidden md:block w-px h-4 bg-white/20"></div>
