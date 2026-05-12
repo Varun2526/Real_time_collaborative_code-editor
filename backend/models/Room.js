@@ -119,11 +119,16 @@ const roomSchema = new Schema(
 );
 
 // Full Text Search Index
-roomSchema.index({
-  title: "text",
-  description: "text",
-  language: "text"
-});
+roomSchema.index(
+  {
+    title: "text",
+    description: "text",
+    language: "text"
+  },
+  {
+    language_override: "dummy_lang_field" // prevents MongoDB treating 'language' as a stemming override
+  }
+);
 
 const Room = model("Room", roomSchema);
 
