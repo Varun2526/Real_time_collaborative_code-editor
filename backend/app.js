@@ -14,7 +14,6 @@ app.use(cors({
 ],
   credentials:true
 }))
-
 // Body parser
 app.use(exp.json());
 
