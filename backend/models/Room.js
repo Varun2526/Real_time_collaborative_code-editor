@@ -118,15 +118,11 @@ const roomSchema = new Schema(
   }
 );
 
-// Full Text Search Index
+// Full Text Search Index - language field excluded to avoid MongoDB's reserved 'language' stemming directive conflict
 roomSchema.index(
   {
     title: "text",
-    description: "text",
-    language: "text"
-  },
-  {
-    language_override: "dummy_lang_field" // prevents MongoDB treating 'language' as a stemming override
+    description: "text"
   }
 );
 
