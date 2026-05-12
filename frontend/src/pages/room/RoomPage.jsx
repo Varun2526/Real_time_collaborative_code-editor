@@ -28,8 +28,8 @@ const CONSOLE_MIN = 80;
 const CONSOLE_MAX = 400;
 const CONSOLE_DEFAULT = 200;
 
-const API_URL = 'http://localhost:4000/api';
-const SOCKET_URL = 'http://localhost:4000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:4000';
 
 const SUPPORTED_LANGUAGES = [
   "javascript", "python", "java", "c++", "c", "ruby", "go", "php"

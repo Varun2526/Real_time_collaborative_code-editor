@@ -6,7 +6,7 @@ import CreateRoomModal from '../../components/create-room/CreateRoomModal';
 import RoomDetailsModal from '../../components/dashboard/RoomDetailsModal';
 import Footer from '../../components/footer/Footer';
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
 const Dashboard = () => {
   const [joinedRooms, setJoinedRooms] = useState([]);

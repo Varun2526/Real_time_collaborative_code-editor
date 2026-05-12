@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import KodaxLogo from '../../components/KodaxLogo';
 import Footer from '../../components/footer/Footer';
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
 function Register() {
   const navigate = useNavigate();
