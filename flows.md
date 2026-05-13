@@ -1,8 +1,22 @@
-# KodaX — Internal System Flows
+# KodaX — System Flows Reference
 
-> Developer reference documenting the logic flow behind every backend operation.
+> Internal developer documentation detailing the exact logic flow behind every backend operation, real-time event, and data transformation.
+> 
+> Refer to this document when debugging, extending, or reviewing backend logic.
 
 ---
+
+## 📖 Table of Contents
+
+- [Authentication Flows](#-authentication-flows)
+- [Room Management Flows](#-room-management-flows)
+- [Advanced Administration Flows](#️-advanced-room-administration-flows)
+- [Chat Flow](#-chat-flow)
+- [Code Sync Flow](#-code-sync-flow)
+- [Code Execution Flow](#️-code-execution-flow-jdoodle)
+- [Presence & Cursor Flow](#️-presence--cursor-flow)
+- [Architecture Diagrams](#-architecture-diagrams)
+
 
 ## 🔐 Authentication Flows
 
