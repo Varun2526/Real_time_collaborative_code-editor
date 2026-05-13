@@ -22,16 +22,19 @@ A premium, highly-scalable **real-time collaborative code editor** that lets mul
 ## 📸 Screenshots
 
 ### 🔐 Login
-![KodaX Login Page](./docs/screenshots/login.png)
+![KodaX Login Page](./docs/screenshots/login.jpeg)
 
 ### 📝 Register
-![KodaX Register Page](./docs/screenshots/register.png)
+![KodaX Register Page](./docs/screenshots/register.jpeg)
 
 ### 🏠 Dashboard
-![KodaX Dashboard](./docs/screenshots/dashboard.png)
+![KodaX Dashboard](./docs/screenshots/dashboard.jpeg)
 
 ### 🖥️ Room Editor
-![KodaX Room Editor](./docs/screenshots/room-editor.png)
+![KodaX Room Editor](./docs/screenshots/room-editor.jpeg)
+
+### Create Room
+![KodaX Room Create](./docs/screenshots/create-room.jpeg)
 
 ---
 
