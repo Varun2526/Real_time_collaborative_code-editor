@@ -209,6 +209,7 @@ Looking for something to work on? Here are great starting points:
 - Add a members online/offline indicator in the Members panel
 - Add file rename functionality to the Explorer panel
 - Add keyboard shortcuts (e.g., `Ctrl+Enter` to run code)
+- ADD END-END ENCRYPTION TO IN ROOM CHATS
 
 ### 🔴 Advanced
 - Implement Yjs/CRDT for true conflict-free real-time code sync
