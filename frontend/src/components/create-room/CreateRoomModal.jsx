@@ -56,7 +56,7 @@ const CreateRoomModal = ({ onClose, onSuccess }) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
-      <div className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-2xl flex flex-col font-body-base overflow-hidden relative">
+      <div className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-2xl flex flex-col font-body-base overflow-y-auto max-h-[90vh] relative rounded-2xl custom-scrollbar">
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 p-2 text-white/50 hover:text-white transition-colors z-10"
@@ -64,9 +64,9 @@ const CreateRoomModal = ({ onClose, onSuccess }) => {
           <span className="material-symbols-outlined text-[24px]">close</span>
         </button>
 
-        <div className="p-10">
-          <h2 className="text-spacex-hero text-center mb-10">INITIALIZE NEW ROOM</h2>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-8 max-w-xl mx-auto">
+        <div className="p-6 sm:p-10">
+          <h2 className="text-spacex-hero text-center mb-6 sm:mb-10 text-xl sm:text-2xl tracking-[1.5px]">INITIALIZE NEW ROOM</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-8 max-w-xl mx-auto">
             {error && <div className="text-[#ff3333] border border-[#ff3333] bg-[#ff3333]/10 p-4 text-spacex-nav text-center">{error}</div>}
             
             <div className="flex flex-col gap-2">

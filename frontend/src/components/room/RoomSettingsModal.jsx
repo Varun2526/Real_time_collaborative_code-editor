@@ -105,10 +105,10 @@ const RoomSettingsModal = ({ isOpen, room, onClose, onUpdateRoom, onLeaveRoom, o
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-black border border-[rgba(240,240,250,0.35)] rounded-lg w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-black border border-[rgba(240,240,250,0.35)] rounded-2xl w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.8)]">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-[rgba(240,240,250,0.35)]">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[rgba(240,240,250,0.35)]">
           <h2 className="text-spacex-nav text-white">Room Settings</h2>
           <button
             onClick={onClose}
@@ -143,7 +143,7 @@ const RoomSettingsModal = ({ isOpen, room, onClose, onUpdateRoom, onLeaveRoom, o
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
           {error && (
             <div className="mb-4 p-3 bg-[rgba(255,50,50,0.1)] border border-red-500/50 rounded text-red-400 text-spacex-body">
               {error}

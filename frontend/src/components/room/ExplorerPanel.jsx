@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
-const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpenTabs, onAddFile, onDeleteFile, onOpenSettings }) => {
+const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpenTabs, onAddFile, onDeleteFile, onOpenSettings, onFileSelectedMobile }) => {
   const [isAddingFile, setIsAddingFile] = useState(false);
   const [newFileName, setNewFileName] = useState('');
+  const [activeDeleteId, setActiveDeleteId] = useState(null);
 
   const handleFileClick = (fileId) => {
     setActiveFileId(fileId);
     // Add to open tabs if not already open
     setOpenTabs(prev => prev.includes(fileId) ? prev : [...prev, fileId]);
+    setActiveDeleteId(null);
+    onFileSelectedMobile?.();
   };
 
   const handleNewFileInputKeyDown = (e) => {
@@ -48,25 +51,52 @@ const ExplorerPanel = ({ files, activeFileId, setActiveFileId, openTabs, setOpen
             <div
               key={f.id}
               onClick={() => handleFileClick(f.id)}
+              onDoubleClick={(e) => {
+                e.stopPropagation();
+                if (files.length > 1) {
+                  setActiveDeleteId(f.id);
+                }
+              }}
               className={`group flex items-center justify-between gap-2 px-2 py-2 cursor-pointer transition-colors ${
                 activeFileId === f.id
                   ? 'bg-[rgba(240,240,250,0.1)] text-white'
                   : 'text-white/70 hover:bg-[rgba(240,240,250,0.05)]'
               }`}
             >
-              <div className="flex items-center gap-2">
-                <span className={`material-symbols-outlined ${activeFileId === f.id ? 'text-white' : 'text-white/50'}`}>
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <span className={`material-symbols-outlined shrink-0 ${activeFileId === f.id ? 'text-white' : 'text-white/50'}`}>
                   description
                 </span>
-                <span className="text-spacex-body uppercase">{f.name}</span>
+                <span className="text-spacex-body uppercase truncate">{f.name}</span>
               </div>
-              {files.length > 1 && (
-                <span
-                  onClick={(e) => { e.stopPropagation(); onDeleteFile(f.id); }}
-                  className="material-symbols-outlined scale-75 opacity-0 group-hover:opacity-100 hover:text-[#ff3333] transition-opacity cursor-pointer"
-                >
-                  close
-                </span>
+              {activeDeleteId === f.id ? (
+                <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    onClick={() => {
+                      onDeleteFile(f.id);
+                      setActiveDeleteId(null);
+                    }}
+                    className="text-[10px] font-bold text-[#ff3333] bg-[#ff3333]/10 border border-[#ff3333]/30 hover:bg-[#ff3333]/20 px-2 py-0.5 rounded cursor-pointer transition-colors"
+                  >
+                    DELETE
+                  </button>
+                  <button
+                    onClick={() => setActiveDeleteId(null)}
+                    className="text-[10px] text-white/40 hover:text-white/80 px-1 py-0.5 cursor-pointer"
+                  >
+                    CANCEL
+                  </button>
+                </div>
+              ) : (
+                files.length > 1 && (
+                  <span
+                    onClick={(e) => { e.stopPropagation(); setActiveDeleteId(f.id); }}
+                    className="material-symbols-outlined scale-75 opacity-0 group-hover:opacity-100 hover:text-[#ff3333] transition-opacity cursor-pointer"
+                    title="Delete File"
+                  >
+                    close
+                  </span>
+                )
               )}
             </div>
           ))}

@@ -55,6 +55,10 @@
     --bg-hover: rgba(240, 240, 250, 0.1);
     --bg-ghost-hover: rgba(240, 240, 250, 0.2);
     --scrollbar-thumb: rgba(240, 240, 250, 0.35);
+    --card-bg: rgba(255, 255, 255, 0.035);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-bg-strong: rgba(255, 255, 255, 0.08);
+    --card-tag-bg: rgba(255, 255, 255, 0.04);
   }
 
   .light {
@@ -65,6 +69,10 @@
     --bg-hover: rgba(0, 0, 0, 0.1);
     --bg-ghost-hover: rgba(0, 0, 0, 0.2);
     --scrollbar-thumb: rgba(0, 0, 0, 0.35);
+    --card-bg: rgba(0, 0, 0, 0.05);
+    --card-border: rgba(0, 0, 0, 0.12);
+    --card-bg-strong: rgba(0, 0, 0, 0.07);
+    --card-tag-bg: rgba(0, 0, 0, 0.06);
   }
   
   /* Light theme overrides for hardcoded Tailwind classes */
@@ -94,6 +102,14 @@
   .light .hover\:border-white:hover { border-color: var(--text-hover) !important; }
   .light .focus\:border-white:focus { border-color: var(--text-hover) !important; }
   .light .hover\:\!text-\[\#0077b5\]:hover { color: #0077b5 !important; }
+  .light .text-white\/60 { color: color-mix(in srgb, var(--text-hover) 60%, transparent) !important; }
+  .light .text-white\/65 { color: color-mix(in srgb, var(--text-hover) 65%, transparent) !important; }
+  .light .auth-overlay { background-color: transparent !important; }
+  .light .fill-white { fill: var(--text-primary) !important; }
+  .light #terms:checked {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+  }
 
   body {
     background-color: var(--bg-primary);
@@ -155,15 +171,22 @@
   .btn-ghost {
     background-color: var(--bg-hover);
     color: var(--text-primary);
-    padding: 18px 32px;
+    padding: 10px 20px;
+    font-size: 11px;
     border-radius: 32px;
     border: 1px solid var(--border-primary);
     text-transform: uppercase;
     font-family: "Barlow", sans-serif;
     font-weight: 700;
     letter-spacing: 1.17px;
-    font-size: 13px;
     transition: all 0.2s ease-in-out;
+  }
+
+  @media (min-width: 768px) {
+    .btn-ghost {
+      padding: 18px 32px;
+      font-size: 13px;
+    }
   }
 
   .btn-ghost:hover {
@@ -234,10 +257,162 @@
   background: transparent;
 }
 
-/* Policy page: force inherited text color so content remains readable in light mode */
-.policy-override, .policy-override * {
-  color: var(--text-primary) !important;
+/* Policy page theme-aware card utilities */
+.policy-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+.light .policy-card {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06) !important;
+}
+.light .policy-card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.09) !important;
+}
+
+.policy-card-highlighted {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.light .policy-card-highlighted {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06) !important;
+}
+.light .policy-card-highlighted:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.09) !important;
+}
+
+.policy-aside {
+  background: linear-gradient(to bottom right, var(--card-bg-strong), transparent);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+.light .policy-aside {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06) !important;
+}
+.policy-tag {
+  background-color: var(--card-tag-bg);
+  border: 1px solid var(--card-border);
+}
+.policy-override {
+  color: var(--text-primary);
 }
 .code-editor-bg {
   background: var(--bg-primary);
 }
+
+/* Light theme overrides for Editor Tabs */
+.light .editor-tabs-bar {
+  background-color: #e4e4ed !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.light .editor-tab-inactive {
+  background-color: #d1d1db !important;
+  color: rgba(0, 0, 0, 0.5) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.light .editor-tab-inactive:hover {
+  color: rgba(0, 0, 0, 0.8) !important;
+  background-color: #dcdce6 !important;
+}
+.light .editor-tab-active {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-top-color: #000000 !important;
+  border-bottom-color: #ffffff !important;
+}
+.light .editor-tabs-bar .material-symbols-outlined {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+.light .editor-tab-active .material-symbols-outlined {
+  color: #000000 !important;
+}
+
+/* Light theme overrides for Console Panel */
+.light .console-panel {
+  background-color: #e4e4ed !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+.light .console-header {
+  background-color: #e4e4ed !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.light .console-header .console-title {
+  color: #000000 !important;
+}
+.light .console-header .console-tab-btn-active {
+  color: #000000 !important;
+}
+.light .console-header .console-tab-btn-inactive {
+  color: rgba(0, 0, 0, 0.45) !important;
+}
+.light .console-header .console-tab-btn-inactive:hover {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.light .console-header .console-expand-icon,
+.light .console-header .console-clear-icon {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+.light .console-header .console-expand-icon:hover,
+.light .console-header .console-clear-icon:hover {
+  color: #000000 !important;
+}
+.light .console-content,
+.light .console-output,
+.light .console-input {
+  background-color: #ffffff !important;
+}
+.light .console-textarea {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+.light .console-textarea::placeholder {
+  color: rgba(0, 0, 0, 0.35) !important;
+}
+.light .console-output {
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+.light .console-output .text-white\/30 {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+.light .console-output .text-white\/70 {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+.light .console-output .text-white {
+  color: #000000 !important;
+  font-weight: 600;
+}
+.light .console-output .text-\[\#ff3333\] {
+  color: #d32f2f !important;
+}
+.console-tab-btn-active {
+  color: #ffffff !important;
+}
+.console-tab-btn-inactive {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+.console-tab-btn-inactive:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.console-dot-active {
+  background-color: #ffffff !important;
+}
+.console-dot-inactive {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.light .console-header .console-dot-active {
+  background-color: #000000 !important;
+}
+.light .console-header .console-dot-inactive {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}

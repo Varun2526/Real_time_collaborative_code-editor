@@ -80,6 +80,29 @@ const RoomPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Mobile responsiveness state
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [mobileActiveTab, setMobileActiveTab] = useState('editor'); // 'explorer', 'editor', 'console', 'members', 'chat'
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Light/dark mode detection — mirrors body.classList toggled by Navbar
+  const [isLightMode, setIsLightMode] = useState(() => document.body.classList.contains('light'));
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsLightMode(document.body.classList.contains('light'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+
   // Editor and Socket State
   const socketRef = useRef(null);
   const [files, setFiles] = useState([]);
@@ -88,6 +111,7 @@ const RoomPage = () => {
   const [messages, setMessages] = useState([]);
   const [chatInput, setChatInput] = useState('');
   const [consoleOutput, setConsoleOutput] = useState([]);
+  const [stdin, setStdin] = useState('');
   const [copied, setCopied] = useState(false);
   const [activeMembers, setActiveMembers] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -105,6 +129,7 @@ const RoomPage = () => {
   const [activeSidebarTab, setActiveSidebarTab] = useState('explorer');
   const [showChat, setShowChat] = useState(false);
   const [showConsole, setShowConsole] = useState(false);
+  const [consoleTab, setConsoleTab] = useState('output');
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [fileToDelete, setFileToDelete] = useState(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -331,15 +356,17 @@ const RoomPage = () => {
 
   // Track unread messages when chat is closed
   useEffect(() => {
-    if (!showChat && messages.length > 0) {
+    const isChatClosed = isMobile ? (mobileActiveTab !== 'chat') : !showChat;
+    if (isChatClosed && messages.length > 0) {
       setUnreadMessages(prev => prev + 1);
     }
-  }, [messages.length]);
+  }, [messages.length, isMobile, mobileActiveTab, showChat]);
 
   // Clear unread when chat opens
   useEffect(() => {
-    if (showChat) setUnreadMessages(0);
-  }, [showChat]);
+    const isChatOpen = isMobile ? (mobileActiveTab === 'chat') : showChat;
+    if (isChatOpen) setUnreadMessages(0);
+  }, [showChat, isMobile, mobileActiveTab]);
 
   // Derived state
   const activeFile = files.find(f => f.id === activeFileId);
@@ -434,6 +461,17 @@ const RoomPage = () => {
 
   // --- Handlers ---
 
+
+  // Custom light theme — inherits all vs (light) syntax colours, just darkens the canvas
+  const handleEditorBeforeMount = (monaco) => {
+    monaco.editor.defineTheme('kodax-light', {
+      base: 'vs',
+      inherit: true,
+      rules: [],
+      colors: { 'editor.background': '#d8d8e4' },
+    });
+  };
+
   const handleEditorMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
@@ -492,8 +530,9 @@ const RoomPage = () => {
   const handleRunCode = () => {
     if (!activeFile) return;
     setShowConsole(true);
+    setConsoleTab('output');  // always switch to output tab on execute
     setConsoleOutput(prev => [...prev, { time: new Date().toLocaleTimeString(), msg: 'Submitting to execution engine...', type: 'info' }]);
-    socketRef.current?.emit('run_code', { roomId, code: activeFile.code, language: activeFile.language });
+    socketRef.current?.emit('run_code', { roomId, code: activeFile.code, language: activeFile.language, stdin });
   };
 
   const handleSendMessage = (e) => {
@@ -810,118 +849,329 @@ const RoomPage = () => {
         }
       />
       
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        {/* Content Area — full width */}
-        <main className="flex-1 flex overflow-hidden">
-          {/* Left Panel: Explorer or Members */}
-          {showLeftPanel && (
-            <>
-              <section
-                style={{ width: explorerWidth }}
-                className="bg-black border-r border-[rgba(240,240,250,0.35)] flex flex-col shrink-0"
-              >
-                {activeSidebarTab === 'explorer' && (
-                  <ExplorerPanel
-                    files={files}
-                    activeFileId={activeFileId}
-                    setActiveFileId={setActiveFileId}
-                    openTabs={openTabs}
-                    setOpenTabs={setOpenTabs}
-                    onAddFile={handleAddFile}
-                    onDeleteFile={handleDeleteFile}
-                    onOpenSettings={() => setIsSettingsOpen(true)}
-                  />
-                )}
-                {activeSidebarTab === 'members' && (
-                  <MembersPanel
-                    activeMembers={activeMembers}
-                    currentUserId={currentUserId}
-                    currentUserRole={currentUserRole}
-                    onMemberAction={handleMemberAction}
-                    pendingRequests={pendingRequests}
-                    onApproveRequest={handleApproveRequest}
-                    onRejectRequest={handleRejectRequest}
-                  />
-                )}
-              </section>
-              {/* Drag handle: Explorer ↔ Editor */}
-              <ResizeHandle direction="horizontal" onResize={handleExplorerResize} />
-            </>
-          )}
-          
-          {/* Center: Editor + Console */}
-          <section className="flex-1 flex flex-col relative overflow-hidden bg-black">
-            {/* Editor Tabs */}
-            <EditorTabs
-              files={files}
-              openTabs={openTabs}
-              activeFileId={activeFileId}
-              setActiveFileId={setActiveFileId}
-              onCloseTab={handleCloseTab}
-            />
+      {isMobile ? (
+        <div className="flex flex-1 flex-col min-h-0 overflow-hidden pb-16 relative">
+          {/* Mobile Content Panes */}
+          <div className="flex-1 min-h-0 relative bg-black flex flex-col">
+            {mobileActiveTab === 'explorer' && (
+              <ExplorerPanel
+                files={files}
+                activeFileId={activeFileId}
+                setActiveFileId={setActiveFileId}
+                openTabs={openTabs}
+                setOpenTabs={setOpenTabs}
+                onAddFile={handleAddFile}
+                onDeleteFile={handleDeleteFile}
+                onOpenSettings={() => setIsSettingsOpen(true)}
+                onFileSelectedMobile={() => setMobileActiveTab('editor')}
+              />
+            )}
             
-            {/* Monaco Editor */}
-            <div className="flex-1 min-h-0 bg-black relative overflow-hidden">
-              {activeFile ? (
-                <Editor
-                  key={activeFile.id}
-                  height="100%"
-                  language={activeFile.language}
-                  theme="vs-dark"
-                  value={activeFile.code}
-                  onChange={handleEditorChange}
-                  onMount={handleEditorMount}
-                  options={{
-                    minimap: { enabled: false },
-                    fontSize: 14,
-                    fontFamily: 'JetBrains Mono, monospace',
-                    padding: { top: 16 },
-                    scrollBeyondLastLine: false,
-                    smoothScrolling: true,
-                    cursorBlinking: "smooth",
-                    cursorSmoothCaretAnimation: "on",
-                    readOnly: isReadOnly,
-                    domReadOnly: isReadOnly
-                  }}
-                />
-              ) : (
-                <div className="h-full w-full flex items-center justify-center text-white/30 text-spacex-nav">
-                  SELECT OR CREATE A FILE TO START
-                </div>
-              )}
-            </div>
-            
-            {/* Console Panel — drag the header bar to resize */}
-            <ConsolePanel
-              consoleOutput={consoleOutput}
-              showConsole={showConsole}
-              setShowConsole={setShowConsole}
-              onClear={() => setConsoleOutput([])}
-              height={consoleHeight}
-              onResize={handleConsoleResize}
-            />
-          </section>
-          
-          {/* Drag handle: Editor ↔ Chat */}
-          {showChat && (
-            <div className="hidden lg:flex flex-col">
-              <ResizeHandle direction="horizontal" onResize={handleChatResize} />
-            </div>
-          )}
+            {mobileActiveTab === 'members' && (
+              <MembersPanel
+                activeMembers={activeMembers}
+                currentUserId={currentUserId}
+                currentUserRole={currentUserRole}
+                onMemberAction={handleMemberAction}
+                pendingRequests={pendingRequests}
+                onApproveRequest={handleApproveRequest}
+                onRejectRequest={handleRejectRequest}
+              />
+            )}
 
-          {/* Right: Chat Panel */}
-          {showChat && (
-            <ChatPanel
-              messages={messages}
-              chatInput={chatInput}
-              setChatInput={setChatInput}
-              onSendMessage={handleSendMessage}
-              width={chatWidth}
-              onClose={() => setShowChat(false)}
-            />
-          )}
-        </main>
-      </div>
+            {mobileActiveTab === 'chat' && (
+              <ChatPanel
+                messages={messages}
+                chatInput={chatInput}
+                setChatInput={setChatInput}
+                onSendMessage={handleSendMessage}
+                width="100%"
+                onClose={null}
+              />
+            )}
+
+            {mobileActiveTab === 'console' && (
+              <div className="flex-1 flex flex-col h-full overflow-hidden">
+                <ConsolePanel
+                  consoleOutput={consoleOutput}
+                  showConsole={true}
+                  setShowConsole={() => {}}
+                  onClear={() => setConsoleOutput([])}
+                  height="100%"
+                  onResize={null}
+                  stdin={stdin}
+                  setStdin={setStdin}
+                  activeTab={consoleTab}
+                  setActiveTab={setConsoleTab}
+                />
+              </div>
+            )}
+
+            {mobileActiveTab === 'editor' && (
+              <div className="flex-1 flex flex-col min-h-0 bg-black overflow-hidden relative">
+                {/* Mobile Editor Action Toolbar */}
+                {activeFile && (
+                  <div className="flex items-center justify-between gap-2 p-2 border-b border-[rgba(240,240,250,0.15)] bg-black shrink-0 select-none">
+                    <div className="relative">
+                      <select 
+                        value={activeFile.language} 
+                        onChange={handleLanguageChange}
+                        disabled={isReadOnly}
+                        className={`bg-transparent text-spacex-nav border-b border-[rgba(240,240,250,0.35)] pl-2 pr-6 py-1 outline-none cursor-pointer uppercase appearance-none text-[11px] ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      >
+                        {SUPPORTED_LANGUAGES.map(lang => (
+                          <option key={lang} value={lang} className="bg-black text-white">{lang}</option>
+                        ))}
+                      </select>
+                      <span className="material-symbols-outlined absolute right-1 top-1/2 -translate-y-1/2 text-white/50 text-[12px] pointer-events-none">
+                        keyboard_arrow_down
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      {isReadOnly && (
+                        <span className="text-[9px] font-bold text-white/50 border border-white/20 px-2 py-0.5 rounded">VIEW ONLY</span>
+                      )}
+                      <button 
+                        onClick={handleRunCode} 
+                        disabled={isReadOnly}
+                        className={`text-spacex-nav border border-[rgba(240,240,250,0.35)] px-2.5 py-1 text-[11px] hover:bg-white hover:text-black transition-colors flex items-center gap-1 ${isReadOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      >
+                        <span className="material-symbols-outlined text-[13px]">play_arrow</span>
+                        RUN
+                      </button>
+                      <button onClick={handleShare} className="text-spacex-nav border border-[rgba(240,240,250,0.35)] px-2.5 py-1 text-[11px] hover:bg-white hover:text-black transition-colors flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[13px]">{copied ? 'check' : 'share'}</span>
+                        {copied ? 'COPIED' : 'SHARE'}
+                      </button>
+                      <button onClick={handleDownloadWorkspace} className="text-spacex-nav border border-[rgba(240,240,250,0.35)] px-2.5 py-1 text-[11px] hover:bg-white hover:text-black transition-colors flex items-center gap-1" title="Download workspace as ZIP">
+                        <span className="material-symbols-outlined text-[13px]">download</span>
+                        ZIP
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <EditorTabs
+                  files={files}
+                  openTabs={openTabs}
+                  activeFileId={activeFileId}
+                  setActiveFileId={setActiveFileId}
+                  onCloseTab={handleCloseTab}
+                />
+
+              <div className={`flex-1 min-h-0 relative overflow-hidden ${isLightMode ? 'bg-[#d8d8e4]' : 'bg-black'}`}>
+                  {activeFile ? (
+                    <Editor
+                      key={activeFile.id}
+                      height="100%"
+                      language={activeFile.language}
+                      theme={isLightMode ? 'kodax-light' : 'vs-dark'}
+                      beforeMount={handleEditorBeforeMount}
+                      value={activeFile.code}
+                      onChange={handleEditorChange}
+                      onMount={handleEditorMount}
+                      options={{
+                        minimap: { enabled: false },
+                        fontSize: 13,
+                        fontFamily: 'JetBrains Mono, monospace',
+                        padding: { top: 12 },
+                        scrollBeyondLastLine: false,
+                        smoothScrolling: true,
+                        cursorBlinking: "smooth",
+                        cursorSmoothCaretAnimation: "on",
+                        readOnly: isReadOnly,
+                        domReadOnly: isReadOnly
+                      }}
+                    />
+                  ) : (
+                    <div className="h-full w-full flex items-center justify-center text-white/30 text-spacex-nav text-xs text-center p-4">
+                      SELECT OR CREATE A FILE IN FILES TAB
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Premium Bottom Navigation Tab Bar for Mobile */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-black border-t border-[rgba(240,240,250,0.2)] flex items-center justify-around z-40">
+            <button
+              onClick={() => setMobileActiveTab('explorer')}
+              className={`flex flex-col items-center justify-center gap-1 w-12 h-12 transition-all ${
+                mobileActiveTab === 'explorer' ? 'text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">folder_open</span>
+              <span className="text-[9px] font-bold tracking-wider">FILES</span>
+            </button>
+
+            <button
+              onClick={() => setMobileActiveTab('editor')}
+              className={`flex flex-col items-center justify-center gap-1 w-12 h-12 transition-all ${
+                mobileActiveTab === 'editor' ? 'text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">code</span>
+              <span className="text-[9px] font-bold tracking-wider">CODE</span>
+            </button>
+
+            <button
+              onClick={() => setMobileActiveTab('console')}
+              className={`flex flex-col items-center justify-center gap-1 w-12 h-12 transition-all ${
+                mobileActiveTab === 'console' ? 'text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">terminal</span>
+              <span className="text-[9px] font-bold tracking-wider">LOGS</span>
+            </button>
+
+            <button
+              onClick={() => setMobileActiveTab('members')}
+              className={`flex flex-col items-center justify-center gap-1 w-12 h-12 transition-all ${
+                mobileActiveTab === 'members' ? 'text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">groups</span>
+              <span className="text-[9px] font-bold tracking-wider">CREW</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileActiveTab('chat');
+                setUnreadMessages(0);
+              }}
+              className={`relative flex flex-col items-center justify-center gap-1 w-12 h-12 transition-all ${
+                mobileActiveTab === 'chat' ? 'text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">chat</span>
+              <span className="text-[9px] font-bold tracking-wider">CHAT</span>
+              {unreadMessages > 0 && mobileActiveTab !== 'chat' && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full border border-black animate-pulse" />
+              )}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          {/* Content Area — full width */}
+          <main className="flex-1 flex overflow-hidden">
+            {/* Left Panel: Explorer or Members */}
+            {showLeftPanel && (
+              <>
+                <section
+                  style={{ width: explorerWidth }}
+                  className="bg-black border-r border-[rgba(240,240,250,0.35)] flex flex-col shrink-0"
+                >
+                  {activeSidebarTab === 'explorer' && (
+                    <ExplorerPanel
+                      files={files}
+                      activeFileId={activeFileId}
+                      setActiveFileId={setActiveFileId}
+                      openTabs={openTabs}
+                      setOpenTabs={setOpenTabs}
+                      onAddFile={handleAddFile}
+                      onDeleteFile={handleDeleteFile}
+                      onOpenSettings={() => setIsSettingsOpen(true)}
+                    />
+                  )}
+                  {activeSidebarTab === 'members' && (
+                    <MembersPanel
+                      activeMembers={activeMembers}
+                      currentUserId={currentUserId}
+                      currentUserRole={currentUserRole}
+                      onMemberAction={handleMemberAction}
+                      pendingRequests={pendingRequests}
+                      onApproveRequest={handleApproveRequest}
+                      onRejectRequest={handleRejectRequest}
+                    />
+                  )}
+                </section>
+                {/* Drag handle: Explorer ↔ Editor */}
+                <ResizeHandle direction="horizontal" onResize={handleExplorerResize} />
+              </>
+            )}
+            
+            {/* Center: Editor + Console */}
+            <section className="flex-1 flex flex-col relative overflow-hidden bg-black">
+              {/* Editor Tabs */}
+              <EditorTabs
+                files={files}
+                openTabs={openTabs}
+                activeFileId={activeFileId}
+                setActiveFileId={setActiveFileId}
+                onCloseTab={handleCloseTab}
+              />
+              
+              {/* Monaco Editor */}
+              <div className={`flex-1 min-h-0 relative overflow-hidden ${isLightMode ? 'bg-[#d8d8e4]' : 'bg-black'}`}>
+                {activeFile ? (
+                  <Editor
+                    key={activeFile.id}
+                    height="100%"
+                    language={activeFile.language}
+                    theme={isLightMode ? 'kodax-light' : 'vs-dark'}
+                    beforeMount={handleEditorBeforeMount}
+                    value={activeFile.code}
+                    onChange={handleEditorChange}
+                    onMount={handleEditorMount}
+                    options={{
+                      minimap: { enabled: false },
+                      fontSize: 14,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      padding: { top: 16 },
+                      scrollBeyondLastLine: false,
+                      smoothScrolling: true,
+                      cursorBlinking: "smooth",
+                      cursorSmoothCaretAnimation: "on",
+                      readOnly: isReadOnly,
+                      domReadOnly: isReadOnly
+                    }}
+                  />
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center text-white/30 text-spacex-nav">
+                    SELECT OR CREATE A FILE TO START
+                  </div>
+                )}
+              </div>
+              
+              {/* Console Panel — drag the header bar to resize */}
+              <ConsolePanel
+                consoleOutput={consoleOutput}
+                showConsole={showConsole}
+                setShowConsole={setShowConsole}
+                onClear={() => setConsoleOutput([])}
+                height={consoleHeight}
+                onResize={handleConsoleResize}
+                stdin={stdin}
+                setStdin={setStdin}
+                activeTab={consoleTab}
+                setActiveTab={setConsoleTab}
+              />
+            </section>
+            
+            {/* Drag handle: Editor ↔ Chat */}
+            {showChat && (
+              <div className="hidden lg:flex flex-col">
+                <ResizeHandle direction="horizontal" onResize={handleChatResize} />
+              </div>
+            )}
+
+            {/* Right: Chat Panel */}
+            {showChat && (
+              <ChatPanel
+                messages={messages}
+                chatInput={chatInput}
+                setChatInput={setChatInput}
+                onSendMessage={handleSendMessage}
+                width={chatWidth}
+                onClose={() => setShowChat(false)}
+              />
+            )}
+          </main>
+        </div>
+      )}
 
       {/* Room Settings Modal */}
       <RoomSettingsModal

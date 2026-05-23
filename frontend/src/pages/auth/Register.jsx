@@ -43,7 +43,7 @@ function Register() {
   return (
     <div className="min-h-screen relative flex flex-col font-body-base bg-black">
       {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+      <div className="absolute inset-0 bg-black/60 z-0 auth-overlay"></div>
 
       <div className="flex-1 flex flex-col items-center justify-center w-full relative z-10 px-6 py-20">
         <div className="w-full max-w-md flex flex-col">
@@ -104,7 +104,15 @@ function Register() {
               className="w-5 h-5 rounded-none bg-transparent border border-[rgba(240,240,250,0.35)] text-white focus:ring-0 focus:ring-offset-0 appearance-none checked:bg-white checked:border-white"
             />
             <label htmlFor="terms" className="text-spacex-micro opacity-70">
-              I AGREE TO THE <span className="text-white underline underline-offset-2">TERMS & CONDITIONS</span>
+              I AGREE TO THE{' '}
+              <Link
+                to="/terms-conditions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white underline underline-offset-2 hover:opacity-80 transition-opacity uppercase font-bold"
+              >
+                TERMS & CONDITIONS
+              </Link>
             </label>
           </div>
 

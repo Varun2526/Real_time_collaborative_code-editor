@@ -15,7 +15,7 @@ const JDOODLE_LANGUAGE_MAP = {
 export const runCodeHandler = (io, socket) => {
   socket.on("run_code", async (data) => {
     try {
-      const { roomId, code, language } = data;
+      const { roomId, code, language, stdin } = data;
       if (!roomId) return;
 
       const room = await Room.findOne({ roomId });
@@ -51,6 +51,7 @@ export const runCodeHandler = (io, socket) => {
         clientId: clientId,
         clientSecret: clientSecret,
         script: code || "",
+        stdin: stdin || "",
         language: jdoodleConfig.language,
         versionIndex: jdoodleConfig.versionIndex
       });

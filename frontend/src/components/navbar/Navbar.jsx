@@ -14,10 +14,17 @@ const Navbar = ({ leftContent, centerContent, rightContent, onOpenCreateRoom }) 
   });
 
   useEffect(() => {
+    const favicon = document.querySelector("link[rel~='icon']");
     if (theme === 'light') {
       document.body.classList.add('light');
+      if (favicon) {
+        favicon.href = "/favicon-light.svg?v=3";
+      }
     } else {
       document.body.classList.remove('light');
+      if (favicon) {
+        favicon.href = "/favicon-dark.svg?v=3";
+      }
     }
     localStorage.setItem('theme', theme);
   }, [theme]);

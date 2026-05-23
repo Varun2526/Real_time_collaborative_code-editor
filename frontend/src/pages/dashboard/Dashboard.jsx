@@ -109,7 +109,7 @@ const Dashboard = () => {
       
       <Navbar onOpenCreateRoom={() => setIsCreateModalOpen(true)} />
       
-      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-6 pt-32 pb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 w-full">
+      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-6 pt-24 md:pt-32 pb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 w-full">
         
         {/* Left Column: Joined Rooms */}
         <section className="flex flex-col">
