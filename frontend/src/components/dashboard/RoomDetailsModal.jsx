@@ -6,7 +6,7 @@ const RoomDetailsModal = ({ room, onClose, onAction }) => {
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div 
-        className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-lg flex flex-col font-body-base overflow-hidden relative p-8 gap-6 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]" 
+        className="bg-black border border-[rgba(240,240,250,0.35)] w-full max-w-lg flex flex-col font-body-base overflow-y-auto max-h-[90vh] custom-scrollbar relative p-6 sm:p-8 gap-4 sm:gap-6 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]" 
         onClick={(e) => e.stopPropagation()}
       >
         <button 

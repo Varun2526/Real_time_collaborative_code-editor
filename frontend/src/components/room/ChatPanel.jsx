@@ -10,7 +10,9 @@ const ChatPanel = ({ messages, chatInput, setChatInput, onSendMessage, width = 2
   return (
     <section
       style={{ width }}
-      className="bg-black border-l border-[rgba(240,240,250,0.35)] flex flex-col shrink-0 h-full absolute lg:relative right-0 top-0 z-50 lg:z-auto shadow-2xl lg:shadow-none"
+      className={`bg-black flex flex-col shrink-0 h-full border-t md:border-t-0 border-[rgba(240,240,250,0.35)] shadow-2xl md:shadow-none ${
+        width === '100%' ? 'relative w-full' : 'absolute md:relative right-0 top-0 border-l z-50 md:z-auto'
+      }`}
     >
       <div className="p-4 border-b border-[rgba(240,240,250,0.35)] flex items-center justify-between">
         <div className="flex items-center gap-3">

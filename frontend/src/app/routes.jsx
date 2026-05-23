@@ -9,12 +9,14 @@ import PublicRoute from '../components/PublicRoute.jsx';
 import Dashboard from '../pages/dashboard/Dashboard.jsx';
 import RoomPage from '../pages/room/RoomPage.jsx';
 import PolicyPage from '../pages/legal/PolicyPage.jsx';
+import TermsPage from '../pages/legal/TermsPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Outlet />}>
         <Route path="privacy-policy" element={<PolicyPage />} />
+        <Route path="terms-conditions" element={<TermsPage />} />
 
         {/* Public Routes (Only accessible when logged out) */}
         <Route element={<PublicRoute />}>

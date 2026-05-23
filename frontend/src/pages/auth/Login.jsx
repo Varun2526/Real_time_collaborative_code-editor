@@ -68,7 +68,7 @@ function Login() {
   return (
     <div className="min-h-screen relative flex flex-col font-body-base bg-black">
       {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+      <div className="absolute inset-0 bg-black/60 z-0 auth-overlay"></div>
 
       <div className="flex-1 flex flex-col items-center justify-center w-full relative z-10 px-6 py-20">
         <div className="w-full max-w-md flex flex-col">
