@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
 import KodaxLogo from '../../components/KodaxLogo';
 import Footer from '../../components/footer/Footer';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+import { API_URL } from '../../utils/constants.js';
 
 function Register() {
   const navigate = useNavigate();
@@ -38,27 +37,6 @@ function Register() {
       setLoading(false);
     }
   };
-
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setLoading(true);
-      setError('');
-      try {
-        const res = await axios.post(`${API_URL}/auth/google`,{access_token: tokenResponse.access_token },{ withCredentials: true });
-        console.log('Google Sign-Up successful:', res.data);
-        login(res.data.payload);
-        const from = location.state?.from || '/';
-        navigate(from, { replace: true });
-      } 
-      catch (err) {
-        setError(err.response?.data?.error || 'Google sign-up failed');
-      } 
-      finally {
-        setLoading(false);
-      }
-    },
-    onError: () => {setError('Google Sign-Up was cancelled or failed');}
-  });
 
 
   return (

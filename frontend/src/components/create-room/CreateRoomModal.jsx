@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+import { API_URL } from '../../utils/constants.js';
 
 const CreateRoomModal = ({ onClose, onSuccess }) => {
   const [roomId, setRoomId] = useState(() => crypto.randomUUID());
