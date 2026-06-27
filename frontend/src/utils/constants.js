@@ -6,11 +6,19 @@
 
 // ─── API & Socket URLs ────────────────────────────────────────────────────────
 
+/**
+ * Dynamically detect the API host based on how the app is accessed.
+ * - From localhost → API at localhost:4000
+ * - From LAN IP (phone) → API at same LAN IP:4000
+ */
+const BACKEND_PORT = 4000;
+const currentHost = window.location.hostname; // e.g. "localhost" or "192.168.0.116"
+
 /** Base URL for all REST API calls */
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+export const API_URL = `http://${currentHost}:${BACKEND_PORT}/api`;
 
 /** Base URL for Socket.io connection */
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:4000';
+export const SOCKET_URL = `http://${currentHost}:${BACKEND_PORT}`;
 
 // ─── Supported Languages ──────────────────────────────────────────────────────
 

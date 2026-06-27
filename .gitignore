@@ -2,13 +2,13 @@
 node_modules/
 **/node_modules/
 
-# Environment variables
+# Environment variables (contain secrets!)
 .env
 .env.*
 !.env.example
 
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -20,8 +20,21 @@ build/
 
 # OS files
 .DS_Store
+**/.DS_Store
 Thumbs.db
+ehthumbs.db
 
-# Editor files
+# Editor / IDE files
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

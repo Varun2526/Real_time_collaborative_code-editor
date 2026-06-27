@@ -5,8 +5,7 @@ import Navbar from '../../components/navbar/Navbar';
 import CreateRoomModal from '../../components/create-room/CreateRoomModal';
 import RoomDetailsModal from '../../components/dashboard/RoomDetailsModal';
 import Footer from '../../components/footer/Footer';
-
-const API_URL = 'http://localhost:4000/api';
+import { API_URL } from '../../utils/constants.js';
 
 const Dashboard = () => {
   const [joinedRooms, setJoinedRooms] = useState([]);

@@ -10,7 +10,8 @@ import chatRoutes from "./routes/chatRoutes.js";
 const app =exp();
 //unable cors 
 app.use(cors({
-  origin:["http://localhost:5174", "http://localhost:5173"
+  origin:["http://localhost:5174", "http://localhost:5173",
+    "http://192.168.0.116:5173", "http://192.168.0.116:5174"
 ],
   credentials:true
 }))

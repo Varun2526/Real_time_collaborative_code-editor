@@ -5,8 +5,7 @@ import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
 import KodaxLogo from '../../components/KodaxLogo';
 import Footer from '../../components/footer/Footer';
-
-const API_URL = 'http://localhost:4000/api';
+import { API_URL } from '../../utils/constants.js';
 
 function Login() {
   const navigate = useNavigate();

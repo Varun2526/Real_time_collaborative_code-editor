@@ -13,7 +13,12 @@ connectDB();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://192.168.0.116:5173",
+      "http://192.168.0.116:5174"
+    ],
     credentials: true
   }
 });
@@ -24,8 +29,9 @@ initSocket(io);
 
 const port = process.env.PORT || 4000;
 
-server.listen(port, () => {
+server.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
+  console.log(`LAN access: http://192.168.0.116:${port}`);
 });
 
 
