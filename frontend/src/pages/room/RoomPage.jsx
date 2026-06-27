@@ -298,15 +298,36 @@ const RoomPage = () => {
               clearTimeout(cursorTimeoutsRef.current[data.socketId]);
             }
 
-            // Set new timeout to hide cursor after 4 seconds of inactivity
+            // Keep cursor visible for 5 minutes of inactivity (prevents fast flickering)
             cursorTimeoutsRef.current[data.socketId] = setTimeout(() => {
               setRemoteCursors(prev => {
                 const next = { ...prev };
                 delete next[data.socketId];
                 return next;
               });
-            }, 400);
+            }, 300000); // 5 minutes
           }
+        });
+
+        socket.on('user_left', (data) => {
+          // Remove cursor when user leaves
+          setRemoteCursors(prev => {
+            const next = { ...prev };
+            // find socketId by userId
+            const socketIdToRemove = Object.keys(next).find(key => next[key].userId === data.userId);
+            if (socketIdToRemove) delete next[socketIdToRemove];
+            return next;
+          });
+        });
+
+        socket.on('user_offline', (data) => {
+          // Remove cursor when user disconnects
+          setRemoteCursors(prev => {
+            const next = { ...prev };
+            const socketIdToRemove = Object.keys(next).find(key => next[key].userId === data.userId);
+            if (socketIdToRemove) delete next[socketIdToRemove];
+            return next;
+          });
         });
 
         socket.on('code_running', (data) => {
