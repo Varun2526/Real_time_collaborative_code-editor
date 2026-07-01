@@ -1,191 +1,71 @@
-<div align="center">
+# KodaX — A Real-Time Collaborative Code Editor
 
-**A Summer Internship Project Report**
-
-**on**
-
-## "KodaX – Real Time Collaborative Code Editor"
-
-Submitted in partial fulfilment of the Requirements
-for the award of the Degree of
-
-**BACHELOR OF TECHNOLOGY**
-
-**IN**
-
-**COMPUTER SCIENCE & ENGINEERING**
-
-By
-
-**Koppula Varun**
-
-**24EG105E27**
-
-Under the Guidance of
-
-**Mr. B.V. Srikanth**
-
-_[ University Logo — insert image here ]_
-
-**Department of Computer Science & Engineering**
-
-**ANURAG UNIVERSITY**
-
-GHATKESAR (M), MEDCHAL DISTRICT,
-Hyderabad-88
-
-**Academic Year: 2025-2026**
-
-</div>
+### Summer Internship Report
 
 ---
 
-## CERTIFICATE
-
-<div align="center">
-
-**ANURAG UNIVERSITY**
-
-Hyderabad-500 088
-
-**Department of Computer Science & Engineering**
-
-</div>
-
-I, **Koppula Varun**, bearing hall ticket number **24EG105E27**, hereby declare that the project report entitled **"KodaX – Real Time Collaborative Code Editor"** submitted to the Department of Computer Science & Engineering, Anurag University, Hyderabad, is submitted in partial fulfilment of the requirement for the award of the degree of Bachelor of Technology in Computer Science & Engineering.
-
-This is a record of bonafide work carried out by me and the results embodied in this project report have not been submitted to any other university or institute for the award of any other degree or diploma.
-
-<br>
-
-**Signature of The Guide**
-
-**Mr. B.V. Srikanth**
-
-Koppula Varun
-
-24EG105E27
+> **Note for the candidate:** Items enclosed in square brackets such as `[Your Name]`, `[College Name]`, `[Mentor Name]`, and `[University Name]` are placeholders. Replace them with your actual details before final submission. The technical content has been written entirely from the source code present in this project workspace.
 
 ---
 
-## ACKNOWLEDGMENT
+## Acknowledgement
 
-I would like to express my sincere thanks and deep sense of gratitude to project supervisor **Mr. B.V. Srikanth**, for his constant encouragement and inspiring guidance without which this project could not have been completed. His critical reviews and constructive comments improved our grasp of the subject and steered to the fruitful completion of the work. His patience, guidance and encouragement made this project possible.
+I would like to express my sincere and heartfelt gratitude to everyone who supported and guided me throughout the course of my summer internship and the development of this project, **KodaX — A Real-Time Collaborative Code Editor**.
 
-I would like to express my sincere gratitude to **Dr. Archana Mantri**, Vice Chancellor, Anurag University and **Dr. P. Bhaskara Reddy**, Registrar, Anurag University for their encouragement and support.
+First and foremost, I extend my deepest appreciation to **[Internship Organization Name]** for granting me the opportunity to undertake my internship with their esteemed organization. The exposure to a professional software development environment, modern engineering practices, and real-world project workflows has been invaluable to my growth as an aspiring software engineer. The organization's culture of continuous learning and its emphasis on building scalable, production-quality software have profoundly shaped my technical outlook.
 
-I would like to express my special thanks to **Dr. V. Vijaya Kumar**, Dean School of Engineering, Anurag University, for his encouragement and timely support in our B.Tech program.
+I am profoundly grateful to my industry mentor, **[Mentor Name]**, whose constant guidance, constructive feedback, and technical insight were instrumental at every stage of this project. Their willingness to clarify complex concepts—ranging from WebSocket-based real-time communication to secure authentication design—helped me transform an ambitious idea into a working, full-stack application. Their patience and encouragement motivated me to push beyond my comfort zone and adopt industry-standard development methodologies.
 
-I would like to acknowledge my sincere gratitude for the support extended by **Dr. G. Vishnu Murthy**, Dean, Department of Computer Science Engineering, Anurag University. I also express my deep sense of gratitude to **Dr. P. Rajashekar Reddy**, Head of Department, Computer Science and Engineering Cluster-1 whose research expertise and commitment to the highest standards continuously motivated me during the crucial stage of my project work.
+I would also like to sincerely thank my faculty guide, **[Faculty Guide Name]**, of the Department of **[Department Name]**, **[College Name]**, for their academic supervision, regular reviews, and thoughtful suggestions. Their structured approach to project documentation and their emphasis on connecting theoretical knowledge with practical implementation greatly enhanced the quality of this report.
 
-<div align="right">
+My gratitude extends to the **Head of the Department** and the entire faculty of the Department of **[Department Name]** for fostering an environment that encourages innovation, experimentation, and hands-on learning. The strong academic foundation laid by the department in subjects such as Data Structures, Computer Networks, Database Management Systems, and Web Technologies proved essential while building this project.
 
-**Koppula Varun**
+I am thankful to **[College / University Name]** for incorporating an industry internship into the curriculum, recognizing the critical importance of practical industry exposure in shaping competent and employable engineering graduates.
 
-**24EG105E27**
+Finally, I owe a debt of gratitude to my **friends and peers**, whose discussions, code reviews, and moral support kept me motivated, and most importantly to my **family**, whose unwavering encouragement, patience, and belief in me made this entire journey possible. This accomplishment is as much theirs as it is mine.
 
-</div>
+To all of them, I offer my sincere thanks.
 
----
-
-## DECLARATION
-
-I hereby declare that the project entitled **"KodaX – Real Time Collaborative Code Editor"** submitted to the Department of Computer Science and Engineering is an original work carried out by me under the guidance of **Mr. B.V. Srikanth**. The work presented in this report has not been submitted elsewhere for the award of any degree.
-
-<div align="right">
-
-**Koppula Varun**
-
-**24EG105E27**
-
-</div>
+**[Your Name]**
+**[Roll Number]**
+**[Branch / Department]**
+**[College Name]**
 
 ---
 
-## ABSTRACT
+## Declaration
+
+I, **[Your Name]**, bearing Roll Number **[Roll Number]**, a student of **[Branch / Department]** at **[College / University Name]**, hereby declare that the internship project report titled **"KodaX — A Real-Time Collaborative Code Editor"** submitted in partial fulfilment of the requirements for the award of the degree of **Bachelor of Technology in Computer Science and Engineering** is a record of original work carried out by me during my summer internship under the guidance of **[Mentor Name]** (Industry Mentor) and **[Faculty Guide Name]** (Faculty Guide).
+
+I further declare that:
+
+1. The work presented in this report is genuine and has been carried out by me, and the implementation described herein is based entirely on the actual source code developed during the internship.
+2. The technical descriptions, architecture, modules, and code snippets included in this report accurately reflect the project as implemented in the project workspace.
+3. This report, or any part of it, has not been submitted previously to this or any other institution for the award of any degree, diploma, or certificate.
+4. Wherever I have referred to or used material from external sources—including official documentation, books, and online technical resources—due acknowledgement has been made and the corresponding references have been cited in the References section of this report.
+5. I understand that any violation of the above declaration may result in disciplinary action by the institution.
+
+**Place:** [City]
+**Date:** [Date]
+
+**Signature:**
+
+**[Your Name]**
+**[Roll Number]**
+
+---
+
+## Abstract
 
 Software development in the modern era is rarely a solitary activity. Teams are distributed across cities and time zones, pair programming and live technical interviews have become routine, and classroom instruction increasingly relies on shared, interactive coding environments. Despite this, the traditional development workflow—where each developer edits code locally and synchronizes changes only through version control systems such as Git—introduces significant friction for tasks that demand *immediate*, *simultaneous* collaboration. There is a clear need for a lightweight, browser-based environment in which multiple developers can write, edit, execute, and discuss code together in real time, without the overhead of installing tools or merging conflicting changes.
 
 **KodaX** is a full-stack, real-time collaborative code editor developed to address precisely this need. It allows multiple authenticated users to join a shared coding "room," edit a common set of files concurrently, see each other's cursors live, run code in eight programming languages, and communicate through an integrated chat—all from within a web browser.
 
-The application is engineered using the **MERN-adjacent stack** augmented with WebSockets. The **backend** is built with **Node.js** and the **Express 5** framework, using **MongoDB** with the **Mongoose** ODM for persistent storage, and **Socket.IO** for bidirectional, low-latency real-time communication. Authentication is handled through **JSON Web Tokens (JWT)** stored in secure httpOnly cookies, with passwords hashed using **bcrypt**, and supports three identity providers: local email/password, **Google OAuth**, and **GitHub OAuth**. Live code execution is delegated to the **JDoodle** remote compiler API. The **frontend** is a single-page application built with **React 19** and the **Vite** build tool, styled with **Tailwind CSS 4**, and centred on the **Monaco Editor** (the engine that powers Visual Studio Code) for a professional editing experience.
+The application is engineered using the **MERN-adjacent stack** augmented with WebSockets. The **backend** is built with **Node.js** and the **Express 5** framework, using **MongoDB** with the **Mongoose** ODM for persistent storage, and **Socket.IO** for bidirectional, low-latency real-time communication. Authentication is handled through **JSON Web Tokens (JWT)** stored in secure `httpOnly` cookies, with passwords hashed using **bcrypt**, and supports three identity providers: local email/password, **Google OAuth**, and **GitHub OAuth**. Live code execution is delegated to the **JDoodle** remote compiler API. The **frontend** is a single-page application built with **React 19** and the **Vite** build tool, styled with **Tailwind CSS 4**, and centred on the **Monaco Editor** (the engine that powers Visual Studio Code) for a professional editing experience.
 
 The primary objectives of the project were to design a secure, role-based multi-user system; to achieve seamless, conflict-tolerant real-time synchronization of code and cursors; to integrate multi-language code execution; and to deliver a responsive, polished user interface. These objectives were met through a modular architecture comprising RESTful APIs for stateful resource management (rooms, users, messages) and a parallel WebSocket event layer for ephemeral, high-frequency interactions (code edits, cursor movements, presence).
 
 The result is a working application that supports user registration and federated login, creation of public and private rooms, a granular owner/moderator/member permission model with a join-request approval workflow, real-time multi-file collaborative editing with live remote cursors, in-browser code execution with standard input support, real-time chat, and downloadable project archives. The project demonstrates competency across the full software stack and provided practical experience in real-time systems design, secure authentication, REST and WebSocket API development, NoSQL data modelling, and modern frontend engineering.
-
----
-
-## LIST OF TABLES:
-
-| Table No | Table Name | Page Number |
-|:---:|:---|:---:|
-| 5.1 | Comparison of Existing System and KodaX | — |
-| 6.1 | Technology Stack of KodaX | — |
-| 7.1 | Software Requirements of KodaX | — |
-| 7.2 | Hardware Requirements of KodaX | — |
-| 8.1 | User Collection Schema | — |
-| 8.2 | Room Collection Schema | — |
-| 8.3 | Message Collection Schema | — |
-| 13.1 | Advantages and Limitations of KodaX | — |
-
----
-
-## LIST OF FIGURES:
-
-| Figure No | Figure Name | Page Number |
-|:---:|:---|:---:|
-| 6.1 | System Architecture of KodaX | — |
-| 8.1 | Component Diagram of KodaX | — |
-| 8.2 | Entity-Relationship Diagram of KodaX | — |
-| 8.3 | API Request Flow of KodaX | — |
-| 8.4 | User Flow of KodaX | — |
-| 8.5 | Real-Time Code Editing Sequence Diagram | — |
-| 8.6 | Join Request Approval Sequence Diagram | — |
-| 8.7 | Class / Module Diagram of KodaX | — |
-| 9.1 | Application Flowchart of KodaX | — |
-| 9.2 | Login Flowchart of KodaX | — |
-| 9.3 | Main Process Flow of KodaX | — |
-| 12.1 | Login Screen of KodaX | — |
-| 12.2 | Registration Page of KodaX | — |
-| 12.3 | Dashboard of KodaX | — |
-| 12.4 | Create Room Modal | — |
-| 12.5 | Collaborative Room Workspace | — |
-| 12.6 | Live Collaboration (Two Users) | — |
-| 12.7 | Code Execution Output | — |
-| 12.8 | Members Panel and Pending Requests | — |
-| 12.9 | Room Chat | — |
-| 12.10 | Room Settings | — |
-| 12.11 | Project Export (ZIP Download) | — |
-
----
-
-## TABLE OF CONTENTS
-
-| Topic | Page No. |
-|:---|:---:|
-| Acknowledgment | i |
-| Declaration | ii |
-| Abstract | iii |
-| List of Tables | iv |
-| List of Figures | v |
-| 1. Introduction | — |
-| 2. Problem Statement | — |
-| 3. Objectives | — |
-| 4. Scope of the Project | — |
-| 5. Existing System | — |
-| 6. Proposed System | — |
-| 7. Software & Hardware Requirements | — |
-| 8. System Design | — |
-| 9. Flowchart & Algorithm | — |
-| 10. Modules Description | — |
-| 11. Implementation | — |
-| 12. Results / Output Screens | — |
-| 13. Advantages & Limitations | — |
-| 14. Future Enhancements | — |
-| 15. Conclusion | — |
-| 16. References | — |
-| 17. Source Code | — |
 
 ---
 
@@ -295,7 +175,7 @@ The motivation behind KodaX was to collapse all of these concerns into a single,
 ## 3.3 Technical Objectives
 
 1. Architect a **clear separation** between a RESTful HTTP API (for stateful resources) and a WebSocket event layer (for real-time interactions).
-2. Implement **stateless authentication** using JWTs delivered through secure httpOnly cookies, reusing the same token for both HTTP and WebSocket handshakes.
+2. Implement **stateless authentication** using JWTs delivered through secure `httpOnly` cookies, reusing the same token for both HTTP and WebSocket handshakes.
 3. Design a **flexible NoSQL data model** capable of representing nested room state (members, files, requests) efficiently.
 4. Enforce **authorization checks** on every sensitive operation, both at the REST controller layer and within socket event handlers.
 5. Build a **modular, component-based frontend** that cleanly separates concerns (pages, layouts, components, services, hooks, utilities).
@@ -333,7 +213,7 @@ The following features are implemented in the project workspace:
 
 - Local authentication (registration and login) with bcrypt-hashed passwords.
 - Federated authentication via **Google OAuth** and **GitHub OAuth**.
-- JWT-based sessions delivered through secure httpOnly cookies.
+- JWT-based sessions delivered through secure `httpOnly` cookies.
 - Creation of **public** and **private** rooms with configurable settings (max users, guest policy).
 - A **role hierarchy** of owner, moderator, and member, with corresponding permissions.
 - A **join-request approval workflow** for controlled access.
@@ -359,7 +239,7 @@ To keep the scope focused and achievable within the internship timeframe, the fo
 
 ## 4.5 Deployment Scope
 
-The application is structured for deployment with the backend running as a Node.js service (the Express app is also exported in a manner compatible with serverless platforms such as Vercel), the frontend built into static assets via Vite, and MongoDB hosted either locally or on a managed service such as MongoDB Atlas. During development, the frontend runs on http://localhost:5173 (Vite's default) and the backend on http://localhost:4000, with CORS configured accordingly.
+The application is structured for deployment with the backend running as a Node.js service (the Express `app` is also exported in a manner compatible with serverless platforms such as Vercel), the frontend built into static assets via Vite, and MongoDB hosted either locally or on a managed service such as MongoDB Atlas. During development, the frontend runs on `http://localhost:5173` (Vite's default) and the backend on `http://localhost:4000`, with CORS configured accordingly.
 
 ## 4.6 Practical Applications
 
@@ -415,8 +295,6 @@ This cycle repeats for every meaningful change, introducing significant latency 
 Users must constantly context-switch between their editor, their version-control tool, and their communication tool. They bear the cognitive load of conflict resolution, environment setup, and keeping their mental model of "who changed what" synchronized—overhead that actively detracts from the collaborative task itself.
 
 ## 5.6 Comparison Table
-
-**Table 5.1: Comparison of Existing System and KodaX**
 
 | Criterion | Local IDE + Git | Screen Sharing | Manual Sharing | IDE Plugin (e.g., Live Share) | **KodaX (Proposed)** |
 |---|---|---|---|---|---|
@@ -478,19 +356,17 @@ graph TD
     EXT -- "output" --> SOCK
 ```
 
-**Figure 6.1: System Architecture of KodaX**
-
 ## 6.3 System Workflow
 
 A representative end-to-end workflow:
 
-1. A user authenticates (local, Google, or GitHub). The server issues a JWT in an httpOnly cookie.
-2. The user lands on the **Dashboard**, which fetches their joined rooms (GET /api/room/my-rooms) and lets them search public rooms (GET /api/room/search).
-3. The user **creates** a room (POST /api/room/create) or **requests to join** an existing one. For private rooms, the request enters a pending-approval queue.
-4. Upon entering a room, the client opens a **WebSocket connection** and emits join_room. The server validates membership, joins the Socket.IO room, and updates presence.
-5. As the user types, the client emits code_change events; the server persists the change and broadcasts code_updated to all other members, whose editors update live.
+1. A user authenticates (local, Google, or GitHub). The server issues a JWT in an `httpOnly` cookie.
+2. The user lands on the **Dashboard**, which fetches their joined rooms (`GET /api/room/my-rooms`) and lets them search public rooms (`GET /api/room/search`).
+3. The user **creates** a room (`POST /api/room/create`) or **requests to join** an existing one. For private rooms, the request enters a pending-approval queue.
+4. Upon entering a room, the client opens a **WebSocket connection** and emits `join_room`. The server validates membership, joins the Socket.IO room, and updates presence.
+5. As the user types, the client emits `code_change` events; the server persists the change and broadcasts `code_updated` to all other members, whose editors update live.
 6. **Cursor movements**, **typing indicators**, **file additions/deletions**, and **chat messages** flow through analogous socket events.
-7. When a user clicks **Run**, the client emits run_code; the server calls JDoodle and broadcasts the result (code_result) to the entire room.
+7. When a user clicks **Run**, the client emits `run_code`; the server calls JDoodle and broadcasts the result (`code_result`) to the entire room.
 
 ## 6.4 Major Features
 
@@ -503,8 +379,6 @@ A representative end-to-end workflow:
 - Presence tracking, ZIP export, light/dark theming, and a responsive mobile layout.
 
 ## 6.5 Technology Choices and Justification
-
-**Table 6.1: Technology Stack of KodaX**
 
 | Concern | Technology | Justification |
 |---|---|---|
@@ -533,8 +407,6 @@ A representative end-to-end workflow:
 
 ## 7.1 Software Requirements
 
-**Table 7.1: Software Requirements of KodaX**
-
 | Category | Requirement / Technology | Version / Detail |
 |---|---|---|
 | Operating System | Windows / macOS / Linux | Any modern 64-bit OS (developed on macOS Darwin) |
@@ -556,13 +428,11 @@ A representative end-to-end workflow:
 
 ### Key Third-Party Libraries
 
-**Backend:** express, mongoose, socket.io, jsonwebtoken, bcrypt, cookie-parser, cors, dotenv, google-auth-library, uuid, nodemon.
+**Backend:** `express`, `mongoose`, `socket.io`, `jsonwebtoken`, `bcrypt`, `cookie-parser`, `cors`, `dotenv`, `google-auth-library`, `uuid`, `nodemon`.
 
-**Frontend:** react, react-dom, react-router-dom (v7), @monaco-editor/react, @react-oauth/google, axios, socket.io-client, jszip, tailwindcss, @tailwindcss/vite.
+**Frontend:** `react`, `react-dom`, `react-router-dom` (v7), `@monaco-editor/react`, `@react-oauth/google`, `axios`, `socket.io-client`, `jszip`, `tailwindcss`, `@tailwindcss/vite`.
 
 ## 7.2 Hardware Requirements
-
-**Table 7.2: Hardware Requirements of KodaX**
 
 | Component | Minimum | Recommended |
 |---|---|---|
@@ -572,7 +442,7 @@ A representative end-to-end workflow:
 | Internet | Stable broadband (required for real-time sync, OAuth, and JDoodle) | High-speed broadband |
 | Development Machine | Any 64-bit laptop/desktop capable of running Node.js and a browser | SSD-equipped development workstation |
 
-Because the application is browser-based, **end users** require only a modern web browser and an internet connection; no special hardware is needed on the client side.
+> Because the application is browser-based, **end users** require only a modern web browser and an internet connection; no special hardware is needed on the client side.
 
 ---
 
@@ -608,57 +478,49 @@ graph LR
     S -->|Socket| SK --> MD
 ```
 
-**Figure 8.1: Component Diagram of KodaX**
-
 ## 8.3 Database Design
 
 KodaX uses three primary MongoDB collections, modelled with Mongoose. The document model allows a room to embed its files, members, and pending requests directly, minimizing the need for joins for the most common read patterns.
 
 ### 8.3.1 User Collection
 
-**Table 8.1: User Collection Schema**
-
 | Field | Type | Description |
 |---|---|---|
-| username | String | Unique, required, trimmed |
-| email | String | Unique, required, lowercase, trimmed |
-| password | String | bcrypt hash; required only for local provider |
-| profilePic | String | Avatar URL (default null) |
-| providers | Array | { name: 'local'│'google'│'github', providerId } — supports multiple linked identities |
-| socketId | String | Current active WebSocket connection ID (presence) |
-| currentRoom | String | The room the user is currently in |
-| createdAt/updatedAt | Date | Mongoose timestamps |
+| `username` | String | Unique, required, trimmed |
+| `email` | String | Unique, required, lowercase, trimmed |
+| `password` | String | bcrypt hash; required only for local provider |
+| `profilePic` | String | Avatar URL (default `null`) |
+| `providers` | Array | `{ name: 'local'│'google'│'github', providerId }` — supports multiple linked identities |
+| `socketId` | String | Current active WebSocket connection ID (presence) |
+| `currentRoom` | String | The room the user is currently in |
+| `createdAt`/`updatedAt` | Date | Mongoose timestamps |
 
 ### 8.3.2 Room Collection
 
-**Table 8.2: Room Collection Schema**
-
 | Field | Type | Description |
 |---|---|---|
-| roomId | String | Unique, indexed UUID identifying the room |
-| title | String | Required, max 100 chars |
-| description | String | Optional, max 300 chars |
-| code | String | Legacy single-buffer code (fallback) |
-| files | Array | { id, name, language, code } — multi-file support |
-| language | String | Enum of 8 languages; default javascript |
-| members | Array | { user: ref User, role: owner│moderator│member, joinedAt } |
-| pendingRequests | Array | References to Users awaiting approval |
-| visibility | String | public or private (indexed); default private |
-| settings | Object | { allowGuests: Boolean, maxUsers: Number (default 10) } |
-| createdAt/updatedAt | Date | Mongoose timestamps |
+| `roomId` | String | Unique, indexed UUID identifying the room |
+| `title` | String | Required, max 100 chars |
+| `description` | String | Optional, max 300 chars |
+| `code` | String | Legacy single-buffer code (fallback) |
+| `files` | Array | `{ id, name, language, code }` — multi-file support |
+| `language` | String | Enum of 8 languages; default `javascript` |
+| `members` | Array | `{ user: ref User, role: owner│moderator│member, joinedAt }` |
+| `pendingRequests` | Array | References to Users awaiting approval |
+| `visibility` | String | `public` or `private` (indexed); default `private` |
+| `settings` | Object | `{ allowGuests: Boolean, maxUsers: Number (default 10) }` |
+| `createdAt`/`updatedAt` | Date | Mongoose timestamps |
 
-A **text index** on title, description, and language powers room search.
+A **text index** on `title`, `description`, and `language` powers room search.
 
 ### 8.3.3 Message Collection
 
-**Table 8.3: Message Collection Schema**
-
 | Field | Type | Description |
 |---|---|---|
-| roomId | ObjectId (ref Room) | The room the message belongs to |
-| sender | ObjectId (ref User) | The author |
-| message | String | Required, max 1000 chars |
-| createdAt/updatedAt | Date | Mongoose timestamps |
+| `roomId` | ObjectId (ref Room) | The room the message belongs to |
+| `sender` | ObjectId (ref User) | The author |
+| `message` | String | Required, max 1000 chars |
+| `createdAt`/`updatedAt` | Date | Mongoose timestamps |
 
 ### 8.3.4 Entity-Relationship Diagram
 
@@ -693,11 +555,9 @@ erDiagram
     }
 ```
 
-**Figure 8.2: Entity-Relationship Diagram of KodaX**
-
 ## 8.4 API Flow
 
-All REST endpoints (except registration, login, and the OAuth handshakes) are protected by the verifyToken middleware, which extracts and validates the JWT from the cookie or Authorization header.
+All REST endpoints (except registration, login, and the OAuth handshakes) are protected by the `verifyToken` middleware, which extracts and validates the JWT from the cookie or `Authorization` header.
 
 ```mermaid
 sequenceDiagram
@@ -720,8 +580,6 @@ sequenceDiagram
     end
 ```
 
-**Figure 8.3: API Request Flow of KodaX**
-
 ## 8.5 User Flow
 
 ```mermaid
@@ -740,8 +598,6 @@ graph TD
     I --> J[Leave / Manage / Download]
 ```
 
-**Figure 8.4: User Flow of KodaX**
-
 ## 8.6 Sequence Diagram — Real-Time Code Editing
 
 ```mermaid
@@ -757,8 +613,6 @@ sequenceDiagram
     SA-->>B: emit code_updated { fileId, code, userId }
     B->>B: apply remote change to editor
 ```
-
-**Figure 8.5: Real-Time Code Editing Sequence Diagram**
 
 ## 8.7 Sequence Diagram — Join Request Approval
 
@@ -777,8 +631,6 @@ sequenceDiagram
     SA-->>U: emitToUser join_request_approved { roomId }
     U->>SA: emit join_room { roomId }
 ```
-
-**Figure 8.6: Join Request Approval Sequence Diagram**
 
 ## 8.8 Class / Module Diagram (Conceptual)
 
@@ -826,8 +678,6 @@ classDiagram
     SocketHandlers ..> Message
 ```
 
-**Figure 8.7: Class / Module Diagram of KodaX**
-
 ---
 
 # 9. Flowchart & Algorithm
@@ -851,8 +701,6 @@ flowchart TD
     Collab --> Exit([Leave Room])
 ```
 
-**Figure 9.1: Application Flowchart of KodaX**
-
 ## 9.2 Login Flowchart
 
 ```mermaid
@@ -868,8 +716,6 @@ flowchart TD
     Err1 --> Form
     Err2 --> Form
 ```
-
-**Figure 9.2: Login Flowchart of KodaX**
 
 ## 9.3 Main Process Flow — Real-Time Collaboration
 
@@ -887,70 +733,68 @@ flowchart TD
     Others --> Edit
 ```
 
-**Figure 9.3: Main Process Flow of KodaX**
-
 ## 9.4 Algorithms for Major Workflows
 
 ### Algorithm 1 — User Registration
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-INPUT: username, email, password<br>
-1. Validate all fields are present.<br>
-2. Check whether a user with the same email or username exists.<br>
-&nbsp;&nbsp;&nbsp;2.1 If yes → return 409 Conflict.<br>
-3. Hash the password using bcrypt with salt rounds = 10.<br>
-4. Create a User document with providers = [{ name: "local" }].<br>
-5. Sign a JWT: jwt.sign({ userId }, JWT&#95;SECRET, { expiresIn: "7d" }).<br>
-6. Set the JWT as an httpOnly cookie named "token".<br>
-7. Return the user payload { id, username, email }.<br>
-OUTPUT: Authenticated session (cookie) + user payload.<br>
-</div>
+```
+INPUT: username, email, password
+1. Validate all fields are present.
+2. Check whether a user with the same email or username exists.
+   2.1 If yes → return 409 Conflict.
+3. Hash the password using bcrypt with salt rounds = 10.
+4. Create a User document with providers = [{ name: "local" }].
+5. Sign a JWT: jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" }).
+6. Set the JWT as an httpOnly cookie named "token".
+7. Return the user payload { id, username, email }.
+OUTPUT: Authenticated session (cookie) + user payload.
+```
 
 ### Algorithm 2 — Real-Time Code Change Propagation
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-INPUT: socket event code&#95;change { roomId, fileId, code }<br>
-1. Authenticate the socket (JWT from handshake) → socket.userId.<br>
-2. Load the room by roomId.<br>
-3. Verify socket.userId is a member of room.members.<br>
-&nbsp;&nbsp;&nbsp;3.1 If not → ignore / emit error.<br>
-4. If fileId is provided:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find the file in room.files with matching id and set file.code = code.<br>
-&nbsp;&nbsp;&nbsp;Else:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set room.code = code (legacy single buffer).<br>
-5. Persist with room.save().<br>
-6. Broadcast to all OTHER sockets in roomId:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.to(roomId).emit("code&#95;updated", { fileId, code, userId }).<br>
-OUTPUT: Synchronized code across all room members.<br>
-</div>
+```
+INPUT: socket event code_change { roomId, fileId, code }
+1. Authenticate the socket (JWT from handshake) → socket.userId.
+2. Load the room by roomId.
+3. Verify socket.userId is a member of room.members.
+   3.1 If not → ignore / emit error.
+4. If fileId is provided:
+       Find the file in room.files with matching id and set file.code = code.
+   Else:
+       Set room.code = code (legacy single buffer).
+5. Persist with room.save().
+6. Broadcast to all OTHER sockets in roomId:
+       socket.to(roomId).emit("code_updated", { fileId, code, userId }).
+OUTPUT: Synchronized code across all room members.
+```
 
 ### Algorithm 3 — Join Request Approval
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-INPUT: socket event approve&#95;request { roomId, userId }<br>
-1. Load the room by roomId.<br>
-2. Verify the approver (socket.userId) is an owner or moderator.<br>
-3. Verify userId is present in room.pendingRequests.<br>
-4. Verify the room is below settings.maxUsers capacity.<br>
-5. Remove userId from room.pendingRequests.<br>
-6. Push { user: userId, role: "member" } into room.members.<br>
-7. Persist with room.save().<br>
-8. Notify the requester: emitToUser(io, userId, "join&#95;request&#95;approved", { roomId }).<br>
-OUTPUT: Requester becomes a member and can join the room.<br>
-</div>
+```
+INPUT: socket event approve_request { roomId, userId }
+1. Load the room by roomId.
+2. Verify the approver (socket.userId) is an owner or moderator.
+3. Verify userId is present in room.pendingRequests.
+4. Verify the room is below settings.maxUsers capacity.
+5. Remove userId from room.pendingRequests.
+6. Push { user: userId, role: "member" } into room.members.
+7. Persist with room.save().
+8. Notify the requester: emitToUser(io, userId, "join_request_approved", { roomId }).
+OUTPUT: Requester becomes a member and can join the room.
+```
 
 ### Algorithm 4 — Code Execution
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-INPUT: socket event run&#95;code { roomId, code, language, stdin }<br>
-1. Verify the sender is a member of the room.<br>
-2. Broadcast io.to(roomId).emit("code&#95;running", { userId, language }).<br>
-3. Map the editor language to a JDoodle language + version.<br>
-4. POST to JDoodle /v1/execute with { clientId, clientSecret, script, stdin, language, versionIndex }.<br>
-5. Receive { output } (or an error).<br>
-6. Broadcast io.to(roomId).emit("code&#95;result", { output, error }).<br>
-OUTPUT: Execution output displayed to all room members.<br>
-</div>
+```
+INPUT: socket event run_code { roomId, code, language, stdin }
+1. Verify the sender is a member of the room.
+2. Broadcast io.to(roomId).emit("code_running", { userId, language }).
+3. Map the editor language to a JDoodle language + version.
+4. POST to JDoodle /v1/execute with { clientId, clientSecret, script, stdin, language, versionIndex }.
+5. Receive { output } (or an error).
+6. Broadcast io.to(roomId).emit("code_result", { output, error }).
+OUTPUT: Execution output displayed to all room members.
+```
 
 ---
 
@@ -963,10 +807,10 @@ KodaX is decomposed into well-defined functional modules. Each is described belo
 - **Purpose:** Manage user identity, registration, login, federated OAuth, and session lifecycle.
 - **Responsibilities:** Validate credentials, hash and verify passwords, verify Google/GitHub identities, issue and clear JWT cookies, and expose the current user.
 - **Inputs:** Registration/login form data; Google ID token or access token; GitHub authorization code.
-- **Outputs:** A signed JWT in an httpOnly cookie and a sanitized user payload.
-- **Internal Workflow:** Credentials or OAuth tokens are validated; a User document is created or located (linking providers when appropriate); a JWT encoding userId is signed and set as a cookie.
-- **Files Involved:** backend/controllers/authController.js, backend/routes/authRoutes.js, backend/middleware/authMiddleware.js, backend/models/User.js; on the frontend pages/auth/Login.jsx, Register.jsx, GithubCallback.jsx, and context/AuthContext.jsx.
-- **Technologies:** jsonwebtoken, bcrypt, google-auth-library, cookie-parser, @react-oauth/google.
+- **Outputs:** A signed JWT in an `httpOnly` cookie and a sanitized user payload.
+- **Internal Workflow:** Credentials or OAuth tokens are validated; a `User` document is created or located (linking providers when appropriate); a JWT encoding `userId` is signed and set as a cookie.
+- **Files Involved:** `backend/controllers/authController.js`, `backend/routes/authRoutes.js`, `backend/middleware/authMiddleware.js`, `backend/models/User.js`; on the frontend `pages/auth/Login.jsx`, `Register.jsx`, `GithubCallback.jsx`, and `context/AuthContext.jsx`.
+- **Technologies:** `jsonwebtoken`, `bcrypt`, `google-auth-library`, `cookie-parser`, `@react-oauth/google`.
 
 ## 10.2 Room Management Module
 
@@ -974,57 +818,57 @@ KodaX is decomposed into well-defined functional modules. Each is described belo
 - **Responsibilities:** Room creation with a unique UUID and default file; listing the user's rooms; searching public rooms; fetching room details; updating settings; and deleting rooms.
 - **Inputs:** Room metadata (title, description, language, visibility, settings) and the authenticated user.
 - **Outputs:** Room documents and confirmation responses.
-- **Internal Workflow:** On creation, a Room is initialized with the creator as owner, a default file, and chosen visibility. Search uses a regex/text query against public rooms.
-- **Files Involved:** backend/controllers/roomController.js, backend/routes/roomRoutes.js, backend/models/Room.js; frontend pages/dashboard/Dashboard.jsx, CreateRoom.jsx, and components/create-room/*, components/home/*.
-- **Technologies:** Express, Mongoose, uuid.
+- **Internal Workflow:** On creation, a `Room` is initialized with the creator as `owner`, a default file, and chosen visibility. Search uses a regex/text query against public rooms.
+- **Files Involved:** `backend/controllers/roomController.js`, `backend/routes/roomRoutes.js`, `backend/models/Room.js`; frontend `pages/dashboard/Dashboard.jsx`, `CreateRoom.jsx`, and `components/create-room/*`, `components/home/*`.
+- **Technologies:** Express, Mongoose, `uuid`.
 
 ## 10.3 Membership & Access Control Module
 
 - **Purpose:** Govern who may join a room and what each member may do.
 - **Responsibilities:** Manage the join-request workflow (request, approve, reject); enforce the owner/moderator/member hierarchy; promote/demote; transfer ownership; remove members; and handle the leaving of members (including owner succession).
 - **Inputs:** Room ID, target user ID, and the acting user's role.
-- **Outputs:** Updated members and pendingRequests arrays and targeted notifications.
+- **Outputs:** Updated `members` and `pendingRequests` arrays and targeted notifications.
 - **Internal Workflow:** Every administrative action verifies the actor's role before mutating room state. When the owner leaves, ownership is automatically transferred to the next moderator or member.
-- **Files Involved:** backend/controllers/roomController.js, backend/sockets/handlers/requests/*; frontend components/room/MembersPanel.jsx, PendingRequests.jsx, MembersList.jsx, and utils/roleHelpers.js.
+- **Files Involved:** `backend/controllers/roomController.js`, `backend/sockets/handlers/requests/*`; frontend `components/room/MembersPanel.jsx`, `PendingRequests.jsx`, `MembersList.jsx`, and `utils/roleHelpers.js`.
 - **Technologies:** Express, Mongoose, Socket.IO.
 
 ## 10.4 Real-Time Collaboration Module
 
 - **Purpose:** Synchronize code, cursors, typing, and file structure across all members in real time.
-- **Responsibilities:** Receive and broadcast code_change, language_change, cursor_move, typing, add_file, and delete_file events; persist code state to the database.
+- **Responsibilities:** Receive and broadcast `code_change`, `language_change`, `cursor_move`, `typing`, `add_file`, and `delete_file` events; persist code state to the database.
 - **Inputs:** Socket events carrying room ID, file ID, code, cursor position, or file payloads.
-- **Outputs:** Broadcast events (code_updated, language_updated, cursor_updated, user_typing, file_added, file_deleted) to all other room members.
+- **Outputs:** Broadcast events (`code_updated`, `language_updated`, `cursor_updated`, `user_typing`, `file_added`, `file_deleted`) to all other room members.
 - **Internal Workflow:** Each handler authenticates the socket, validates membership, mutates and persists room state where applicable, and broadcasts to the Socket.IO room excluding the sender.
-- **Files Involved:** backend/sockets/handlers/room/codeChange.js, cursorMove.js, typing.js, joinRoom.js, leaveRoom.js, backend/sockets/index.js, sockets/utils/emitToRoom.js; frontend pages/room/RoomPage.jsx and components/editor/*.
+- **Files Involved:** `backend/sockets/handlers/room/codeChange.js`, `cursorMove.js`, `typing.js`, `joinRoom.js`, `leaveRoom.js`, `backend/sockets/index.js`, `sockets/utils/emitToRoom.js`; frontend `pages/room/RoomPage.jsx` and `components/editor/*`.
 - **Technologies:** Socket.IO, Monaco Editor.
 
 ## 10.5 Chat Module
 
 - **Purpose:** Provide real-time, persistent, room-scoped text messaging.
 - **Responsibilities:** Persist messages, broadcast them live, and serve message history on room entry.
-- **Inputs:** send_message { roomId, message } socket events; GET /api/chat/:roomId for history.
-- **Outputs:** A persisted Message document and a receive_message broadcast with populated sender details.
-- **Internal Workflow:** On send_message, the server validates membership, creates a Message, populates the sender, and broadcasts to the room. History is loaded via REST when the room opens.
-- **Files Involved:** backend/sockets/handlers/room/roomChat.js, backend/controllers/chatController.js, backend/routes/chatRoutes.js, backend/models/Message.js; frontend components/room/ChatPanel.jsx and components/chat/*.
+- **Inputs:** `send_message { roomId, message }` socket events; `GET /api/chat/:roomId` for history.
+- **Outputs:** A persisted `Message` document and a `receive_message` broadcast with populated sender details.
+- **Internal Workflow:** On `send_message`, the server validates membership, creates a `Message`, populates the sender, and broadcasts to the room. History is loaded via REST when the room opens.
+- **Files Involved:** `backend/sockets/handlers/room/roomChat.js`, `backend/controllers/chatController.js`, `backend/routes/chatRoutes.js`, `backend/models/Message.js`; frontend `components/room/ChatPanel.jsx` and `components/chat/*`.
 - **Technologies:** Socket.IO, Mongoose.
 
 ## 10.6 Code Execution Module
 
 - **Purpose:** Compile and run shared code in eight languages and display the output to all members.
 - **Responsibilities:** Map editor languages to JDoodle runtimes, call the JDoodle API with optional stdin, and broadcast running status and results.
-- **Inputs:** run_code { roomId, code, language, stdin }.
-- **Outputs:** code_running and code_result { output, error } broadcasts.
-- **Internal Workflow:** Upon receiving run_code, the server signals execution start, POSTs to JDoodle, and broadcasts the returned output (or error) to the entire room.
-- **Files Involved:** backend/sockets/handlers/room/runCode.js, backend/controllers/codeController.js, backend/routes/codeRoutes.js; frontend components/editor/RunCodeButton.jsx, CodeOutputPanel.jsx, and components/room/ConsolePanel.jsx.
+- **Inputs:** `run_code { roomId, code, language, stdin }`.
+- **Outputs:** `code_running` and `code_result { output, error }` broadcasts.
+- **Internal Workflow:** Upon receiving `run_code`, the server signals execution start, POSTs to JDoodle, and broadcasts the returned output (or error) to the entire room.
+- **Files Involved:** `backend/sockets/handlers/room/runCode.js`, `backend/controllers/codeController.js`, `backend/routes/codeRoutes.js`; frontend `components/editor/RunCodeButton.jsx`, `CodeOutputPanel.jsx`, and `components/room/ConsolePanel.jsx`.
 - **Technologies:** JDoodle Compiler API, Socket.IO.
 
 ## 10.7 Presence Module
 
 - **Purpose:** Track which users are online and which room each is in.
-- **Responsibilities:** Record a user's socketId on connect, clear it on disconnect, and broadcast online/offline status.
+- **Responsibilities:** Record a user's `socketId` on connect, clear it on disconnect, and broadcast online/offline status.
 - **Inputs:** Socket connection and disconnection events.
-- **Outputs:** user_online / user_offline broadcasts and updated User.socketId / currentRoom.
-- **Files Involved:** backend/sockets/handlers/presence/UserOnline.js, disconnect.js, sockets/utils/emitToUser.js; frontend components/room/OnlineUsers.jsx and components/navbar/NotificationBell.jsx.
+- **Outputs:** `user_online` / `user_offline` broadcasts and updated `User.socketId` / `currentRoom`.
+- **Files Involved:** `backend/sockets/handlers/presence/UserOnline.js`, `disconnect.js`, `sockets/utils/emitToUser.js`; frontend `components/room/OnlineUsers.jsx` and `components/navbar/NotificationBell.jsx`.
 - **Technologies:** Socket.IO, Mongoose.
 
 ## 10.8 Frontend UI & Editor Module
@@ -1033,8 +877,8 @@ KodaX is decomposed into well-defined functional modules. Each is described belo
 - **Responsibilities:** Provide the Monaco-based editor, file explorer, tabs, console, chat panel, members panel, navigation, and responsive layouts; integrate live remote cursors.
 - **Inputs:** Application state, socket events, and user interactions.
 - **Outputs:** A rendered, interactive single-page application.
-- **Files Involved:** frontend/src/pages/*, layouts/*, components/*, app/routes.jsx.
-- **Technologies:** React 19, React Router 7, Tailwind CSS 4, Monaco Editor, jszip.
+- **Files Involved:** `frontend/src/pages/*`, `layouts/*`, `components/*`, `app/routes.jsx`.
+- **Technologies:** React 19, React Router 7, Tailwind CSS 4, Monaco Editor, `jszip`.
 
 ---
 
@@ -1044,35 +888,35 @@ This section describes how KodaX was implemented across the stack, referencing t
 
 ## 11.1 Project Folder Structure
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-Real&#95;time&#95;collaborative&#95;code-editor/<br>
-├── backend/<br>
-│   ├── server.js                # HTTP + Socket.IO bootstrap<br>
-│   ├── app.js                   # Express app, CORS, parsers, routes, error handling<br>
-│   ├── config/db.js             # MongoDB connection<br>
-│   ├── models/                  # User.js, Room.js, Message.js<br>
-│   ├── controllers/             # authController, roomController, chatController, codeController<br>
-│   ├── routes/                  # authRoutes, roomRoutes, chatRoutes, codeRoutes<br>
-│   ├── middleware/              # authMiddleware (verifyToken)<br>
-│   └── sockets/<br>
-│       ├── index.js             # Socket registration &amp; auth wiring<br>
-│       ├── middlewares/         # socketAuth.js<br>
-│       ├── utils/               # emitToRoom.js, emitToUser.js<br>
-│       └── handlers/<br>
-│           ├── room/            # joinRoom, leaveRoom, codeChange, cursorMove, typing, roomChat, runCode<br>
-│           ├── requests/        # requestJoin, approveRequest, rejectRequest<br>
-│           └── presence/        # UserOnline, disconnect<br>
-└── frontend/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└── src/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── app/                 # main.jsx, App.jsx, routes.jsx<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── context/             # AuthContext, SocketProvider<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── layouts/             # AuthLayout, DashboardLayout, RoomLayout<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── pages/               # auth/, dashboard/, room/, legal/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── components/          # editor/, room/, chat/, navbar/, home/, footer/, common/, create-room/, dashboard/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── services/            # api/ (axios, authApi, roomApi, messageApi), socket/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── hooks/               # useAuth, useSocket, useRoom, useDebounce, useTypingIndicator<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── utils/               # constants, roleHelpers, copyToClipboard, formatDate, generateAvatar<br>
-</div>
+```
+Real_time_collaborative_code-editor/
+├── backend/
+│   ├── server.js                # HTTP + Socket.IO bootstrap
+│   ├── app.js                   # Express app, CORS, parsers, routes, error handling
+│   ├── config/db.js             # MongoDB connection
+│   ├── models/                  # User.js, Room.js, Message.js
+│   ├── controllers/             # authController, roomController, chatController, codeController
+│   ├── routes/                  # authRoutes, roomRoutes, chatRoutes, codeRoutes
+│   ├── middleware/              # authMiddleware (verifyToken)
+│   └── sockets/
+│       ├── index.js             # Socket registration & auth wiring
+│       ├── middlewares/         # socketAuth.js
+│       ├── utils/               # emitToRoom.js, emitToUser.js
+│       └── handlers/
+│           ├── room/            # joinRoom, leaveRoom, codeChange, cursorMove, typing, roomChat, runCode
+│           ├── requests/        # requestJoin, approveRequest, rejectRequest
+│           └── presence/        # UserOnline, disconnect
+└── frontend/
+    └── src/
+        ├── app/                 # main.jsx, App.jsx, routes.jsx
+        ├── context/             # AuthContext, SocketProvider
+        ├── layouts/             # AuthLayout, DashboardLayout, RoomLayout
+        ├── pages/               # auth/, dashboard/, room/, legal/
+        ├── components/          # editor/, room/, chat/, navbar/, home/, footer/, common/, create-room/, dashboard/
+        ├── services/            # api/ (axios, authApi, roomApi, messageApi), socket/
+        ├── hooks/               # useAuth, useSocket, useRoom, useDebounce, useTypingIndicator
+        └── utils/               # constants, roleHelpers, copyToClipboard, formatDate, generateAvatar
+```
 
 This structure cleanly separates backend concerns (routing → controllers → models, with sockets isolated by domain) and frontend concerns (pages → layouts → components, with services, hooks, and utilities supporting them).
 
@@ -1080,71 +924,71 @@ This structure cleanly separates backend concerns (routing → controllers → m
 
 ### 11.2.1 Server Bootstrap
 
-The entry point server.js loads environment variables with dotenv, connects to MongoDB, creates an HTTP server wrapping the Express app, attaches a Socket.IO server with CORS configured for the frontend origin, and initializes the socket layer:
+The entry point `server.js` loads environment variables with `dotenv`, connects to MongoDB, creates an HTTP server wrapping the Express app, attaches a Socket.IO server with CORS configured for the frontend origin, and initializes the socket layer:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const server = http.createServer(app);<br>
-const io = new Server(server, {<br>
-&nbsp;&nbsp;cors: { origin: "http://localhost:5173", credentials: true }<br>
-});<br>
-initSocket(io);<br>
-const port = process.env.PORT || 4000;<br>
-server.listen(port, () =&gt; console.log(&#96;Server running on port ${port}&#96;));<br>
-</div>
+```javascript
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "http://localhost:5173", credentials: true }
+});
+initSocket(io);
+const port = process.env.PORT || 4000;
+server.listen(port, () => console.log(`Server running on port ${port}`));
+```
 
 ### 11.2.2 Express Application
 
-app.js configures the middleware stack: CORS (allowing the Vite dev origins with credentials), express.json() for body parsing, and cookie-parser for reading the httpOnly JWT cookie. Routes are mounted under /api/auth, /api/room, /api/code, and /api/chat. A 404 handler and a centralized error-handling middleware translate Mongoose ValidationError, CastError, and duplicate-key (11000) errors into appropriate HTTP status codes (400, 409), defaulting to 500 for unexpected failures.
+`app.js` configures the middleware stack: CORS (allowing the Vite dev origins with credentials), `express.json()` for body parsing, and `cookie-parser` for reading the `httpOnly` JWT cookie. Routes are mounted under `/api/auth`, `/api/room`, `/api/code`, and `/api/chat`. A 404 handler and a centralized error-handling middleware translate Mongoose `ValidationError`, `CastError`, and duplicate-key (`11000`) errors into appropriate HTTP status codes (400, 409), defaulting to 500 for unexpected failures.
 
 ### 11.2.3 Database Integration
 
-config/db.js establishes the Mongoose connection using the DB_URL environment variable. A failed connection logs the error and terminates the process (process.exit(1)), ensuring the server never runs in a half-initialized state.
+`config/db.js` establishes the Mongoose connection using the `DB_URL` environment variable. A failed connection logs the error and terminates the process (`process.exit(1)`), ensuring the server never runs in a half-initialized state.
 
 ## 11.3 API Development
 
 The REST API is organized by resource:
 
-- **Auth (/api/auth):** POST /register, POST /login, POST /google, POST /github, POST /logout, and GET /me (protected).
-- **Room (/api/room):** POST /create, GET /my-rooms, GET /search, GET /:roomId, POST /:roomId/request-join, GET /:roomId/pending, POST /:roomId/approve/:userId, POST /:roomId/reject/:userId, PATCH /:roomId/promote/:userId, PATCH /:roomId/demote/:userId, PATCH /:roomId/transfer-ownership/:userId, PATCH /:roomId/settings, POST /:roomId/leave, POST /:roomId/remove/:userId, and DELETE /:roomId.
-- **Code (/api/code):** GET /:roomId and PUT /:roomId for retrieving and persisting code.
-- **Chat (/api/chat):** GET /:roomId for paginated message history.
+- **Auth (`/api/auth`):** `POST /register`, `POST /login`, `POST /google`, `POST /github`, `POST /logout`, and `GET /me` (protected).
+- **Room (`/api/room`):** `POST /create`, `GET /my-rooms`, `GET /search`, `GET /:roomId`, `POST /:roomId/request-join`, `GET /:roomId/pending`, `POST /:roomId/approve/:userId`, `POST /:roomId/reject/:userId`, `PATCH /:roomId/promote/:userId`, `PATCH /:roomId/demote/:userId`, `PATCH /:roomId/transfer-ownership/:userId`, `PATCH /:roomId/settings`, `POST /:roomId/leave`, `POST /:roomId/remove/:userId`, and `DELETE /:roomId`.
+- **Code (`/api/code`):** `GET /:roomId` and `PUT /:roomId` for retrieving and persisting code.
+- **Chat (`/api/chat`):** `GET /:roomId` for paginated message history.
 
-Every route other than the public auth endpoints is guarded by verifyToken, and controllers perform additional role-based authorization where required.
+Every route other than the public auth endpoints is guarded by `verifyToken`, and controllers perform additional role-based authorization where required.
 
 ## 11.4 Authentication
 
-Authentication is multi-provider. For **local** auth, passwords are hashed with bcrypt (salt rounds = 10) on registration and compared with bcrypt.compare on login. For **Google**, the google-auth-library verifies the ID token (or the access token is used to fetch user info) and the profile is mapped to a local user, linking a google provider. For **GitHub**, the authorization code is exchanged for an access token, the user's profile and primary email are fetched from the GitHub API, and a local user is created or linked. In all cases, a JWT encoding userId is signed with a 7-day expiry and set as a secure httpOnly cookie:
+Authentication is multi-provider. For **local** auth, passwords are hashed with bcrypt (salt rounds = 10) on registration and compared with `bcrypt.compare` on login. For **Google**, the `google-auth-library` verifies the ID token (or the access token is used to fetch user info) and the profile is mapped to a local user, linking a `google` provider. For **GitHub**, the authorization `code` is exchanged for an access token, the user's profile and primary email are fetched from the GitHub API, and a local user is created or linked. In all cases, a JWT encoding `userId` is signed with a 7-day expiry and set as a secure `httpOnly` cookie:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const token = jwt.sign({ userId: user.&#95;id }, process.env.JWT&#95;SECRET, { expiresIn: '7d' });<br>
-res.cookie('token', token, {<br>
-&nbsp;&nbsp;httpOnly: true,<br>
-&nbsp;&nbsp;secure: process.env.NODE&#95;ENV === 'production',<br>
-&nbsp;&nbsp;sameSite: 'lax'<br>
-});<br>
-</div>
+```javascript
+const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+res.cookie('token', token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax'
+});
+```
 
 The same cookie is reused to authenticate the WebSocket handshake, unifying the security model across both channels.
 
 ## 11.5 Real-Time Implementation (Socket Layer)
 
-The socket layer is initialized in sockets/index.js, which applies the socketAuth middleware to every connection. socketAuth extracts the JWT from either socket.handshake.auth.token or the handshake cookie, verifies it, and attaches socket.userId. Handlers are then registered by domain—room operations, join requests, and presence.
+The socket layer is initialized in `sockets/index.js`, which applies the `socketAuth` middleware to every connection. `socketAuth` extracts the JWT from either `socket.handshake.auth.token` or the handshake cookie, verifies it, and attaches `socket.userId`. Handlers are then registered by domain—room operations, join requests, and presence.
 
-Two utility helpers underpin targeted messaging: emitToRoom broadcasts an event to every socket in a room (optionally excluding the sender), while emitToUser looks up a user's current socketId from the database and emits an event to that specific connection—used, for example, to notify a moderator of a new join request.
+Two utility helpers underpin targeted messaging: `emitToRoom` broadcasts an event to every socket in a room (optionally excluding the sender), while `emitToUser` looks up a user's current `socketId` from the database and emits an event to that specific connection—used, for example, to notify a moderator of a new join request.
 
-The collaborative editing core lives in codeChange.js, which, after validating membership, updates the targeted file's code (or the legacy single buffer), persists it, and broadcasts code_updated to the rest of the room. Cursor positions (cursor_move → cursor_updated) and typing activity (typing → user_typing) are broadcast without persistence, as they are ephemeral.
+The collaborative editing core lives in `codeChange.js`, which, after validating membership, updates the targeted file's code (or the legacy single buffer), persists it, and broadcasts `code_updated` to the rest of the room. Cursor positions (`cursor_move` → `cursor_updated`) and typing activity (`typing` → `user_typing`) are broadcast without persistence, as they are ephemeral.
 
 ## 11.6 Routing (Frontend)
 
-The frontend uses **React Router 7**. Routes are defined in app/routes.jsx: public routes (/login, /register, /auth/github/callback, /privacy-policy, /terms-conditions) and protected routes (/ dashboard, /room/:roomId). Two guard components enforce access: ProtectedRoute redirects unauthenticated users to /login (preserving the intended destination), while PublicRoute redirects already-authenticated users away from auth pages to the dashboard. While the authentication status is being resolved, a loader is shown to prevent flicker.
+The frontend uses **React Router 7**. Routes are defined in `app/routes.jsx`: public routes (`/login`, `/register`, `/auth/github/callback`, `/privacy-policy`, `/terms-conditions`) and protected routes (`/` dashboard, `/room/:roomId`). Two guard components enforce access: `ProtectedRoute` redirects unauthenticated users to `/login` (preserving the intended destination), while `PublicRoute` redirects already-authenticated users away from auth pages to the dashboard. While the authentication status is being resolved, a loader is shown to prevent flicker.
 
 ## 11.7 State Management
 
-Application-wide authentication state is provided through React's **Context API** via AuthContext, which exposes { user, loading, login, logout } and, on mount, calls GET /api/auth/me to restore the session from the cookie. The complex, high-frequency state of the room workspace—open files, the active file, remote cursors, console output, and chat messages—is managed within the RoomPage component using React hooks (useState, useRef, useEffect), keeping the real-time editing logic colocated with the component that renders it.
+Application-wide authentication state is provided through React's **Context API** via `AuthContext`, which exposes `{ user, loading, login, logout }` and, on mount, calls `GET /api/auth/me` to restore the session from the cookie. The complex, high-frequency state of the room workspace—open files, the active file, remote cursors, console output, and chat messages—is managed within the `RoomPage` component using React hooks (`useState`, `useRef`, `useEffect`), keeping the real-time editing logic colocated with the component that renders it.
 
 ## 11.8 Frontend Editor Integration
 
-The editing experience is built on @monaco-editor/react. The RoomPage registers editor lifecycle callbacks: beforeMount defines a custom light theme (kodax-light), and onMount captures editor and monaco references and subscribes to cursor-position changes to emit cursor_move. The onChange handler updates local file state, emits code_change, and uses guard flags (isTypingLocally, isRemoteUpdate) to prevent feedback loops between local typing and remote updates. Remote collaborators' cursors are rendered as Monaco **content widgets**, each labelled with the collaborator's username and assigned a deterministic color from a fixed palette. Eight languages are supported—JavaScript, Python, Java, C++, C, Ruby, Go, and PHP—with file-extension-to-language mapping for new files.
+The editing experience is built on `@monaco-editor/react`. The `RoomPage` registers editor lifecycle callbacks: `beforeMount` defines a custom light theme (`kodax-light`), and `onMount` captures editor and monaco references and subscribes to cursor-position changes to emit `cursor_move`. The `onChange` handler updates local file state, emits `code_change`, and uses guard flags (`isTypingLocally`, `isRemoteUpdate`) to prevent feedback loops between local typing and remote updates. Remote collaborators' cursors are rendered as Monaco **content widgets**, each labelled with the collaborator's username and assigned a deterministic color from a fixed palette. Eight languages are supported—JavaScript, Python, Java, C++, C, Ruby, Go, and PHP—with file-extension-to-language mapping for new files.
 
 ## 11.9 Validation
 
@@ -1152,12 +996,12 @@ Validation is layered. At the **data layer**, Mongoose schemas enforce required 
 
 ## 11.10 Error Handling
 
-The backend centralizes error handling in app.js, mapping Mongoose errors and MongoDB duplicate-key violations to meaningful HTTP responses and shielding internal details behind a generic 500 message. The database connection fails fast on startup. On the frontend, the Axios instance includes a response interceptor that detects 401 Unauthorized responses (indicating an expired or missing session) and surfaces a re-authentication path, and individual pages handle and display API and socket errors to the user.
+The backend centralizes error handling in `app.js`, mapping Mongoose errors and MongoDB duplicate-key violations to meaningful HTTP responses and shielding internal details behind a generic 500 message. The database connection fails fast on startup. On the frontend, the Axios instance includes a response interceptor that detects `401 Unauthorized` responses (indicating an expired or missing session) and surfaces a re-authentication path, and individual pages handle and display API and socket errors to the user.
 
 ## 11.11 Security Practices
 
 - **Password hashing** with bcrypt; plaintext passwords are never stored.
-- **httpOnly cookies** for JWTs, mitigating XSS-based token theft; secure in production and sameSite: lax to limit CSRF exposure.
+- **`httpOnly` cookies** for JWTs, mitigating XSS-based token theft; `secure` in production and `sameSite: lax` to limit CSRF exposure.
 - **Authenticated WebSockets**—every socket connection is verified before any handler runs.
 - **Authorization checks** on every administrative action (REST and socket), enforcing the role hierarchy.
 - **CORS** restricted to known frontend origins with credentials enabled.
@@ -1169,14 +1013,14 @@ The backend centralizes error handling in app.js, mapping Mongoose errors and Mo
 - **Event-driven, non-blocking** Node.js handles many concurrent socket connections efficiently.
 - **Targeted broadcasting** via Socket.IO rooms ensures events reach only relevant clients.
 - **Debounced search** (≈300 ms) on the dashboard reduces redundant API calls.
-- **Indexed queries**—roomId, visibility, and a text index on room fields accelerate lookups and search.
+- **Indexed queries**—`roomId`, `visibility`, and a text index on room fields accelerate lookups and search.
 - **Sender exclusion** in broadcasts avoids echoing a user's own edits back to them.
 - **Ephemeral events** (cursor, typing) are broadcast without database writes, minimizing I/O.
 - **Vite** provides fast builds and optimized production bundles for the frontend.
 
 ## 11.13 Deployment Approach
 
-The backend is a standard Node.js service started with npm start (or npm run dev with nodemon during development) and is additionally exported as an Express app for compatibility with serverless platforms such as Vercel. The frontend is built with vite build into static assets that can be served by any static host or CDN. MongoDB can be provisioned locally or via MongoDB Atlas. All secrets—database URL, JWT secret, OAuth client credentials, and JDoodle credentials—are supplied through environment variables (see backend/.env.example), keeping configuration out of source control.
+The backend is a standard Node.js service started with `npm start` (or `npm run dev` with `nodemon` during development) and is additionally exported as an Express `app` for compatibility with serverless platforms such as Vercel. The frontend is built with `vite build` into static assets that can be served by any static host or CDN. MongoDB can be provisioned locally or via MongoDB Atlas. All secrets—database URL, JWT secret, OAuth client credentials, and JDoodle credentials—are supplied through environment variables (see `backend/.env.example`), keeping configuration out of source control.
 
 ---
 
@@ -1186,81 +1030,59 @@ This section presents the key screens of the application. Replace each placehold
 
 ### 12.1 Home / Landing & Authentication
 
-_[ Insert screenshot: Login Screen ]_
-
-**Figure 12.1: Login Screen of KodaX**
+**[Screenshot Placeholder — Login Screen]**
 *Caption:* The KodaX login page.
-This screen demonstrates the multi-provider authentication entry point: an email/password form alongside **Continue with Google** and **Continue with GitHub** buttons. It validates inputs client-side and, on success, establishes a session via an httpOnly cookie before redirecting to the dashboard.
+This screen demonstrates the multi-provider authentication entry point: an email/password form alongside **Continue with Google** and **Continue with GitHub** buttons. It validates inputs client-side and, on success, establishes a session via an `httpOnly` cookie before redirecting to the dashboard.
 
-_[ Insert screenshot: Registration Page ]_
-
-**Figure 12.2: Registration Page of KodaX**
+**[Screenshot Placeholder — Registration Page]**
 *Caption:* New user registration.
 Demonstrates account creation with username, email, and password fields, a mandatory terms-of-service agreement checkbox, and the same federated login options. The password is hashed with bcrypt on the server.
 
 ### 12.2 Dashboard
 
-_[ Insert screenshot: Dashboard ]_
-
-**Figure 12.3: Dashboard of KodaX**
+**[Screenshot Placeholder — Dashboard]**
 *Caption:* The user dashboard.
 Demonstrates the two-panel layout: the user's **joined rooms** on one side and a **searchable list of public rooms** on the other, with debounced search, visibility and language badges, a room-details modal, and a **Create Room** action.
 
-_[ Insert screenshot: Create Room Modal ]_
-
-**Figure 12.4: Create Room Modal**
+**[Screenshot Placeholder — Create Room Modal]**
 *Caption:* Creating a new room.
 Demonstrates configuring a room's title, description, language, and visibility (public/private). On submission, the creator becomes the room owner and a default file is created.
 
 ### 12.3 Main Feature Screen — Collaborative Room
 
-_[ Insert screenshot: Room Workspace ]_
-
-**Figure 12.5: Collaborative Room Workspace**
+**[Screenshot Placeholder — Room Workspace]**
 *Caption:* The collaborative editing workspace.
 This is the core feature screen. It demonstrates the **file explorer**, **editor tabs**, the **Monaco editor** with syntax highlighting, the **console panel** (output/stdin), the **chat panel**, and the **members panel**. Live remote cursors labelled with collaborators' usernames illustrate real-time presence.
 
-_[ Insert screenshot: Live Collaboration (Two Users) ]_
-
-**Figure 12.6: Live Collaboration (Two Users)**
+**[Screenshot Placeholder — Live Collaboration (Two Users)]**
 *Caption:* Two users editing simultaneously.
 Demonstrates real-time code synchronization: an edit by one user appears near-instantly in the other's editor, with the remote user's cursor rendered as a labelled content widget.
 
 ### 12.4 Code Execution
 
-_[ Insert screenshot: Code Execution Output ]_
-
-**Figure 12.7: Code Execution Output**
+**[Screenshot Placeholder — Code Execution Output]**
 *Caption:* Running shared code.
 Demonstrates clicking **Run**, providing standard input in the STDIN tab, and viewing the execution output—broadcast to every member of the room—in the OUTPUT tab.
 
 ### 12.5 Membership & Requests
 
-_[ Insert screenshot: Pending Requests / Members Panel ]_
-
-**Figure 12.8: Members Panel and Pending Requests**
+**[Screenshot Placeholder — Pending Requests / Members Panel]**
 *Caption:* Managing membership.
 Demonstrates the members list with role badges (owner/moderator/member), the pending-join-requests queue with approve/reject actions, and role-management controls (promote, demote, remove, transfer ownership).
 
 ### 12.6 Chat
 
-_[ Insert screenshot: Room Chat ]_
-
-**Figure 12.9: Room Chat**
+**[Screenshot Placeholder — Room Chat]**
 *Caption:* Integrated real-time chat.
 Demonstrates the room-scoped chat panel with sender avatars, timestamps, and live message delivery, alongside persistent history loaded on room entry.
 
 ### 12.7 Settings & Final Output
 
-_[ Insert screenshot: Room Settings Modal ]_
-
-**Figure 12.10: Room Settings**
+**[Screenshot Placeholder — Room Settings Modal]**
 *Caption:* Room settings.
 Demonstrates editing room title, description, visibility, and capacity, plus owner-only actions such as deleting the room.
 
-_[ Insert screenshot: ZIP Download / Final Output ]_
-
-**Figure 12.11: Project Export (ZIP Download)**
+**[Screenshot Placeholder — ZIP Download / Final Output]**
 *Caption:* Exporting the project.
 Demonstrates downloading all room files as a single ZIP archive, representing the final tangible output of a collaborative session.
 
@@ -1286,12 +1108,10 @@ Demonstrates downloading all room files as a single ZIP archive, representing th
 - **Dependency on a third-party executor** — code execution relies on the JDoodle API's availability and quotas.
 - **No persistent version history** — the platform is for live collaboration, not long-term version control.
 - **Text-only communication** — no built-in voice/video.
-- **Single-buffer persistence nuance** — a legacy code field coexists with the multi-file model for backward compatibility.
+- **Single-buffer persistence nuance** — a legacy `code` field coexists with the multi-file model for backward compatibility.
 - **Internet-dependent** — all real-time features require connectivity.
 
 ## 13.3 Comparative Summary
-
-**Table 13.1: Advantages and Limitations of KodaX**
 
 | Aspect | Strength | Trade-off |
 |---|---|---|
@@ -1384,221 +1204,221 @@ This section presents a curated selection of important code excerpts that illust
 
 ## 17.1 Application Entry Point (Server Bootstrap)
 
-backend/server.js wires together the HTTP server, Socket.IO, and the database connection:
+`backend/server.js` wires together the HTTP server, Socket.IO, and the database connection:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-import { config } from "dotenv";<br>
-import connectDB from "./config/db.js";<br>
-import app from "./app.js";<br>
-import http from "http";<br>
-import { Server } from "socket.io";<br>
-import { initSocket } from "./sockets/index.js";<br>
-&nbsp;<br>
-config();<br>
-connectDB();<br>
-&nbsp;<br>
-const server = http.createServer(app);<br>
-const io = new Server(server, {<br>
-&nbsp;&nbsp;cors: { origin: "http://localhost:5173", credentials: true }<br>
-});<br>
-&nbsp;<br>
-initSocket(io);<br>
-&nbsp;<br>
-const port = process.env.PORT || 4000;<br>
-server.listen(port, () =&gt; console.log(&#96;Server running on port ${port}&#96;));<br>
-</div>
+```javascript
+import { config } from "dotenv";
+import connectDB from "./config/db.js";
+import app from "./app.js";
+import http from "http";
+import { Server } from "socket.io";
+import { initSocket } from "./sockets/index.js";
 
-*Explanation:* Environment variables are loaded, the database is connected, and the Express app is wrapped in a raw HTTP server so that Socket.IO can share the same port. initSocket registers all real-time handlers and the socket authentication middleware.
+config();
+connectDB();
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "http://localhost:5173", credentials: true }
+});
+
+initSocket(io);
+
+const port = process.env.PORT || 4000;
+server.listen(port, () => console.log(`Server running on port ${port}`));
+```
+
+*Explanation:* Environment variables are loaded, the database is connected, and the Express app is wrapped in a raw HTTP server so that Socket.IO can share the same port. `initSocket` registers all real-time handlers and the socket authentication middleware.
 
 ## 17.2 Express App, Routing & Error Handling
 
-backend/app.js configures middleware and mounts the resource routers:
+`backend/app.js` configures middleware and mounts the resource routers:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const app = exp();<br>
-app.use(cors({ origin: ["http://localhost:5174", "http://localhost:5173"], credentials: true }));<br>
-app.use(exp.json());<br>
-app.use(cookieParser());<br>
-&nbsp;<br>
-app.use("/api/auth", router);<br>
-app.use("/api/room", roomRouter);<br>
-app.use("/api/code", codeRouter);<br>
-app.use("/api/chat", chatRoutes);<br>
-&nbsp;<br>
-// Centralized error handling<br>
-app.use((err, req, res, next) =&gt; {<br>
-&nbsp;&nbsp;if (err.name === "ValidationError" || err.name === "CastError")<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ message: "error occurred", error: err.message });<br>
-&nbsp;&nbsp;const errCode = err.code ?? err.cause?.code ?? err.errorResponse?.code;<br>
-&nbsp;&nbsp;if (errCode === 11000) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;const field = Object.keys(err.keyValue)[0];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return res.status(409).json({ message: "error occurred", error: &#96;${field} already exists&#96; });<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;res.status(500).json({ message: "error occurred", error: "Server side error" });<br>
-});<br>
-</div>
+```javascript
+const app = exp();
+app.use(cors({ origin: ["http://localhost:5174", "http://localhost:5173"], credentials: true }));
+app.use(exp.json());
+app.use(cookieParser());
+
+app.use("/api/auth", router);
+app.use("/api/room", roomRouter);
+app.use("/api/code", codeRouter);
+app.use("/api/chat", chatRoutes);
+
+// Centralized error handling
+app.use((err, req, res, next) => {
+  if (err.name === "ValidationError" || err.name === "CastError")
+    return res.status(400).json({ message: "error occurred", error: err.message });
+  const errCode = err.code ?? err.cause?.code ?? err.errorResponse?.code;
+  if (errCode === 11000) {
+    const field = Object.keys(err.keyValue)[0];
+    return res.status(409).json({ message: "error occurred", error: `${field} already exists` });
+  }
+  res.status(500).json({ message: "error occurred", error: "Server side error" });
+});
+```
 
 *Explanation:* CORS is restricted to the known frontend origins with credentials enabled so the JWT cookie is transmitted. The error middleware converts validation, cast, and duplicate-key errors into precise HTTP status codes.
 
 ## 17.3 Authentication — JWT Middleware
 
-backend/middleware/authMiddleware.js protects REST routes:
+`backend/middleware/authMiddleware.js` protects REST routes:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-export const verifyToken = (req, res, next) =&gt; {<br>
-&nbsp;&nbsp;const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];<br>
-&nbsp;&nbsp;if (!token) return res.status(401).json({ message: "Unauthorized: No token" });<br>
-&nbsp;&nbsp;try {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;const decoded = jwt.verify(token, process.env.JWT&#95;SECRET);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;req.user = { userId: decoded.userId };<br>
-&nbsp;&nbsp;&nbsp;&nbsp;next();<br>
-&nbsp;&nbsp;} catch (err) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return res.status(401).json({ message: "Invalid or expired token" });<br>
-&nbsp;&nbsp;}<br>
-};<br>
-</div>
+```javascript
+export const verifyToken = (req, res, next) => {
+  const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Unauthorized: No token" });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { userId: decoded.userId };
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
+```
 
-*Explanation:* The middleware accepts the token from either the httpOnly cookie or an Authorization: Bearer header, verifies it, and attaches userId to the request for downstream controllers.
+*Explanation:* The middleware accepts the token from either the `httpOnly` cookie or an `Authorization: Bearer` header, verifies it, and attaches `userId` to the request for downstream controllers.
 
 ## 17.4 Socket Authentication
 
-backend/sockets/middlewares/socketAuth.js secures every WebSocket connection:
+`backend/sockets/middlewares/socketAuth.js` secures every WebSocket connection:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-export const socketAuth = (socket, next) =&gt; {<br>
-&nbsp;&nbsp;const cookieString = socket.handshake.headers.cookie || "";<br>
-&nbsp;&nbsp;let token = socket.handshake.auth.token;<br>
-&nbsp;&nbsp;if (!token &amp;&amp; cookieString) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;const cookies = Object.fromEntries(cookieString.split('; ').map(c =&gt; c.split('=')));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;token = cookies.token;<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;if (!token) return next(new Error("Unauthorized: Token missing"));<br>
-&nbsp;&nbsp;try {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;const decoded = jwt.verify(token, process.env.JWT&#95;SECRET);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;socket.userId = decoded.userId;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;next();<br>
-&nbsp;&nbsp;} catch (err) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;next(new Error("Unauthorized: Invalid token"));<br>
-&nbsp;&nbsp;}<br>
-};<br>
-</div>
+```javascript
+export const socketAuth = (socket, next) => {
+  const cookieString = socket.handshake.headers.cookie || "";
+  let token = socket.handshake.auth.token;
+  if (!token && cookieString) {
+    const cookies = Object.fromEntries(cookieString.split('; ').map(c => c.split('=')));
+    token = cookies.token;
+  }
+  if (!token) return next(new Error("Unauthorized: Token missing"));
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    socket.userId = decoded.userId;
+    next();
+  } catch (err) {
+    next(new Error("Unauthorized: Invalid token"));
+  }
+};
+```
 
 *Explanation:* The same JWT used for REST is reused for the socket handshake—read from the auth payload or parsed from the cookie—unifying the security model across both channels.
 
 ## 17.5 Database Connection
 
-backend/config/db.js:
+`backend/config/db.js`:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const connectDB = async () =&gt; {<br>
-&nbsp;&nbsp;try {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;await connect(process.env.DB&#95;URL);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;console.log("DB connected");<br>
-&nbsp;&nbsp;} catch (err) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;console.log("DB error:", err);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;process.exit(1);<br>
-&nbsp;&nbsp;}<br>
-};<br>
-</div>
+```javascript
+const connectDB = async () => {
+  try {
+    await connect(process.env.DB_URL);
+    console.log("DB connected");
+  } catch (err) {
+    console.log("DB error:", err);
+    process.exit(1);
+  }
+};
+```
 
 *Explanation:* The connection fails fast—if MongoDB is unreachable, the process exits rather than running in an inconsistent state.
 
 ## 17.6 Core Real-Time Logic — Code Synchronization
 
-backend/sockets/handlers/room/codeChange.js (essential logic):
+`backend/sockets/handlers/room/codeChange.js` (essential logic):
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-// after validating the user is a member of the room<br>
-if (fileId) {<br>
-&nbsp;&nbsp;const file = room.files.find(f =&gt; f.id === fileId);<br>
-&nbsp;&nbsp;if (file) file.code = code;<br>
-} else {<br>
-&nbsp;&nbsp;room.code = code; // legacy single-buffer fallback<br>
-}<br>
-await room.save();<br>
-socket.to(roomId).emit("code&#95;updated", { fileId, code, userId: socket.userId });<br>
-</div>
+```javascript
+// after validating the user is a member of the room
+if (fileId) {
+  const file = room.files.find(f => f.id === fileId);
+  if (file) file.code = code;
+} else {
+  room.code = code; // legacy single-buffer fallback
+}
+await room.save();
+socket.to(roomId).emit("code_updated", { fileId, code, userId: socket.userId });
+```
 
-*Explanation:* The change is persisted to the correct file and then broadcast to **all other** members of the room (the sender is excluded via socket.to), achieving live synchronization while avoiding echoing the edit back to its author.
+*Explanation:* The change is persisted to the correct file and then broadcast to **all other** members of the room (the sender is excluded via `socket.to`), achieving live synchronization while avoiding echoing the edit back to its author.
 
 ## 17.7 Targeted Notification — Join Request Approval
 
-backend/sockets/handlers/requests/approveRequest.js (essential logic):
+`backend/sockets/handlers/requests/approveRequest.js` (essential logic):
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-room.pendingRequests = room.pendingRequests.filter(id =&gt; id.toString() !== userId);<br>
-room.members.push({ user: userId, role: "member" });<br>
-await room.save();<br>
-await emitToUser(io, userId, "join&#95;request&#95;approved", { roomId });<br>
-</div>
+```javascript
+room.pendingRequests = room.pendingRequests.filter(id => id.toString() !== userId);
+room.members.push({ user: userId, role: "member" });
+await room.save();
+await emitToUser(io, userId, "join_request_approved", { roomId });
+```
 
-*Explanation:* After authorization, the requester is moved from the pending queue into the members list and notified directly via emitToUser, which resolves the user's current socketId from the database and emits only to that connection.
+*Explanation:* After authorization, the requester is moved from the pending queue into the members list and notified directly via `emitToUser`, which resolves the user's current `socketId` from the database and emits only to that connection.
 
 ## 17.8 Frontend — Application Bootstrap
 
-frontend/src/app/main.jsx:
+`frontend/src/app/main.jsx`:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const clientId = import.meta.env.VITE&#95;GOOGLE&#95;CLIENT&#95;ID;<br>
-createRoot(document.getElementById('root')).render(<br>
-&nbsp;&nbsp;&lt;StrictMode&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;AuthProvider&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;GoogleOAuthProvider clientId={clientId}&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;App /&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/GoogleOAuthProvider&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/AuthProvider&gt;<br>
-&nbsp;&nbsp;&lt;/StrictMode&gt;<br>
-);<br>
-</div>
+```javascript
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <AuthProvider>
+      <GoogleOAuthProvider clientId={clientId}>
+        <App />
+      </GoogleOAuthProvider>
+    </AuthProvider>
+  </StrictMode>
+);
+```
 
-*Explanation:* The app is wrapped in the AuthProvider (session state) and the GoogleOAuthProvider (federated login), establishing the global context before routing begins.
+*Explanation:* The app is wrapped in the `AuthProvider` (session state) and the `GoogleOAuthProvider` (federated login), establishing the global context before routing begins.
 
 ## 17.9 Frontend — Axios Instance with Interceptor
 
-frontend/src/services/api/axios.js:
+`frontend/src/services/api/axios.js`:
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const api = axios.create({<br>
-&nbsp;&nbsp;baseURL: API&#95;URL,<br>
-&nbsp;&nbsp;withCredentials: true,<br>
-&nbsp;&nbsp;headers: { 'Content-Type': 'application/json' }<br>
-});<br>
-&nbsp;<br>
-api.interceptors.response.use(<br>
-&nbsp;&nbsp;(response) =&gt; response,<br>
-&nbsp;&nbsp;(error) =&gt; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if (error.response?.status === 401) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.warn('Session expired. Redirecting to login...');<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return Promise.reject(error);<br>
-&nbsp;&nbsp;}<br>
-);<br>
-</div>
+```javascript
+const api = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+  headers: { 'Content-Type': 'application/json' }
+});
 
-*Explanation:* withCredentials: true ensures the httpOnly JWT cookie accompanies every request, and the interceptor centralizes handling of expired sessions.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.warn('Session expired. Redirecting to login...');
+    }
+    return Promise.reject(error);
+  }
+);
+```
+
+*Explanation:* `withCredentials: true` ensures the `httpOnly` JWT cookie accompanies every request, and the interceptor centralizes handling of expired sessions.
 
 ## 17.10 Frontend — Monaco Editor & Real-Time Wiring
 
-frontend/src/pages/room/RoomPage.jsx (essential logic):
+`frontend/src/pages/room/RoomPage.jsx` (essential logic):
 
-<div style="font-family:'Courier New',monospace; line-height:1.5; font-size:0.95em;">
-const socket = io(SOCKET&#95;URL, { withCredentials: true });<br>
-socket.on('connect', () =&gt; socket.emit('join&#95;room', { roomId }));<br>
-&nbsp;<br>
-const handleEditorChange = (value) =&gt; {<br>
-&nbsp;&nbsp;isTypingLocally.current = true;<br>
-&nbsp;&nbsp;setFiles(prev =&gt; prev.map(f =&gt; f.id === activeFileId ? { ...f, code: value } : f));<br>
-&nbsp;&nbsp;socketRef.current?.emit('code&#95;change', { roomId, fileId: activeFileId, code: value });<br>
-&nbsp;&nbsp;setTimeout(() =&gt; { isTypingLocally.current = false; }, 500);<br>
-};<br>
-&nbsp;<br>
-socket.on('code&#95;updated', ({ fileId, code }) =&gt; {<br>
-&nbsp;&nbsp;isRemoteUpdate.current = true;<br>
-&nbsp;&nbsp;setFiles(prev =&gt; prev.map(f =&gt; f.id === fileId ? { ...f, code } : f));<br>
-});<br>
-</div>
+```javascript
+const socket = io(SOCKET_URL, { withCredentials: true });
+socket.on('connect', () => socket.emit('join_room', { roomId }));
 
-*Explanation:* Local edits emit code_change and are reflected in component state; incoming code_updated events apply remote changes. The isTypingLocally and isRemoteUpdate flags guard against feedback loops between the two directions of synchronization.
+const handleEditorChange = (value) => {
+  isTypingLocally.current = true;
+  setFiles(prev => prev.map(f => f.id === activeFileId ? { ...f, code: value } : f));
+  socketRef.current?.emit('code_change', { roomId, fileId: activeFileId, code: value });
+  setTimeout(() => { isTypingLocally.current = false; }, 500);
+};
+
+socket.on('code_updated', ({ fileId, code }) => {
+  isRemoteUpdate.current = true;
+  setFiles(prev => prev.map(f => f.id === fileId ? { ...f, code } : f));
+});
+```
+
+*Explanation:* Local edits emit `code_change` and are reflected in component state; incoming `code_updated` events apply remote changes. The `isTypingLocally` and `isRemoteUpdate` flags guard against feedback loops between the two directions of synchronization.
 
 ---
 
