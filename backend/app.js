@@ -6,20 +6,11 @@ import roomRouter from "./routes/roomRoutes.js";
 import codeRouter from "./routes/codeRoutes.js";
 
 import chatRoutes from "./routes/chatRoutes.js";
+import { corsOptions } from "./config/cors.js";
 
 const app =exp();
 //unable cors 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:5175",
-    "http://192.168.0.116:5173",
-    "http://192.168.0.116:5174",
-    process.env.CLIENT_URL
-  ].filter(Boolean),
-  credentials: true
-}))
+app.use(cors(corsOptions))
 // Body parser
 app.use(exp.json());
 

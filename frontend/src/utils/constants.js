@@ -13,12 +13,19 @@
  */
 const BACKEND_PORT = 4000;
 const currentHost = window.location.hostname; // e.g. "localhost" or "192.168.0.116"
+const isLocalHost = ['localhost', '127.0.0.1', '0.0.0.0'].includes(currentHost) || /^\d+\.\d+\.\d+\.\d+$/.test(currentHost);
+const fallbackProtocol = isLocalHost ? 'http:' : window.location.protocol;
+const fallbackOrigin = `${fallbackProtocol}//${currentHost}:${BACKEND_PORT}`;
+
+const normalizeUrl = (url) => url?.replace(/\/$/, '');
+const isDev = import.meta.env.DEV;
+const sameOriginApi = `${window.location.origin}/api`;
 
 /** Base URL for all REST API calls */
-export const API_URL = `http://${currentHost}:${BACKEND_PORT}/api`;
+export const API_URL = normalizeUrl(import.meta.env.VITE_API_URL) || (isDev ? '/api' : sameOriginApi);
 
 /** Base URL for Socket.io connection */
-export const SOCKET_URL = `http://${currentHost}:${BACKEND_PORT}`;
+export const SOCKET_URL = normalizeUrl(import.meta.env.VITE_SOCKET_URL) || (isDev ? window.location.origin : window.location.origin);
 
 // ─── Supported Languages ──────────────────────────────────────────────────────
 

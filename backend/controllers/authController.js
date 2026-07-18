@@ -5,6 +5,19 @@ import { OAuth2Client } from 'google-auth-library';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+const buildUniqueUsername = async (baseValue) => {
+  const baseUsername = baseValue.replace(/\s+/g, '').toLowerCase() || 'user';
+  let uniqueUsername = baseUsername;
+  let counter = 1;
+
+  while (await UserModel.findOne({ username: uniqueUsername })) {
+    uniqueUsername = `${baseUsername}${counter}`;
+    counter++;
+  }
+
+  return uniqueUsername;
+};
+
 export const googleAuth = async (req, res) => {
   try {
     const { credential, access_token } = req.body;
@@ -30,17 +43,15 @@ export const googleAuth = async (req, res) => {
 
     const { email, name, picture, sub } = payload;
 
+    if (!email) {
+      return res.status(400).json({ error: 'Google account email missing' });
+    }
+
     let user = await UserModel.findOne({ email });
 
     if (!user) {
-      let baseUsername = name.replace(/\s+/g, '').toLowerCase();
-      let uniqueUsername = baseUsername;
-      let counter = 1;
-      
-      while (await UserModel.findOne({ username: uniqueUsername })) {
-        uniqueUsername = `${baseUsername}${counter}`;
-        counter++;
-      }
+      const displayName = name?.trim() || email.split('@')[0];
+      const uniqueUsername = await buildUniqueUsername(displayName);
 
       user = new UserModel({
         username: uniqueUsername,
@@ -50,6 +61,7 @@ export const googleAuth = async (req, res) => {
       });
       await user.save();
     } else {
+      user.providers = user.providers || [];
       const hasGoogle = user.providers.some(p => p.name === 'google');
       if (!hasGoogle) {
         user.providers.push({ name: 'google', providerId: sub });
@@ -228,7 +240,7 @@ export const githubAuth = async (req, res) => {
     }
 
     const email = primaryEmailObj.email;
-    const name = githubUser.name || githubUser.login;
+    const name = githubUser.name || githubUser.login || email.split('@')[0];
     const picture = githubUser.avatar_url;
     const sub = githubUser.id.toString();
 
@@ -253,6 +265,7 @@ export const githubAuth = async (req, res) => {
       });
       await user.save();
     } else {
+      user.providers = user.providers || [];
       const hasGithub = user.providers.some(p => p.name === 'github');
       if (!hasGithub) {
         user.providers.push({ name: 'github', providerId: sub });
