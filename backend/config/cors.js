@@ -11,13 +11,18 @@ const DEFAULT_DEV_ORIGINS = [
 ];
 
 const LOCAL_ORIGIN_PATTERN = /^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0|192\.168\.\d+\.\d+)(:\d+)?$/;
+const VERCEL_ORIGIN_PATTERN = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i;
+const VERCEL_PREVIEW_ORIGIN_PATTERN = /^https:\/\/[a-z0-9-]+-[a-z0-9-]+\.vercel\.app$/i;
 
 const normalizeOrigin = (origin) => origin?.replace(/\/$/, '');
 
 const getAllowedOrigins = () => {
-  const envOrigins = [process.env.CLIENT_URL, process.env.FRONTEND_URL]
+  const envOrigins = [process.env.CLIENT_URL, process.env.FRONTEND_URL, process.env.VERCEL_URL]
     .filter(Boolean)
-    .map(normalizeOrigin);
+    .map((origin) => {
+      const normalized = normalizeOrigin(origin);
+      return normalized?.startsWith('http') ? normalized : `https://${normalized}`;
+    });
 
   return [...DEFAULT_DEV_ORIGINS, ...envOrigins];
 };
@@ -30,7 +35,12 @@ const isAllowedOrigin = (origin) => {
   const normalizedOrigin = normalizeOrigin(origin);
   const allowedOrigins = getAllowedOrigins();
 
-  return allowedOrigins.includes(normalizedOrigin) || LOCAL_ORIGIN_PATTERN.test(normalizedOrigin);
+  return (
+    allowedOrigins.includes(normalizedOrigin) ||
+    LOCAL_ORIGIN_PATTERN.test(normalizedOrigin) ||
+    VERCEL_ORIGIN_PATTERN.test(normalizedOrigin) ||
+    VERCEL_PREVIEW_ORIGIN_PATTERN.test(normalizedOrigin)
+  );
 };
 
 export const corsOptions = {
